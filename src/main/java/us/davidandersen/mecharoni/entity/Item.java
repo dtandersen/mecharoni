@@ -1,4 +1,4 @@
-package mwo;
+package us.davidandersen.mecharoni.entity;
 
 public class Item
 {
@@ -103,7 +103,7 @@ public class Item
 		return name;
 	}
 
-	static class ItemBuilder
+	public static class ItemBuilder
 	{
 		public float heat;
 

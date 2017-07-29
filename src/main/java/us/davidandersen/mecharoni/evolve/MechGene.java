@@ -1,10 +1,11 @@
-package mwo;
+package us.davidandersen.mecharoni.evolve;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 import org.jenetics.Gene;
 import org.jenetics.util.RandomRegistry;
+import us.davidandersen.mecharoni.entity.Item;
 
 @SuppressWarnings("serial")
 public class MechGene implements Gene<Item, MechGene>, Comparable<MechGene>, Serializable

@@ -1,12 +1,13 @@
-package mwo;
+package us.davidandersen.mecharoni.evolve;
 
-import mwo.FitnessChecker.FitnessCheckerConfig;
+import us.davidandersen.mecharoni.entity.Mech;
+import us.davidandersen.mecharoni.evolve.EvolveMech.FitnessCheckerConfig;
 
-public class FitnessCalculator
+public class MechFitnessFunction
 {
 	private final FitnessCheckerConfig config;
 
-	public FitnessCalculator(final FitnessCheckerConfig config)
+	public MechFitnessFunction(final FitnessCheckerConfig config)
 	{
 		this.config = config;
 	}

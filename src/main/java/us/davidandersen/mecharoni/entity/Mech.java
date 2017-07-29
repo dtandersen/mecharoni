@@ -1,10 +1,10 @@
-package mwo;
+package us.davidandersen.mecharoni.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import mwo.FitnessChecker.FitnessCheckerConfig;
+import us.davidandersen.mecharoni.evolve.EvolveMech.FitnessCheckerConfig;
 
 public class Mech
 {
@@ -113,12 +113,12 @@ public class Mech
 		return (float)(getInternalHeatSinks() * 2 + getExternalHeatSinks() * 1.5);
 	}
 
-	int getExternalHeatSinks()
+	public int getExternalHeatSinks()
 	{
 		return (int)(config.heatSinks + items.stream().filter(item -> item.isHeatSink()).count());
 	}
 
-	int getInternalHeatSinks()
+	public int getInternalHeatSinks()
 	{
 		return config.engineSinks;
 	}
@@ -160,7 +160,12 @@ public class Mech
 				.count();
 	}
 
-	static class MechBuilder
+	public void forEach(final Consumer<Item> action)
+	{
+		items.forEach(action);
+	}
+
+	public static class MechBuilder
 	{
 		private FitnessCheckerConfig config;
 
@@ -182,10 +187,5 @@ public class Mech
 		{
 			return new Mech(this);
 		}
-	}
-
-	public void forEach(final Consumer<Item> action)
-	{
-		items.forEach(action);
 	}
 }

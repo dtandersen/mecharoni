@@ -1,4 +1,4 @@
-package mwo;
+package us.davidandersen.mecharoni.evolve;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,7 +6,8 @@ import org.jenetics.AbstractChromosome;
 import org.jenetics.Chromosome;
 import org.jenetics.util.ISeq;
 import org.jenetics.util.MSeq;
-import mwo.FitnessChecker.FitnessCheckerConfig;
+import us.davidandersen.mecharoni.entity.Item;
+import us.davidandersen.mecharoni.evolve.EvolveMech.FitnessCheckerConfig;
 
 @SuppressWarnings("serial")
 public class MechChromosome extends
