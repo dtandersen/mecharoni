@@ -1,13 +1,13 @@
 package us.davidandersen.mecharoni.evolve;
 
 import us.davidandersen.mecharoni.entity.Mech;
-import us.davidandersen.mecharoni.evolve.EvolveMech.FitnessCheckerConfig;
+import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
 
 public class MechFitnessFunction
 {
-	private final FitnessCheckerConfig config;
+	private final MechSpecYaml config;
 
-	public MechFitnessFunction(final FitnessCheckerConfig config)
+	public MechFitnessFunction(final MechSpecYaml config)
 	{
 		this.config = config;
 	}
@@ -50,7 +50,11 @@ public class MechFitnessFunction
 		score *= 10000;
 		// score += a.totalDps();
 		score += a.damageOverTime(30);
-		score += a.getExternalHeatSinks();
+		// score -= a.getSlots() * 5;
+		// score -= a.getTons() * 5;
+		// score = score * (1 - (a.getSlots() / config.slots) * .1);
+		// score = score * (1 - (a.getTons() / config.tons) * .1);
+		// score += a.getExternalHeatSinks() * 100;
 		// if (a.heatExpended(30) > 0)
 		// {
 		// score = score + (score * a.heatRegained(30) / a.heatExpended(30)) * .1;

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import us.davidandersen.mecharoni.evolve.EvolveMech.FitnessCheckerConfig;
+import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
 
 public class Mech
 {
-	private final List<Item> items;
+	private final List<Component> items;
 
-	private final FitnessCheckerConfig config;
+	private final MechSpecYaml config;
 
 	public Mech(final MechBuilder analyzerBuilder)
 	{
@@ -20,7 +20,7 @@ public class Mech
 		analyzerBuilder.items.forEach(item -> add(item));
 	}
 
-	public void add(final Item item)
+	public void add(final Component item)
 	{
 		// System.out.println(item.getName() + item.getType());
 		if (isValid(item))
@@ -29,7 +29,7 @@ public class Mech
 		}
 	}
 
-	private boolean isValid(final Item item)
+	private boolean isValid(final Component item)
 	{
 		if (slotsFull(item.getType())) { return false; }
 		if (tooHeavy(item.getTons())) { return false; }
@@ -57,7 +57,7 @@ public class Mech
 	public double totalDamage()
 	{
 		float damage = 0;
-		for (final Item item : items)
+		for (final Component item : items)
 		{
 			damage += item.getDamage();
 		}
@@ -67,24 +67,24 @@ public class Mech
 
 	public double getSlots()
 	{
-		return items.stream().mapToDouble(Item::getSlots).sum();
+		return items.stream().mapToDouble(Component::getSlots).sum();
 	}
 
 	public double getTons()
 	{
-		return items.stream().mapToDouble(Item::getTons).sum();
+		return items.stream().mapToDouble(Component::getTons).sum();
 	}
 
 	public double totalDps()
 	{
-		return items.stream().mapToDouble(Item::getDps).sum();
+		return items.stream().mapToDouble(Component::getDps).sum();
 	}
 
 	public double damageOverTime(final float time)
 	{
 		// final float heat = getHeatCapacity() + getDisipation() * time;
 		float dot = 0;
-		for (final Item item : items)
+		for (final Component item : items)
 		{
 			dot += item.getDps() * time;
 		}
@@ -95,7 +95,7 @@ public class Mech
 	public float heatExpended(final float time)
 	{
 		float dot = 0;
-		for (final Item item : items)
+		for (final Component item : items)
 		{
 			dot += item.getHps() * time;
 		}
@@ -160,24 +160,24 @@ public class Mech
 				.count();
 	}
 
-	public void forEach(final Consumer<Item> action)
+	public void forEach(final Consumer<Component> action)
 	{
 		items.forEach(action);
 	}
 
 	public static class MechBuilder
 	{
-		private FitnessCheckerConfig config;
+		private MechSpecYaml config;
 
-		private final List<Item> items = new ArrayList<>();
+		private final List<Component> items = new ArrayList<>();
 
-		public MechBuilder add(final Item item)
+		public MechBuilder add(final Component item)
 		{
 			items.add(item);
 			return this;
 		}
 
-		public MechBuilder withConfig(final FitnessCheckerConfig config)
+		public MechBuilder withConfig(final MechSpecYaml config)
 		{
 			this.config = config;
 			return this;

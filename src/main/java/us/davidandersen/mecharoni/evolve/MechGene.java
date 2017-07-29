@@ -5,26 +5,26 @@ import java.util.List;
 import java.util.Random;
 import org.jenetics.Gene;
 import org.jenetics.util.RandomRegistry;
-import us.davidandersen.mecharoni.entity.Item;
+import us.davidandersen.mecharoni.entity.Component;
 
 @SuppressWarnings("serial")
-public class MechGene implements Gene<Item, MechGene>, Comparable<MechGene>, Serializable
+public class MechGene implements Gene<Component, MechGene>, Comparable<MechGene>, Serializable
 {
-	private final List<Item> items;
+	private final List<Component> items;
 
-	private final Item item;
+	private final Component item;
 
-	public MechGene(final List<Item> items)
+	public MechGene(final List<Component> items)
 	{
 		this.items = items;
 		final Random r = RandomRegistry.getRandom();
 		item = items.get(r.nextInt(items.size()));
 	}
 
-	public MechGene(final Item value, final List<Item> items2)
+	public MechGene(final Component component, final List<Component> items)
 	{
-		this.item = value;
-		this.items = items2;
+		this.item = component;
+		this.items = items;
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class MechGene implements Gene<Item, MechGene>, Comparable<MechGene>, Ser
 	}
 
 	@Override
-	public Item getAllele()
+	public Component getAllele()
 	{
 		return item;
 	}
@@ -52,7 +52,7 @@ public class MechGene implements Gene<Item, MechGene>, Comparable<MechGene>, Ser
 	}
 
 	@Override
-	public MechGene newInstance(final Item item)
+	public MechGene newInstance(final Component item)
 	{
 		return new MechGene(item, getItems());
 	}
@@ -63,7 +63,7 @@ public class MechGene implements Gene<Item, MechGene>, Comparable<MechGene>, Ser
 		return item.toString();
 	}
 
-	public List<Item> getItems()
+	public List<Component> getItems()
 	{
 		return items;
 	}

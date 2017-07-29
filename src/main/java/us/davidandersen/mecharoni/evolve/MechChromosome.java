@@ -6,16 +6,16 @@ import org.jenetics.AbstractChromosome;
 import org.jenetics.Chromosome;
 import org.jenetics.util.ISeq;
 import org.jenetics.util.MSeq;
-import us.davidandersen.mecharoni.entity.Item;
-import us.davidandersen.mecharoni.evolve.EvolveMech.FitnessCheckerConfig;
+import us.davidandersen.mecharoni.entity.Component;
+import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
 
 @SuppressWarnings("serial")
 public class MechChromosome extends
-		AbstractChromosome<MechGene> implements Chromosome<MechGene>, Comparable<MechChromosome>, Serializable
+		AbstractChromosome<MechGene> implements Chromosome<MechGene>, Serializable
 {
-	private final FitnessCheckerConfig config;
+	private final MechSpecYaml config;
 
-	protected MechChromosome(final ISeq<MechGene> genes, final FitnessCheckerConfig config)
+	protected MechChromosome(final ISeq<MechGene> genes, final MechSpecYaml config)
 	{
 		super(genes);
 		this.config = config;
@@ -24,32 +24,23 @@ public class MechChromosome extends
 	@Override
 	public Chromosome<MechGene> newInstance()
 	{
-		return MechChromosome.of(_genes.size(), _genes.get(0).getItems(), config);
-		// return new MechChromosome(_genes, config);
-	}
-
-	@Override
-	public int compareTo(final MechChromosome o)
-	{
-		return 0;
+		return MechChromosome.of(_genes.size(), config.items, config);
 	}
 
 	@Override
 	public Chromosome<MechGene> newInstance(final ISeq<MechGene> genes)
 	{
-		// System.out.println("new");
 		return new MechChromosome(genes, config);
 	}
 
-	public static MechChromosome of(final int geneCount, final List<Item> items, final FitnessCheckerConfig config)
+	public static MechChromosome of(final int geneCount, final List<Component> items, final MechSpecYaml config)
 	{
 		final MechChromosome mechChromosome = new MechChromosome(MSeq.<MechGene> ofLength(geneCount).fill(() -> new MechGene(items))
 				.toISeq(), config);
-		// System.out.println(mechChromosome);
 		return mechChromosome;
 	}
 
-	public static ISeq<MechChromosome> of(final int chromosomeCount, final int geneCount, final List<Item> items, final FitnessCheckerConfig config)
+	public static ISeq<MechChromosome> of(final int chromosomeCount, final int geneCount, final List<Component> items, final MechSpecYaml config)
 	{
 		return MSeq.<MechChromosome> ofLength(chromosomeCount).fill(() -> MechChromosome.of(geneCount, items, config)).toISeq();
 	}

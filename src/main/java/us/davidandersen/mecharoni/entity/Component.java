@@ -1,10 +1,10 @@
 package us.davidandersen.mecharoni.entity;
 
-public class Item
+public class Component
 {
 	private final float tons;
 
-	private final float slots;
+	private final int slots;
 
 	private final String name;
 
@@ -30,7 +30,7 @@ public class Item
 
 	// private final double heatDisipation;
 
-	public Item(final ItemBuilder itemBuilder)
+	public Component(final ComponentBuilder itemBuilder)
 	{
 		tons = itemBuilder.tons;
 		slots = itemBuilder.slots;
@@ -61,7 +61,7 @@ public class Item
 		return tons;
 	}
 
-	public float getSlots()
+	public int getSlots()
 	{
 		return slots;
 	}
@@ -90,7 +90,12 @@ public class Item
 
 	public boolean isClan()
 	{
-		return name.startsWith("Clan") || empty || heatSink;
+		return name.startsWith("Clan") || empty;
+	}
+
+	public boolean isHeatSink()
+	{
+		return heatSink;
 	}
 
 	public String getType()
@@ -103,15 +108,15 @@ public class Item
 		return name;
 	}
 
-	public static class ItemBuilder
+	public static class ComponentBuilder
 	{
 		public float heat;
 
 		private String type;
 
-		private float slots;
-
 		private float tons;
+
+		private int slots;
 
 		private String name;
 
@@ -129,86 +134,107 @@ public class Item
 
 		private boolean heatSink;
 
-		public Item build()
+		private String friendlyName;
+
+		private String id;
+
+		public Component build()
 		{
-			return new Item(this);
+			return new Component(this);
 		}
 
-		public ItemBuilder withTons(final float tons)
+		public ComponentBuilder withTons(final float tons)
 		{
 			this.tons = tons;
 			return this;
 		}
 
-		public ItemBuilder withSlots(final float slots)
+		public ComponentBuilder withSlots(final int slots)
 		{
 			this.slots = slots;
 			return this;
 		}
 
-		public ItemBuilder withName(final String name)
+		public ComponentBuilder withName(final String name)
 		{
 			this.name = name;
 			return this;
 		}
 
-		public ItemBuilder withDamage(final float damage)
+		public ComponentBuilder withDamage(final float damage)
 		{
 			this.damage = damage;
 			return this;
 		}
 
-		public ItemBuilder empty()
+		public ComponentBuilder empty()
 		{
 			empty = true;
 			return this;
 		}
 
-		public ItemBuilder withCooldown(final float cooldown)
+		public ComponentBuilder withCooldown(final float cooldown)
 		{
 			this.cooldown = cooldown;
 			return this;
 		}
 
-		public ItemBuilder withDuration(final float duration)
+		public ComponentBuilder withDuration(final float duration)
 		{
 			this.duration = duration;
 			return this;
 		}
 
-		public ItemBuilder withType(final String type)
+		public ComponentBuilder withType(final String type)
 		{
 			this.type = type;
 			return this;
 		}
 
-		public ItemBuilder withHeat(final float heat)
+		public ComponentBuilder withHeat(final float heat)
 		{
 			this.heat = heat;
 			return this;
 		}
 
-		public ItemBuilder heatSink()
+		public ComponentBuilder heatSink()
 		{
 			this.heatSink = true;
 			return this;
 		}
 
-		public ItemBuilder withHeatCapacity(final double heatCapacity)
+		public ComponentBuilder withHeatCapacity(final double heatCapacity)
 		{
 			this.heatCapacity = heatCapacity;
 			return this;
 		}
 
-		public ItemBuilder withDisipation(final double heatDisipation)
+		public ComponentBuilder withDisipation(final double heatDisipation)
 		{
 			this.heatDisipation = heatDisipation;
 			return this;
 		}
+
+		public static ComponentBuilder component()
+		{
+			return new ComponentBuilder();
+		}
+
+		public ComponentBuilder withFriendlyName(final String friendlyName)
+		{
+			this.friendlyName = friendlyName;
+			return this;
+		}
+
+		public ComponentBuilder withId(final String id)
+		{
+			this.id = id;
+			return this;
+		}
 	}
 
-	public boolean isHeatSink()
+	public boolean isEmpty()
 	{
-		return heatSink;
+		return empty;
 	}
 }

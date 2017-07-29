@@ -2,7 +2,7 @@ package us.davidandersen.mecharoni.io;
 
 import java.io.PrintStream;
 import us.davidandersen.mecharoni.entity.Mech;
-import us.davidandersen.mecharoni.evolve.EvolveMech.FitnessCheckerConfig;
+import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
 
 public class MechPrinter
 {
@@ -13,7 +13,7 @@ public class MechPrinter
 		this.out = out;
 	}
 
-	public void printMech(final Mech mech, final FitnessCheckerConfig config)
+	public void printMech(final Mech mech, final MechSpecYaml config)
 	{
 		out.println("Tons: " + mech.getTons() + "/" + config.tons);
 		out.println("Slots: " + mech.getSlots() + "/" + config.slots);
@@ -25,6 +25,11 @@ public class MechPrinter
 		out.println("Damage: " + mech.damageOverTime(30));
 		out.println("Heat: " + mech.heatExpended(30) + "/" + mech.heatRegained(30));
 		out.println("Heat Sinks: " + mech.getInternalHeatSinks() + "/" + mech.getExternalHeatSinks());
-		mech.forEach(item -> out.println(item.getName() + ", dps=" + item.getDps() + ", hps=" + item.getHps()));
+		mech.forEach(item -> {
+			if (!item.isEmpty())
+			{
+				out.println(item.getName() + ", dps=" + item.getDps() + ", hps=" + item.getHps() + ", tons=" + item.getTons() + ", slots=" + item.getSlots());
+			}
+		});
 	}
 }
