@@ -55,8 +55,9 @@ public class MechFitnessFunction2
 		// }
 		score *= 10000;
 		// score += a.totalDps();
-		score += sim(mech, 0, config.range) * 120 / 15;
-		score += sim(mech, 120, config.range);
+		final int time = 120;
+		score += sim(mech, 0, config.range) * time * (1 / 15f);
+		score += sim(mech, time, config.range);
 		// score += sim(a, 60) / 4;
 		// score += sim(a, 120) / 8;
 		// score -= a.getSlots() * 5;
