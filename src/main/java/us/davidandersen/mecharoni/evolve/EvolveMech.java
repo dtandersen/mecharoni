@@ -18,7 +18,7 @@ import us.davidandersen.mecharoni.io.MechPrinter;
 
 public class EvolveMech
 {
-	public void run(final MechSpecYaml config)
+	public void run(final EvolveMechConfig config)
 	{
 		final Factory<Genotype<MechGene>> gtf = Genotype.of(MechChromosome.of(1, config.slots, config.items, config));
 
@@ -58,7 +58,7 @@ public class EvolveMech
 		System.out.println("END");
 	}
 
-	public static class MechSpecYaml
+	public static class EvolveMechConfig
 	{
 		public int heatSinks;
 
@@ -79,5 +79,7 @@ public class EvolveMech
 		public int ecmSlots;
 
 		public int amsSlots;
+
+		public int range;
 	}
 }

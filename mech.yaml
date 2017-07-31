@@ -1,0 +1,37 @@
+excludes:
+  - ClanFlamer
+  - RocketLauncher10
+  - RocketLauncher15
+  - RocketLauncher20
+  - ClanLRM5
+  - ClanLRM10
+  - ClanLRM15
+  - ClanLRM20
+  - ClanLRM5_Artemis
+  - ClanLRM10_Artemis
+  - ClanLRM15_Artemis
+  - ClanLRM20_Artemis
+#  - ClanSRM2
+#  - ClanSRM4
+  - ClanSRM6
+  - ClanSRM2_Artemis
+  - ClanSRM4_Artemis
+  - ClanATM3
+  - ClanATM6
+  - ClanATM9
+  - ClanATM12
+  - ClanStreakSRM2
+  - ClanStreakSRM4
+  - ClanStreakSRM6
+#faction: clan
+faction: innersphere
+range: 500
+slots: 21
+tons: 7.5f
+amsSlots: 0
+energySlots: 6
+ballisticSlots: 0
+missileSlots: 1
+ecmSlots: 0
+engineSinks: 10
+heatSinks: 0

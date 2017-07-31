@@ -2,49 +2,59 @@ package us.davidandersen.mecharoni.command;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import us.davidandersen.mecharoni.command.OptimizeMech.OptimizeMechRequestAdapter;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.evolve.EvolveMech;
-import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
+import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 
-public class OptimizeMech
+public class OptimizeMech extends BaseCommand<OptimizeMechRequestAdapter, VoidResult>
 {
-	private final ComponentRepository weaponReader;
+	private final ComponentRepository componentRepository;
 
-	public OptimizeMech(final ComponentRepository weaponReader)
+	public OptimizeMech(final ComponentRepository componentRepository)
 	{
-		this.weaponReader = weaponReader;
+		this.componentRepository = componentRepository;
 	}
 
-	public void run() throws Exception
+	@Override
+	public void execute()
 	{
-		final String[] excludes = new String[] {
-				"ClanFlamer",
-				"RocketLauncher10", "RocketLauncher15", "RocketLauncher20",
-				"ClanLRM5", "ClanLRM10", "ClanLRM15", "ClanLRM20",
-				"ClanLRM5_Artemis", "ClanLRM10_Artemis", "ClanLRM15_Artemis", "ClanLRM20_Artemis",
-				// "ClanSRM2", "ClanSRM4",
-				"ClanSRM6",
-				"ClanSRM2_Artemis", "ClanSRM4_Artemis",
-				"ClanATM3", "ClanATM6", "ClanATM9", "ClanATM12",
-				"ClanStreakSRM2", "ClanStreakSRM4", "ClanStreakSRM6" };
-		// final List<Component> items = filterItems(excludes, weaponReader.isComponents());
-		final List<Component> items = filterItems(excludes, weaponReader.clanComponents());
+		try
+		{
+			List<Component> items;
+			switch (request.getFaction())
+			{
+			case "clan":
+				items = filterItems(request.getExcludes(), componentRepository.clanComponents());
+				break;
+			case "innersphere":
+				items = filterItems(request.getExcludes(), componentRepository.isComponents());
+				break;
+			default:
+				throw new RuntimeException("faction must be clan or innersphere");
+			}
 
-		final MechSpecYaml spec = new MechSpecYaml();
-		spec.slots = 21;
-		spec.tons = 7.5f;
-		spec.items = items;
-		spec.amsSlots = 0;
-		spec.energySlots = 6;
-		spec.ballisticSlots = 0;
-		spec.missileSlots = 1;
-		spec.ecmSlots = 0;
-		spec.engineSinks = 10;
-		spec.heatSinks = 0;
+			final EvolveMechConfig spec = new EvolveMechConfig();
+			spec.slots = request.getSlots();
+			spec.tons = request.getTons();
+			spec.items = items;
+			spec.amsSlots = request.getAmsSlots();
+			spec.energySlots = request.getEnergySlots();
+			spec.ballisticSlots = request.getBallisticSlots();
+			spec.missileSlots = request.getMissileSlots();
+			spec.ecmSlots = request.getEcmSlots();
+			spec.engineSinks = request.getEngineSinks();
+			spec.heatSinks = request.getHeatSinks();
+			spec.range = request.getRange();
 
-		final EvolveMech evolver = new EvolveMech();
-		evolver.run(spec);
+			final EvolveMech evolver = new EvolveMech();
+			evolver.run(spec);
+		}
+		catch (final Exception e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 
 	private static List<Component> filterItems(final String[] filters, final List<Component> readItems)
@@ -65,5 +75,32 @@ public class OptimizeMech
 		}
 
 		return false;
+	}
+
+	public interface OptimizeMechRequestAdapter
+	{
+		int getSlots();
+
+		int getRange();
+
+		String getFaction();
+
+		String[] getExcludes();
+
+		float getTons();
+
+		int getAmsSlots();
+
+		int getEnergySlots();
+
+		int getBallisticSlots();
+
+		int getMissileSlots();
+
+		int getEcmSlots();
+
+		int getEngineSinks();
+
+		int getHeatSinks();
 	}
 }

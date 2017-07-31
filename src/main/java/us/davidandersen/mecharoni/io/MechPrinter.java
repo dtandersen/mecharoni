@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.MechSpec;
-import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
+import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 public class MechPrinter
 {
@@ -16,7 +16,7 @@ public class MechPrinter
 		this.out = out;
 	}
 
-	public void printMech(final MechSpec mech, final MechSpecYaml config)
+	public void printMech(final MechSpec mech, final EvolveMechConfig config)
 	{
 		out.println("Tons: " + mech.getTons() + "/" + config.tons);
 		out.println("Slots: " + mech.getSlots() + "/" + config.slots);

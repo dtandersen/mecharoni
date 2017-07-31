@@ -7,15 +7,15 @@ import org.jenetics.Chromosome;
 import org.jenetics.util.ISeq;
 import org.jenetics.util.MSeq;
 import us.davidandersen.mecharoni.entity.Component;
-import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
+import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 @SuppressWarnings("serial")
 public class MechChromosome extends
 		AbstractChromosome<MechGene> implements Chromosome<MechGene>, Serializable
 {
-	private final MechSpecYaml config;
+	private final EvolveMechConfig config;
 
-	protected MechChromosome(final ISeq<MechGene> genes, final MechSpecYaml config)
+	protected MechChromosome(final ISeq<MechGene> genes, final EvolveMechConfig config)
 	{
 		super(genes);
 		this.config = config;
@@ -33,14 +33,14 @@ public class MechChromosome extends
 		return new MechChromosome(genes, config);
 	}
 
-	public static MechChromosome of(final int geneCount, final List<Component> items, final MechSpecYaml config)
+	public static MechChromosome of(final int geneCount, final List<Component> items, final EvolveMechConfig config)
 	{
 		final MechChromosome mechChromosome = new MechChromosome(MSeq.<MechGene> ofLength(geneCount).fill(() -> new MechGene(items))
 				.toISeq(), config);
 		return mechChromosome;
 	}
 
-	public static ISeq<MechChromosome> of(final int chromosomeCount, final int geneCount, final List<Component> items, final MechSpecYaml config)
+	public static ISeq<MechChromosome> of(final int chromosomeCount, final int geneCount, final List<Component> items, final EvolveMechConfig config)
 	{
 		return MSeq.<MechChromosome> ofLength(chromosomeCount).fill(() -> MechChromosome.of(geneCount, items, config)).toISeq();
 	}

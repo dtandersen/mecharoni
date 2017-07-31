@@ -3,13 +3,13 @@ package us.davidandersen.mecharoni.evolve;
 import us.davidandersen.mecharoni.entity.MechSimulator;
 import us.davidandersen.mecharoni.entity.MechSpec;
 import us.davidandersen.mecharoni.entity.predicate.ClanLinkedLasersPredicate;
-import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
+import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 public class MechFitnessFunction2
 {
-	private final MechSpecYaml config;
+	private final EvolveMechConfig config;
 
-	public MechFitnessFunction2(final MechSpecYaml config)
+	public MechFitnessFunction2(final EvolveMechConfig config)
 	{
 		this.config = config;
 	}
@@ -54,7 +54,7 @@ public class MechFitnessFunction2
 		// score -= a.heatExpended(30);
 		// }
 		score *= 10000;
-		final int range = 250;
+		final int range = config.range;
 		// score += a.totalDps();
 		score += sim(mech, 0, range) * 120 / 15;
 		score += sim(mech, 120, range);

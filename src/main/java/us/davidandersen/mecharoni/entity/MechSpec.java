@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
+import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 public class MechSpec
 {
@@ -216,7 +216,7 @@ public class MechSpec
 
 	public static class MechSpecBuilder
 	{
-		private MechSpecYaml config;
+		private EvolveMechConfig config;
 
 		private final List<Component> items = new ArrayList<>();
 
@@ -244,7 +244,7 @@ public class MechSpec
 			return this;
 		}
 
-		public MechSpecBuilder withConfig(final MechSpecYaml config)
+		public MechSpecBuilder withConfig(final EvolveMechConfig config)
 		{
 			heatSinks = config.heatSinks;
 			engineSinks = config.engineSinks;

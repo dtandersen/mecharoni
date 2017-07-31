@@ -3,18 +3,18 @@ package us.davidandersen.mecharoni.evolve;
 import org.jenetics.Phenotype;
 import org.jenetics.engine.EvolutionResult;
 import us.davidandersen.mecharoni.entity.MechSpec;
-import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
+import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 import us.davidandersen.mecharoni.io.MechPrinter;
 
 public class ResultPrinter
 {
-	private final MechSpecYaml config;
+	private final EvolveMechConfig config;
 
 	private final MechPrinter mechPrinter;
 
 	private Phenotype<MechGene, Double> best = null;
 
-	public ResultPrinter(final MechSpecYaml config)
+	public ResultPrinter(final EvolveMechConfig config)
 	{
 		this.config = config;
 		mechPrinter = new MechPrinter(System.out);

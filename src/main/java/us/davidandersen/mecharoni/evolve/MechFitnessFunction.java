@@ -1,13 +1,13 @@
 package us.davidandersen.mecharoni.evolve;
 
 import us.davidandersen.mecharoni.entity.MechSpec;
-import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
+import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 public class MechFitnessFunction
 {
-	private final MechSpecYaml config;
+	private final EvolveMechConfig config;
 
-	public MechFitnessFunction(final MechSpecYaml config)
+	public MechFitnessFunction(final EvolveMechConfig config)
 	{
 		this.config = config;
 	}
