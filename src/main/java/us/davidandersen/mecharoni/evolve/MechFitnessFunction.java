@@ -1,6 +1,6 @@
 package us.davidandersen.mecharoni.evolve;
 
-import us.davidandersen.mecharoni.entity.Mech;
+import us.davidandersen.mecharoni.entity.MechSpec;
 import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
 
 public class MechFitnessFunction
@@ -12,7 +12,7 @@ public class MechFitnessFunction
 		this.config = config;
 	}
 
-	public double eval(final Mech a)
+	public double eval(final MechSpec a)
 	{
 		double score = 0;
 		if (a.getTons() > config.tons)

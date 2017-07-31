@@ -8,4 +8,6 @@ public interface ComponentRepository
 	List<Component> all() throws Exception;
 
 	List<Component> clanComponents() throws Exception;
+
+	List<Component> isComponents() throws Exception;
 }

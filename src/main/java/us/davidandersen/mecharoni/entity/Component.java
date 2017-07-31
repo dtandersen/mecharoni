@@ -18,7 +18,7 @@ public class Component
 
 	private final float dps;
 
-	public final String type;
+	private final String type;
 
 	private final float hps;
 
@@ -26,12 +26,25 @@ public class Component
 
 	private final boolean heatSink;
 
-	// private final double heatCapacity;
+	private String ammoType;
 
-	// private final double heatDisipation;
+	private final String id;
+
+	private final int num_shots;
+
+	private final int damageMultiplier;
+
+	private final String friendlyName;
+
+	private final int minRange;
+
+	private final int longRange;
+
+	private final int maxRange;
 
 	public Component(final ComponentBuilder itemBuilder)
 	{
+		id = itemBuilder.id;
 		tons = itemBuilder.tons;
 		slots = itemBuilder.slots;
 		name = itemBuilder.name;
@@ -42,6 +55,14 @@ public class Component
 		type = itemBuilder.type;
 		heat = itemBuilder.heat;
 		heatSink = itemBuilder.heatSink;
+		num_shots = itemBuilder.num_shots;
+		damageMultiplier = itemBuilder.damageMultiplier;
+		friendlyName = itemBuilder.friendlyName;
+		minRange = itemBuilder.min_range;
+		longRange = itemBuilder.long_range;
+		maxRange = itemBuilder.max_range;
+		// heatCapacity = itemBuilder.heatCapacity;
+		// heatCapacity = itemBuilder.heatCapacity;
 		// heatCapacity = itemBuilder.heatCapacity;
 		// heatDisipation = itemBuilder.heatDisipation;
 		if (cooldown + duration == 0)
@@ -93,6 +114,11 @@ public class Component
 		return name.startsWith("Clan") || empty;
 	}
 
+	public boolean isInnerSphere()
+	{
+		return !name.startsWith("Clan") || empty;
+	}
+
 	public boolean isHeatSink()
 	{
 		return heatSink;
@@ -108,8 +134,15 @@ public class Component
 		return name;
 	}
 
+	public boolean isEmpty()
+	{
+		return empty;
+	}
+
 	public static class ComponentBuilder
 	{
+		public int num_shots;
+
 		public float heat;
 
 		private String type;
@@ -137,6 +170,14 @@ public class Component
 		private String friendlyName;
 
 		private String id;
+
+		private int damageMultiplier;
+
+		private int min_range;
+
+		private int long_range;
+
+		private int max_range;
 
 		public Component build()
 		{
@@ -231,10 +272,95 @@ public class Component
 			this.id = id;
 			return this;
 		}
+
+		public ComponentBuilder withNumShots(final int num_shots)
+		{
+			this.num_shots = num_shots;
+			return this;
+		}
+
+		public ComponentBuilder withDamageMultiplier(final int damageMultiplier)
+		{
+			this.damageMultiplier = damageMultiplier;
+			return this;
+		}
+
+		public ComponentBuilder withMinRange(final int min_range)
+		{
+			this.min_range = min_range;
+			return this;
+		}
+
+		public ComponentBuilder withLongRange(final int long_range)
+		{
+			this.long_range = long_range;
+			return this;
+		}
+
+		public ComponentBuilder withMaxRange(final int max_range)
+		{
+			this.max_range = max_range;
+			return this;
+		}
 	}
 
-	public boolean isEmpty()
+	public float getHeat()
 	{
-		return empty;
+		return heat;
+	}
+
+	public float getDuration()
+	{
+		return duration;
+	}
+
+	public float getCooldown()
+	{
+		return cooldown;
+	}
+
+	public String getAmmoType()
+	{
+		return ammoType;
+	}
+
+	public String getId()
+	{
+		return id;
+	}
+
+	public void setAmmoType(final String ammoType)
+	{
+		this.ammoType = ammoType;
+	}
+
+	public int getNumShots()
+	{
+		return num_shots;
+	}
+
+	public int getDamageMultiplier()
+	{
+		return damageMultiplier;
+	}
+
+	public String getFriendlyName()
+	{
+		return friendlyName;
+	}
+
+	public int getMinRange()
+	{
+		return minRange;
+	}
+
+	public int getLongRange()
+	{
+		return longRange;
+	}
+
+	public int getMaxRange()
+	{
+		return maxRange;
 	}
 }

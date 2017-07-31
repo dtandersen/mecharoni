@@ -40,9 +40,17 @@ public class JsonWeaponReader
 
 		public Stats calc_stats;
 
+		public int min_range;
+
+		public int long_range;
+
+		public int max_range;
+
 		static class Stats
 		{
 			float dmg;
+
+			int damageMultiplier;
 		}
 	}
 }

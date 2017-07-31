@@ -2,7 +2,7 @@ package us.davidandersen.mecharoni.evolve;
 
 import org.jenetics.Phenotype;
 import org.jenetics.engine.EvolutionResult;
-import us.davidandersen.mecharoni.entity.Mech;
+import us.davidandersen.mecharoni.entity.MechSpec;
 import us.davidandersen.mecharoni.evolve.EvolveMech.MechSpecYaml;
 import us.davidandersen.mecharoni.io.MechPrinter;
 
@@ -25,14 +25,14 @@ public class ResultPrinter
 		if (best == null || best.compareTo(result.getBestPhenotype()) < 0)
 		{
 			this.best = result.getBestPhenotype();
-			final Mech a = MechCodec.toMech((MechChromosome)best.getGenotype().getChromosome(), config);
+			final MechSpec a = MechCodec.toMech((MechChromosome)best.getGenotype().getChromosome(), config);
 
 			mechPrinter.printMech(a, config);
 			System.out.println("generation=" + best.getGeneration() + ", fitness=" + best.getFitness());
 		}
 	}
 
-	public Mech bestMech()
+	public MechSpec bestMech()
 	{
 		return MechCodec.toMech((MechChromosome)best.getGenotype().getChromosome(), config);
 	}

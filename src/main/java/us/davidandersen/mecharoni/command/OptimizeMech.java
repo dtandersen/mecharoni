@@ -18,20 +18,30 @@ public class OptimizeMech
 
 	public void run() throws Exception
 	{
-		final String[] excludes = new String[] { "ClanFlamer", "ClanLRM", "ClanMicro", "ClanERMicroLaser" };
+		final String[] excludes = new String[] {
+				"ClanFlamer",
+				"RocketLauncher10", "RocketLauncher15", "RocketLauncher20",
+				"ClanLRM5", "ClanLRM10", "ClanLRM15", "ClanLRM20",
+				"ClanLRM5_Artemis", "ClanLRM10_Artemis", "ClanLRM15_Artemis", "ClanLRM20_Artemis",
+				// "ClanSRM2", "ClanSRM4",
+				"ClanSRM6",
+				"ClanSRM2_Artemis", "ClanSRM4_Artemis",
+				"ClanATM3", "ClanATM6", "ClanATM9", "ClanATM12",
+				"ClanStreakSRM2", "ClanStreakSRM4", "ClanStreakSRM6" };
+		// final List<Component> items = filterItems(excludes, weaponReader.isComponents());
 		final List<Component> items = filterItems(excludes, weaponReader.clanComponents());
 
 		final MechSpecYaml spec = new MechSpecYaml();
-		spec.slots = 33;
-		spec.tons = 17;
+		spec.slots = 21;
+		spec.tons = 7.5f;
 		spec.items = items;
 		spec.amsSlots = 0;
-		spec.energySlots = 8;
+		spec.energySlots = 6;
 		spec.ballisticSlots = 0;
-		spec.missileSlots = 2;
+		spec.missileSlots = 1;
 		spec.ecmSlots = 0;
 		spec.engineSinks = 10;
-		spec.heatSinks = 4;
+		spec.heatSinks = 0;
 
 		final EvolveMech evolver = new EvolveMech();
 		evolver.run(spec);
@@ -50,7 +60,8 @@ public class OptimizeMech
 	{
 		for (final String filter : filters)
 		{
-			if (item.getName().startsWith(filter)) { return true; }
+			if (item.getName().equalsIgnoreCase(filter)) { return true; }
+			// if (item.getFriendlyName().equalsIgnoreCase(filter)) { return true; }
 		}
 
 		return false;

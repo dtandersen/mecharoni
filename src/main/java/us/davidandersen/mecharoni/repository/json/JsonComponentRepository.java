@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
@@ -47,6 +48,16 @@ public class JsonComponentRepository implements ComponentRepository
 		return Collections.unmodifiableList(clanItems);
 	}
 
+	@Override
+	public List<Component> isComponents() throws Exception
+	{
+		final List<Component> clanItems = all().stream()
+				.filter(item -> item.isInnerSphere())
+				.collect(Collectors.toList());
+
+		return Collections.unmodifiableList(clanItems);
+	}
+
 	private void readWeapons(final List<Component> components)
 	{
 		final HashMap<String, JsonWeaponReader.WeaponJson> weapons = jsonWeaponReader.readWeapons();
@@ -63,6 +74,10 @@ public class JsonComponentRepository implements ComponentRepository
 						.withDuration(it.duration)
 						.withType(it.type)
 						.withHeat(it.heat)
+						.withMinRange(it.min_range)
+						.withLongRange(it.long_range)
+						.withMaxRange(it.max_range)
+						.withDamageMultiplier(it.calc_stats.damageMultiplier)
 						.build()));
 	}
 
@@ -78,13 +93,24 @@ public class JsonComponentRepository implements ComponentRepository
 						.withName(component.type)
 						.withFriendlyName(MwoEscaper.unescape(component.translated_name))
 						.withType(null)
+						.withNumShots(component.num_shots)
 						.build()));
+
+		for (final AmmoJson ammo2 : ammo.values())
+		{
+			for (final String id : ammo2.weapons)
+			{
+				final Component weapon = components.stream().filter(c -> Objects.equals(id, c.getId())).findFirst().get();
+				weapon.setAmmoType(ammo2.type);
+			}
+		}
 	}
 
 	private void readHeatSinks(final List<Component> components)
 	{
 		components.add(new ComponentBuilder()
 				.withName("ClanDoubleHeatSink")
+				.withFriendlyName("Clan Double Heat Sink")
 				.heatSink()
 				.withHeatCapacity(1.5)
 				.withDisipation(0.15)
@@ -94,6 +120,7 @@ public class JsonComponentRepository implements ComponentRepository
 
 		components.add(new ComponentBuilder()
 				.withName("DoubleHeatSink")
+				.withFriendlyName("Double Heat Sink")
 				.heatSink()
 				.withHeatCapacity(1.5)
 				.withDisipation(0.15)
