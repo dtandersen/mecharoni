@@ -136,6 +136,22 @@ public class MechSimulatorTest
 		assertThat(sim.damage(), equalTo(11 / 2f));
 	}
 
+	@Test
+	public void longRange2()
+	{
+		final MechSimulator sim = new MechSimulator();
+		sim.addMech(new MechSpecBuilder()
+				.withSlots(20)
+				.withTons(20)
+				.withEngineSinks(10)
+				.withExternalHeatSinks(2)
+				.withEnergySlots(5)
+				.withComponent(component("ERMediumLaser"))
+				.build());
+		sim.go(0, 700);
+		assertThat((double)sim.damage(), closeTo(.277, .001));
+	}
+
 	private Component component(final String name)
 	{
 		return components.stream()

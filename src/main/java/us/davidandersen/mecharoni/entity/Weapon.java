@@ -126,7 +126,7 @@ public class Weapon
 		if (range <= data.spec.longRange) { return data.spec.damage; }
 		if (range >= data.spec.maxRange) { return 0; }
 
-		final float i = (range - data.spec.longRange) / (float)(data.spec.maxRange - data.spec.longRange);
+		final float i = 1 - (range - data.spec.longRange) / (float)(data.spec.maxRange - data.spec.longRange);
 		final float f = data.spec.damage * i;
 		return f;
 	}

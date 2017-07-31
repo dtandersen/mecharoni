@@ -20,11 +20,11 @@ public class MechPrinter
 	{
 		out.println("Tons: " + mech.getTons() + "/" + config.tons);
 		out.println("Slots: " + mech.getSlots() + "/" + config.slots);
-		out.println("Energy: " + mech.getEnergySlots() + "/" + config.energySlots);
-		out.println("Ballistic: " + mech.getBallisticSlots() + "/" + config.ballisticSlots);
-		out.println("Missile: " + mech.getMissileSlots() + "/" + config.missileSlots);
-		out.println("ECM: " + mech.getEcmSlots() + "/" + config.ecmSlots);
-		out.println("AMS: " + mech.getAmsSlots() + "/" + config.amsSlots);
+		out.print("Energy: " + mech.getEnergySlots() + "/" + config.energySlots);
+		out.print("  Ballistic: " + mech.getBallisticSlots() + "/" + config.ballisticSlots);
+		out.print("  Missile: " + mech.getMissileSlots() + "/" + config.missileSlots);
+		out.print("  ECM: " + mech.getEcmSlots() + "/" + config.ecmSlots);
+		out.println("  AMS: " + mech.getAmsSlots() + "/" + config.amsSlots);
 		out.println("Damage: " + mech.damageOverTime(30));
 		out.println("Heat: " + mech.heatExpended(30) + "/" + mech.heatRegained(30));
 		out.println("Heat Sinks: " + mech.getInternalHeatSinks() + "/" + mech.getExternalHeatSinks());
@@ -52,7 +52,7 @@ public class MechPrinter
 			final Component item = n.item;
 			if (!item.isEmpty())
 			{
-				out.println(item.getFriendlyName() + "x" + n.quantity);
+				out.println(n.quantity + " " + item.getFriendlyName());
 			}
 		}
 	}

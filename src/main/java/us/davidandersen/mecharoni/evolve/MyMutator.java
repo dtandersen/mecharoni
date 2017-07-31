@@ -24,6 +24,14 @@ public class MyMutator extends Mutator<MechGene, Double>
 		this.empty = empty;
 	}
 
+	public MyMutator(final double p, final Component heatSink, final List<Component> items)
+	{
+		super(p);
+		this.heatSink = heatSink;
+		this.items = items;
+		this.empty = null;
+	}
+
 	@Override
 	protected int mutate(final MSeq<MechGene> genes, final double p)
 	{
@@ -35,7 +43,7 @@ public class MyMutator extends Mutator<MechGene, Double>
 		}
 		else
 		{
-			comp = empty;
+			comp = heatSink;
 		}
 		return (int)indexes(random, genes.length(), p)
 				.peek(i -> genes.set(i, new MechGene(comp, items)))
