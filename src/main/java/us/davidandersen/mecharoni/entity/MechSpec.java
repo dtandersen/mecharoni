@@ -1,12 +1,15 @@
 package us.davidandersen.mecharoni.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
+import us.davidandersen.mecharoni.io.MechPrinter.Node;
 
 public class MechSpec
 {
@@ -212,6 +215,28 @@ public class MechSpec
 		return data.components.stream()
 				.filter(comp -> comp.getName().contains("Ammo"))
 				.collect(Collectors.toList());
+	}
+
+	public Map<String, Node> combineItems()
+	{
+		final Map<String, Node> it = new HashMap<>();
+		forEach(item -> {
+			if (!it.containsKey(item.getFriendlyName()))
+			{
+				it.put(item.getFriendlyName(), new Node(item, 1));
+			}
+			else
+			{
+				final Node n = it.get(item.getFriendlyName());
+				n.increment();
+			}
+		});
+		return it;
+	}
+
+	public long uniqueWeapons()
+	{
+		return combineItems().values().stream().filter(n -> n.getItem().isWeapon()).count();
 	}
 
 	public static class MechSpecBuilder

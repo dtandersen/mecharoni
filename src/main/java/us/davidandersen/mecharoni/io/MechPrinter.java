@@ -1,7 +1,6 @@
 package us.davidandersen.mecharoni.io;
 
 import java.io.PrintStream;
-import java.util.HashMap;
 import java.util.Map;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.MechSpec;
@@ -28,18 +27,7 @@ public class MechPrinter
 		out.println("Damage: " + mech.damageOverTime(30));
 		out.println("Heat: " + mech.heatExpended(30) + "/" + mech.heatRegained(30));
 		out.println("Heat Sinks: " + mech.getInternalHeatSinks() + "/" + mech.getExternalHeatSinks());
-		final Map<String, Node> it = new HashMap<>();
-		mech.forEach(item -> {
-			if (!it.containsKey(item.getFriendlyName()))
-			{
-				it.put(item.getFriendlyName(), new Node(item, 1));
-			}
-			else
-			{
-				final Node n = it.get(item.getFriendlyName());
-				n.increment();
-			}
-		});
+		final Map<String, Node> it = mech.combineItems();
 		// mech.forEach(item -> {
 		// if (!item.isEmpty())
 		// {
@@ -57,7 +45,7 @@ public class MechPrinter
 		}
 	}
 
-	static class Node
+	public static class Node
 	{
 		private final Component item;
 
@@ -72,6 +60,11 @@ public class MechPrinter
 		public void increment()
 		{
 			quantity += 1;
+		}
+
+		public Component getItem()
+		{
+			return item;
 		}
 	}
 }

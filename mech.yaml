@@ -1,11 +1,11 @@
 #faction: clan
 faction: innersphere
-range: 250
-tons: 36.5
-slots: 41
+range: 1000
+tons: 22
+slots: 27
 amsSlots: 0
 energySlots: 6
-missileSlots: 3
+missileSlots: 1
 ballisticSlots: 0
 ecmSlots: 0
 engineSinks: 10
@@ -35,16 +35,16 @@ excludes:
 - ClanStreakSRM2
 - ClanStreakSRM4
 - ClanStreakSRM6
-- MRM10
-- MRM20
-- MRM30
-- MRM40
-- SRM2
-- SRM4
+#- MRM10
+#- MRM20
+#- MRM30
+#- MRM40
+#- SRM2
+#- SRM4
 - SRM6
 - SRM2_Artemis
 - SRM4_Artemis
-- SRM6_Artemis
+#- SRM6_Artemis
 - LRM5
 - LRM10
 - LRM15
@@ -53,3 +53,15 @@ excludes:
 - LRM10_Artemis
 - LRM15_Artemis
 - LRM20_Artemis
+- MRM10
+- MRM20
+- MRM30
+- MRM40
+- STREAK SRM 6
+- STREAK SRM 4
+- STREAK SRM 2
+#- HEAVY PPC
+#- LARGE LASER
+#- LIGHT PPC
+#- LRG PULSE LASER
+#- ER LARGE LASER

@@ -363,4 +363,9 @@ public class Component
 	{
 		return maxRange;
 	}
+
+	public boolean isWeapon()
+	{
+		return getDamage() > 0;
+	}
 }

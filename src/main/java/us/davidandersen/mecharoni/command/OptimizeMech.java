@@ -71,7 +71,7 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequestAdapter, VoidRe
 		for (final String filter : filters)
 		{
 			if (item.getName().equalsIgnoreCase(filter)) { return true; }
-			// if (item.getFriendlyName().equalsIgnoreCase(filter)) { return true; }
+			if (item.getFriendlyName() != null && item.getFriendlyName().equalsIgnoreCase(filter)) { return true; }
 		}
 
 		return false;

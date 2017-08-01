@@ -3,6 +3,7 @@ package us.davidandersen.mecharoni.evolve;
 import us.davidandersen.mecharoni.entity.MechSimulator;
 import us.davidandersen.mecharoni.entity.MechSpec;
 import us.davidandersen.mecharoni.entity.predicate.ClanLinkedLasersPredicate;
+import us.davidandersen.mecharoni.entity.predicate.PpcPenaltyGroupPredicate;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 public class MechFitnessFunction2
@@ -46,6 +47,14 @@ public class MechFitnessFunction2
 			score -= mech.getAmsSlots();
 		}
 		if (mech.itemCount("C-HEAVY MED LASER") > 0 && mech.itemCount(new ClanLinkedLasersPredicate()) >= 4)
+		{
+			score -= 1;
+		}
+		if (mech.itemCount(new PpcPenaltyGroupPredicate()) >= 2)
+		{
+			score -= 1;
+		}
+		if (mech.uniqueWeapons() > 3)
 		{
 			score -= 1;
 		}
