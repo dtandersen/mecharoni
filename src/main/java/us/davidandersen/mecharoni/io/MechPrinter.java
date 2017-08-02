@@ -25,7 +25,8 @@ public class MechPrinter
 		out.print("  ECM: " + mech.getEcmSlots() + "/" + config.ecmSlots);
 		out.println("  AMS: " + mech.getAmsSlots() + "/" + config.amsSlots);
 		out.println("Damage: " + mech.damageOverTime(30));
-		out.println("Heat: " + mech.heatExpended(30) + "/" + mech.heatRegained(30));
+		out.println("Heat: " + mech.disipation() + "/" + mech.hps() + " " + (mech.heatEfficiency() * 100) + "%");
+		out.println("Heat (30s): " + mech.heatExpended(30) + "/" + mech.heatRegained(30) + " " + (mech.heatRegained(30) * 100) / mech.heatExpended(30) + "%");
 		out.println("Heat Sinks: " + mech.getInternalHeatSinks() + "/" + mech.getExternalHeatSinks());
 		final Map<String, Node> it = mech.combineItems();
 		// mech.forEach(item -> {

@@ -138,7 +138,17 @@ public class MechSpec
 
 	private float getDisipation()
 	{
-		return (float)(getInternalHeatSinks() * 2 + getExternalHeatSinks() * 1.5);
+		return (float)(getInternalHeatSinks() * .2 + getExternalHeatSinks() * .15);
+	}
+
+	public float hps()
+	{
+		return (float)getWeapons().stream().mapToDouble(n -> n.getHps()).sum();
+	}
+
+	public float disipation()
+	{
+		return getDisipation();
 	}
 
 	public int getExternalHeatSinks()
@@ -153,7 +163,7 @@ public class MechSpec
 
 	private float getHeatCapacity()
 	{
-		return (float)(30 + getInternalHeatSinks() * .2 + getExternalHeatSinks() * .15);
+		return (float)(30 + getInternalHeatSinks() * 2 + getExternalHeatSinks() * 1.5);
 	}
 
 	public int getEnergySlots()
@@ -237,6 +247,12 @@ public class MechSpec
 	public long uniqueWeapons()
 	{
 		return combineItems().values().stream().filter(n -> n.getItem().isWeapon()).count();
+	}
+
+	public float heatEfficiency()
+	{
+		float f = disipation() / hps();
+		return f;
 	}
 
 	public static class MechSpecBuilder

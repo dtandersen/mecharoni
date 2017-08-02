@@ -64,7 +64,7 @@ public class MechFitnessFunction2
 		// }
 		score *= 10000;
 		// score += a.totalDps();
-		final int time = 120;
+		final int time = 30;
 		score += sim(mech, 0, config.range) * time * (1 / 15f);
 		score += sim(mech, time, config.range);
 		// score += sim(a, 60) / 4;
