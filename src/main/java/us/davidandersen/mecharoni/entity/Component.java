@@ -129,6 +129,11 @@ public class Component
 		return type;
 	}
 
+	public HardpointType getHardpointType()
+	{
+		return HardpointType.fromType(type);
+	}
+
 	public String getName()
 	{
 		return name;

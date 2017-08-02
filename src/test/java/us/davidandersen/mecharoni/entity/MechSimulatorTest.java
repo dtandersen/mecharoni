@@ -6,22 +6,23 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Objects;
 import org.junit.Before;
 import org.junit.Test;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.MechSpec.MechSpecBuilder;
+import us.davidandersen.mecharoni.repository.CompCache;
 import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
 
 public class MechSimulatorTest
 {
-	private List<Component> components;
+	private CompCache compCache;
 
 	@Before
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		components = new JsonComponentRepository().all();
+		final List<Component> components = new JsonComponentRepository().all();
+		compCache = new CompCache(components);
 	}
 
 	@Test
@@ -154,8 +155,6 @@ public class MechSimulatorTest
 
 	private Component component(final String name)
 	{
-		return components.stream()
-				.filter(comp -> Objects.equals(name, comp.getName()))
-				.findFirst().get();
+		return compCache.getComp(name);
 	}
 }

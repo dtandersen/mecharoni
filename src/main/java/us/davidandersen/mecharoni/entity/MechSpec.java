@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import us.davidandersen.mecharoni.entity.Location.LocationBuilder;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 import us.davidandersen.mecharoni.io.MechPrinter.Node;
 
@@ -15,20 +16,30 @@ public class MechSpec
 {
 	private final MechSpecData data;
 
-	public MechSpec(final MechSpecBuilder analyzerBuilder)
+	private final Map<LocationType, Location> locations = new HashMap<>();
+
+	public MechSpec(final MechSpecBuilder mechBuilder)
 	{
 		data = new MechSpecData();
-		data.amsSlots = analyzerBuilder.amsSlots;
-		data.ballisticSlots = analyzerBuilder.ballisticSlots;
-		data.ecmSlots = analyzerBuilder.ecmSlots;
-		data.energySlots = analyzerBuilder.energySlots;
-		data.engineSinks = analyzerBuilder.engineSinks;
-		data.heatSinks = analyzerBuilder.heatSinks;
-		data.missileSlots = analyzerBuilder.missileSlots;
-		data.slots = analyzerBuilder.slots;
-		data.tons = analyzerBuilder.tons;
+		data.amsSlots = mechBuilder.amsSlots;
+		data.ballisticSlots = mechBuilder.ballisticSlots;
+		data.ecmSlots = mechBuilder.ecmSlots;
+		data.energySlots = mechBuilder.energySlots;
+		data.engineSinks = mechBuilder.engineSinks;
+		data.heatSinks = mechBuilder.heatSinks;
+		data.missileSlots = mechBuilder.missileSlots;
+		data.slots = mechBuilder.slots;
+		data.tons = mechBuilder.tons;
 		data.components = new ArrayList<>();
-		analyzerBuilder.items.forEach(item -> add(item));
+		mechBuilder.items.forEach(item -> add(item));
+		for (final Location location : mechBuilder.locations)
+		{
+			locations.put(location.getLocationType(), location);
+		}
+		for (final Slot slot : mechBuilder.slots2)
+		{
+			locations.get(slot.getLocationType()).addComponent(slot.getComponent());
+		}
 	}
 
 	public void add(final Component item)
@@ -251,8 +262,13 @@ public class MechSpec
 
 	public float heatEfficiency()
 	{
-		float f = disipation() / hps();
+		final float f = disipation() / hps();
 		return f;
+	}
+
+	public List<Component> componentsInLocation(final LocationType locationType)
+	{
+		return locations.get(locationType).getComponents();
 	}
 
 	public static class MechSpecBuilder
@@ -278,6 +294,10 @@ public class MechSpec
 		private int ecmSlots;
 
 		private int amsSlots;
+
+		private final List<Slot> slots2 = new ArrayList<>();
+
+		private final List<Location> locations = new ArrayList<>();
 
 		public MechSpecBuilder add(final Component item)
 		{
@@ -344,6 +364,23 @@ public class MechSpec
 		public MechSpecBuilder withMissileSlots(final int missileSlots)
 		{
 			this.missileSlots = missileSlots;
+			return this;
+		}
+
+		public static MechSpecBuilder mech()
+		{
+			return new MechSpecBuilder();
+		}
+
+		public MechSpecBuilder withComponent(final LocationType location, final Component component)
+		{
+			slots2.add(new Slot(location, component));
+			return this;
+		}
+
+		public MechSpecBuilder withLocation(final LocationBuilder locationBuilder)
+		{
+			locations.add(locationBuilder.build());
 			return this;
 		}
 	}
