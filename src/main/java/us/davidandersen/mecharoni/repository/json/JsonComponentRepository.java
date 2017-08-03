@@ -71,7 +71,7 @@ public class JsonComponentRepository implements ComponentRepository
 						.withFriendlyName(MwoEscaper.unescape(it.translated_name))
 						.withDamage(it.calc_stats.dmg)
 						.withCooldown(it.cooldown)
-						.withDuration(it.duration)
+						.withDuration(it.duration < 0 ? .1f : it.duration)
 						.withType(it.type)
 						.withHeat(it.heat)
 						.withMinRange(it.min_range)
