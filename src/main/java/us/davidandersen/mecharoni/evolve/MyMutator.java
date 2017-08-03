@@ -43,7 +43,7 @@ public class MyMutator extends Mutator<MechGene, Double>
 		}
 		else
 		{
-			comp = heatSink;
+			comp = empty;
 		}
 		return (int)indexes(random, genes.length(), p)
 				.peek(i -> genes.set(i, new MechGene(comp, items)))

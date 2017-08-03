@@ -1,8 +1,8 @@
 #faction: clan
 faction: innersphere
 range: 250
-tons: 19
-slots: 24
+tons: 35.5
+slots: 34
 engineSinks: 10
 heatSinks: 1
 locations:
@@ -18,23 +18,23 @@ locations:
     ballistic: 0
   RT:
     slots: 9
-    missile: 0
+    missile: 1
     energy: 0
     ballistic: 0
   LT:
     slots: 9
-    missile: 3
+    missile: 2
     energy: 0
     ballistic: 0
   RA:
-    slots: 10
-    missile: 0
-    energy: 0
-    ballistic: 3
+    slots: 8
+    missile: 1
+    energy: 1
+    ballistic: 0
   LA:
-    slots: 10
-    missile: 0
-    energy: 0
+    slots: 8
+    missile: 1
+    energy: 1
     ballistic: 0
   RL:
     slots: 2
@@ -71,10 +71,6 @@ excludes:
 - ClanStreakSRM2
 - ClanStreakSRM4
 - ClanStreakSRM6
-#- MRM10
-#- MRM20
-#- MRM30
-#- MRM40
 - SRM2
 - SRM4
 - SRM6
@@ -89,10 +85,10 @@ excludes:
 - LRM10_Artemis
 - LRM15_Artemis
 - LRM20_Artemis
-- MRM10
-- MRM20
-- MRM30
-- MRM40
+#- MRM10
+#- MRM20
+#- MRM30
+#- MRM40
 - STREAK SRM 6
 - STREAK SRM 4
 - STREAK SRM 2

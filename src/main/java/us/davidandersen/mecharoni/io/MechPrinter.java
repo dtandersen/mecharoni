@@ -50,7 +50,10 @@ public class MechPrinter
 			// out.println(location.getLocationType());
 			for (final Component item : location.getComponents())
 			{
-				out.println(location.getLocationType() + ": " + item.getFriendlyName());
+				if (!item.isEmpty())
+				{
+					out.println(location.getLocationType() + ": " + item.getFriendlyName());
+				}
 			}
 
 		}

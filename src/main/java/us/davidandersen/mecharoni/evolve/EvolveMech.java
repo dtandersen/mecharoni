@@ -26,14 +26,14 @@ public class EvolveMech
 		final int slots = config.locations.values().stream().mapToInt(Location::maxSlots).sum();
 		final Factory<Genotype<MechGene>> gtf = Genotype.of(MechChromosome.of(1, slots, config.items, config));
 
-		final MechFitnessFunction2 fitnessCalculator = new MechFitnessFunction2(config);
+		final MechFitnessFunction fitnessCalculator = new MechFitnessFunction(config);
 		final Function<Genotype<MechGene>, Double> ff = gt -> fitnessCalculator.eval(MechCodec.toMech(gt, config));
 		final Component heatSink = config.items.stream().filter(item -> item.getName().contains("HeatSink")).findFirst().get();
-		// final Component empty = config.items.stream().filter(item -> item.getName().contains("Empty")).findFirst().get();
+		final Component empty = config.items.stream().filter(item -> item.getName().contains("Empty")).findFirst().get();
 		final Engine<MechGene, Double> engine = Engine.builder(ff, gtf)
 				.alterers(
 						new Mutator<>(),
-						new MyMutator(.25, heatSink, config.items),
+						new MyMutator(.25, heatSink, config.items, empty),
 						// new MyMutator(.25, heatSink, config.items, empty),
 						// ,
 						// new SinglePointCrossover<>(),

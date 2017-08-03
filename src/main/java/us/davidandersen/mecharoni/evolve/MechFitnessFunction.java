@@ -2,15 +2,16 @@ package us.davidandersen.mecharoni.evolve;
 
 import us.davidandersen.mecharoni.entity.MechSimulator;
 import us.davidandersen.mecharoni.entity.MechSpec;
+import us.davidandersen.mecharoni.entity.predicate.BeamsPredicate;
 import us.davidandersen.mecharoni.entity.predicate.ClanLinkedLasersPredicate;
 import us.davidandersen.mecharoni.entity.predicate.PpcPenaltyGroupPredicate;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
-public class MechFitnessFunction2
+public class MechFitnessFunction
 {
 	private final EvolveMechConfig config;
 
-	public MechFitnessFunction2(final EvolveMechConfig config)
+	public MechFitnessFunction(final EvolveMechConfig config)
 	{
 		this.config = config;
 	}
@@ -26,30 +27,19 @@ public class MechFitnessFunction2
 		{
 			score -= 1;
 		}
+		if (mech.itemCount(new BeamsPredicate()) < 1)
+		{
+			score -= 1;
+		}
 		if (mech.uniqueWeapons() > 3)
 		{
 			score -= 1;
 		}
-		// if (a.heatExpended(30) > a.heatRegained(30) * 2.5)
-		// {
-		// score -= a.heatExpended(30);
-		// }
 		score *= 10000;
-		// score += a.totalDps();
 		final int time = 120;
-		score += sim(mech, 0, config.range) * time / 10;
+		score += sim(mech, 0, config.range) * time / 15;
 		score += sim(mech, time, config.range);
-		// score += sim(a, 60) / 4;
-		// score += sim(a, 120) / 8;
-		// score -= a.getSlots() * 5;
-		// score -= a.getTons() * 5;
-		// score = score * (1 - (a.getSlots() / config.slots) * .1);
-		// score = score * (1 - (a.getTons() / config.tons) * .1);
-		// score += a.getExternalHeatSinks() * 100;
-		// if (a.heatExpended(30) > 0)
-		// {
-		// score = score + (score * a.heatRegained(30) / a.heatExpended(30)) * .1;
-		// }
+
 		return score;
 	}
 

@@ -126,6 +126,7 @@ public class JsonComponentRepository implements ComponentRepository
 
 		components.add(new ComponentBuilder()
 				.withName("EmptySlot")
+				.withFriendlyName("Empty Slot")
 				.empty()
 				.build());
 	}

@@ -102,6 +102,7 @@ public class Weapon
 
 	public float getDph()
 	{
+		if (data.spec.heat == 0) { return 0; }
 		return data.spec.damage / data.spec.heat;
 	}
 

@@ -356,4 +356,9 @@ public class Component
 	{
 		return getDamage() > 0;
 	}
+
+	public boolean isEnergy()
+	{
+		return "BEAM".equals(type);
+	}
 }
