@@ -18,34 +18,6 @@ public class MechFitnessFunction2
 	public double eval(final MechSpec mech)
 	{
 		double score = 0;
-		if (mech.getTons() > config.tons)
-		{
-			score -= mech.getTons();
-		}
-		if (mech.getSlots() > config.slots)
-		{
-			score -= mech.getSlots();
-		}
-		if (mech.getEnergySlots() > config.energySlots)
-		{
-			score -= mech.getEnergySlots();
-		}
-		if (mech.getBallisticSlots() > config.ballisticSlots)
-		{
-			score -= mech.getBallisticSlots();
-		}
-		if (mech.getMissileSlots() > config.missileSlots)
-		{
-			score -= mech.getMissileSlots();
-		}
-		if (mech.getEcmSlots() > config.ecmSlots)
-		{
-			score -= mech.getEcmSlots();
-		}
-		if (mech.getAmsSlots() > config.amsSlots)
-		{
-			score -= mech.getAmsSlots();
-		}
 		if (mech.itemCount("C-HEAVY MED LASER") > 0 && mech.itemCount(new ClanLinkedLasersPredicate()) >= 4)
 		{
 			score -= 1;
@@ -64,8 +36,8 @@ public class MechFitnessFunction2
 		// }
 		score *= 10000;
 		// score += a.totalDps();
-		final int time = 30;
-		score += sim(mech, 0, config.range) * time * (1 / 15f);
+		final int time = 120;
+		score += sim(mech, 0, config.range) * time / 10;
 		score += sim(mech, time, config.range);
 		// score += sim(a, 60) / 4;
 		// score += sim(a, 120) / 8;

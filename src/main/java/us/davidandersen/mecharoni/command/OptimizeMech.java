@@ -1,14 +1,17 @@
 package us.davidandersen.mecharoni.command;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import us.davidandersen.mecharoni.command.OptimizeMech.OptimizeMechRequestAdapter;
+import us.davidandersen.mecharoni.command.OptimizeMech.OptimizeMechRequest;
 import us.davidandersen.mecharoni.entity.Component;
+import us.davidandersen.mecharoni.entity.Location;
+import us.davidandersen.mecharoni.entity.LocationType;
 import us.davidandersen.mecharoni.evolve.EvolveMech;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 
-public class OptimizeMech extends BaseCommand<OptimizeMechRequestAdapter, VoidResult>
+public class OptimizeMech extends BaseCommand<OptimizeMechRequest, VoidResult>
 {
 	private final ComponentRepository componentRepository;
 
@@ -36,17 +39,13 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequestAdapter, VoidRe
 			}
 
 			final EvolveMechConfig spec = new EvolveMechConfig();
-			spec.slots = request.getSlots();
 			spec.tons = request.getTons();
 			spec.items = items;
-			spec.amsSlots = request.getAmsSlots();
-			spec.energySlots = request.getEnergySlots();
-			spec.ballisticSlots = request.getBallisticSlots();
-			spec.missileSlots = request.getMissileSlots();
-			spec.ecmSlots = request.getEcmSlots();
 			spec.engineSinks = request.getEngineSinks();
 			spec.heatSinks = request.getHeatSinks();
 			spec.range = request.getRange();
+			spec.locations = request.getLocations();
+			spec.slots = request.getSlots();
 
 			final EvolveMech evolver = new EvolveMech();
 			evolver.run(spec);
@@ -77,11 +76,11 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequestAdapter, VoidRe
 		return false;
 	}
 
-	public interface OptimizeMechRequestAdapter
+	public interface OptimizeMechRequest
 	{
-		int getSlots();
-
 		int getRange();
+
+		int getSlots();
 
 		String getFaction();
 
@@ -89,18 +88,10 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequestAdapter, VoidRe
 
 		float getTons();
 
-		int getAmsSlots();
-
-		int getEnergySlots();
-
-		int getBallisticSlots();
-
-		int getMissileSlots();
-
-		int getEcmSlots();
-
 		int getEngineSinks();
 
 		int getHeatSinks();
+
+		Map<LocationType, Location> getLocations();
 	}
 }

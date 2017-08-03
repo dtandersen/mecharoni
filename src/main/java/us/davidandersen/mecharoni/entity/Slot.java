@@ -21,4 +21,10 @@ public class Slot
 	{
 		return component;
 	}
+
+	@Override
+	public String toString()
+	{
+		return location.toString() + ":" + component.getFriendlyName();
+	}
 }

@@ -36,7 +36,7 @@ public class MechSimulator
 			public int compare(final Weapon o1, final Weapon o2)
 			{
 				if (o1.getDph() == o2.getDph()) { return 0; }
-				return o1.getDph() > o2.getDph() ? -1 : 1;
+				return new Float(o2.getDph()).compareTo(o1.getDph());
 			}
 		});
 		// for (final Weapon weapon : data.getWeapons())

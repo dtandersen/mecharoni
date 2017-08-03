@@ -1,6 +1,7 @@
 package us.davidandersen.mecharoni.evolve;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import org.jenetics.BoltzmannSelector;
 import org.jenetics.Genotype;
@@ -13,6 +14,8 @@ import org.jenetics.engine.EvolutionResult;
 import org.jenetics.engine.limit;
 import org.jenetics.util.Factory;
 import us.davidandersen.mecharoni.entity.Component;
+import us.davidandersen.mecharoni.entity.Location;
+import us.davidandersen.mecharoni.entity.LocationType;
 import us.davidandersen.mecharoni.entity.MechSpec;
 import us.davidandersen.mecharoni.io.MechPrinter;
 
@@ -20,7 +23,8 @@ public class EvolveMech
 {
 	public void run(final EvolveMechConfig config)
 	{
-		final Factory<Genotype<MechGene>> gtf = Genotype.of(MechChromosome.of(1, config.slots, config.items, config));
+		final int slots = config.locations.values().stream().mapToInt(Location::maxSlots).sum();
+		final Factory<Genotype<MechGene>> gtf = Genotype.of(MechChromosome.of(1, slots, config.items, config));
 
 		final MechFitnessFunction2 fitnessCalculator = new MechFitnessFunction2(config);
 		final Function<Genotype<MechGene>, Double> ff = gt -> fitnessCalculator.eval(MechCodec.toMech(gt, config));
@@ -69,18 +73,10 @@ public class EvolveMech
 
 		public List<Component> items;
 
-		public int slots;
-
-		public int energySlots;
-
-		public int ballisticSlots;
-
-		public int missileSlots;
-
-		public int ecmSlots;
-
-		public int amsSlots;
-
 		public int range;
+
+		public Map<LocationType, Location> locations;
+
+		public int slots;
 	}
 }

@@ -112,8 +112,6 @@ public class JsonComponentRepository implements ComponentRepository
 				.withName("ClanDoubleHeatSink")
 				.withFriendlyName("Clan Double Heat Sink")
 				.heatSink()
-				.withHeatCapacity(1.5)
-				.withDisipation(0.15)
 				.withSlots(2)
 				.withTons(1)
 				.build());
@@ -122,8 +120,6 @@ public class JsonComponentRepository implements ComponentRepository
 				.withName("DoubleHeatSink")
 				.withFriendlyName("Double Heat Sink")
 				.heatSink()
-				.withHeatCapacity(1.5)
-				.withDisipation(0.15)
 				.withSlots(3)
 				.withTons(1)
 				.build());

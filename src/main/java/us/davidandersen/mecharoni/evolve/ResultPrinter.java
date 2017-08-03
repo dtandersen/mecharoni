@@ -25,7 +25,7 @@ public class ResultPrinter
 		if (best == null || best.compareTo(result.getBestPhenotype()) < 0)
 		{
 			this.best = result.getBestPhenotype();
-			final MechSpec a = MechCodec.toMech((MechChromosome)best.getGenotype().getChromosome(), config);
+			final MechSpec a = MechCodec.toMech2((MechChromosome)best.getGenotype().getChromosome(), config);
 
 			mechPrinter.printMech(a, config);
 			System.out.println("generation=" + best.getGeneration() + ", fitness=" + best.getFitness());
@@ -34,6 +34,6 @@ public class ResultPrinter
 
 	public MechSpec bestMech()
 	{
-		return MechCodec.toMech((MechChromosome)best.getGenotype().getChromosome(), config);
+		return MechCodec.toMech2((MechChromosome)best.getGenotype().getChromosome(), config);
 	}
 }

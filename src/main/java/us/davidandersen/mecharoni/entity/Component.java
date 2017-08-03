@@ -61,10 +61,6 @@ public class Component
 		minRange = itemBuilder.min_range;
 		longRange = itemBuilder.long_range;
 		maxRange = itemBuilder.max_range;
-		// heatCapacity = itemBuilder.heatCapacity;
-		// heatCapacity = itemBuilder.heatCapacity;
-		// heatCapacity = itemBuilder.heatCapacity;
-		// heatDisipation = itemBuilder.heatDisipation;
 		if (cooldown + duration == 0)
 		{
 			dps = 0;
@@ -100,8 +96,7 @@ public class Component
 	@Override
 	public String toString()
 	{
-		// return name + "[tons=" + tons + ", slots=" + slots + "]";
-		return name;
+		return friendlyName;
 	}
 
 	public float getDamage()
@@ -166,9 +161,9 @@ public class Component
 
 		private float duration;
 
-		private double heatCapacity;
-
-		private double heatDisipation;
+		// private double heatCapacity;
+		//
+		// private double heatDisipation;
 
 		private boolean heatSink;
 
@@ -246,18 +241,6 @@ public class Component
 		public ComponentBuilder heatSink()
 		{
 			this.heatSink = true;
-			return this;
-		}
-
-		public ComponentBuilder withHeatCapacity(final double heatCapacity)
-		{
-			this.heatCapacity = heatCapacity;
-			return this;
-		}
-
-		public ComponentBuilder withDisipation(final double heatDisipation)
-		{
-			this.heatDisipation = heatDisipation;
 			return this;
 		}
 

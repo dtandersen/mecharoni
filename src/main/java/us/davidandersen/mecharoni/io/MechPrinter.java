@@ -1,8 +1,9 @@
 package us.davidandersen.mecharoni.io;
 
 import java.io.PrintStream;
-import java.util.Map;
 import us.davidandersen.mecharoni.entity.Component;
+import us.davidandersen.mecharoni.entity.HardpointType;
+import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.MechSpec;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
@@ -17,18 +18,18 @@ public class MechPrinter
 
 	public void printMech(final MechSpec mech, final EvolveMechConfig config)
 	{
-		out.println("Tons: " + mech.getTons() + "/" + config.tons);
-		out.println("Slots: " + mech.getSlots() + "/" + config.slots);
-		out.print("Energy: " + mech.getEnergySlots() + "/" + config.energySlots);
-		out.print("  Ballistic: " + mech.getBallisticSlots() + "/" + config.ballisticSlots);
-		out.print("  Missile: " + mech.getMissileSlots() + "/" + config.missileSlots);
-		out.print("  ECM: " + mech.getEcmSlots() + "/" + config.ecmSlots);
-		out.println("  AMS: " + mech.getAmsSlots() + "/" + config.amsSlots);
+		out.println("Tons: " + mech.occupiedTons() + "/" + config.tons);
+		out.println("Slots: " + mech.getSlots() + "/" + mech.maxFreeSlots());
+		out.print("Energy: " + mech.getEnergySlots() + "/" + mech.maxHardpoints(HardpointType.ENERGY));
+		out.print("  Ballistic: " + mech.getBallisticSlots() + "/" + mech.maxHardpoints(HardpointType.BALLISTIC));
+		out.print("  Missile: " + mech.getMissileSlots() + "/" + mech.maxHardpoints(HardpointType.MISSILE));
+		out.print("  ECM: " + mech.getEcmSlots() + "/" + mech.maxHardpoints(HardpointType.ECM));
+		out.println("  AMS: " + mech.getAmsSlots() + "/" + mech.maxHardpoints(HardpointType.AMS));
 		out.println("Damage: " + mech.damageOverTime(30));
 		out.println("Heat: " + mech.disipation() + "/" + mech.hps() + " " + (mech.heatEfficiency() * 100) + "%");
 		out.println("Heat (30s): " + mech.heatExpended(30) + "/" + mech.heatRegained(30) + " " + (mech.heatRegained(30) * 100) / mech.heatExpended(30) + "%");
 		out.println("Heat Sinks: " + mech.getInternalHeatSinks() + "/" + mech.getExternalHeatSinks());
-		final Map<String, Node> it = mech.combineItems();
+		// final Map<String, Node> it = mech.combineItems();
 		// mech.forEach(item -> {
 		// if (!item.isEmpty())
 		// {
@@ -36,13 +37,22 @@ public class MechPrinter
 		// }
 		// });
 
-		for (final Node n : it.values())
+		// for (final Node n : it.values())
+		// {
+		// final Component item = n.item;
+		// if (!item.isEmpty())
+		// {
+		// out.println(n.quantity + " " + item.getFriendlyName());
+		// }
+		// }
+		for (final Location location : mech.getLocations())
 		{
-			final Component item = n.item;
-			if (!item.isEmpty())
+			// out.println(location.getLocationType());
+			for (final Component item : location.getComponents())
 			{
-				out.println(n.quantity + " " + item.getFriendlyName());
+				out.println(location.getLocationType() + ": " + item.getFriendlyName());
 			}
+
 		}
 	}
 

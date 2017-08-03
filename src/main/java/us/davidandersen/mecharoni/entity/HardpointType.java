@@ -6,7 +6,9 @@ public enum HardpointType
 {
 	ENERGY("BEAM"),
 	MISSILE("MISSLE"),
-	BALLISTIC("BALLISTIC");
+	BALLISTIC("BALLISTIC"),
+	AMS("AMS"),
+	ECM("ECM");
 
 	private final String type;
 

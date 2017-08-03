@@ -3,9 +3,15 @@ package us.davidandersen.mecharoni;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import org.yaml.snakeyaml.Yaml;
+import us.davidandersen.mecharoni.OptimizeMechCommand.MechSpecificationYaml.LocationYaml;
 import us.davidandersen.mecharoni.command.OptimizeMech;
-import us.davidandersen.mecharoni.command.OptimizeMech.OptimizeMechRequestAdapter;
+import us.davidandersen.mecharoni.command.OptimizeMech.OptimizeMechRequest;
+import us.davidandersen.mecharoni.entity.Location;
+import us.davidandersen.mecharoni.entity.Location.LocationBuilder;
+import us.davidandersen.mecharoni.entity.LocationType;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
 
@@ -25,7 +31,7 @@ public class OptimizeMechCommand
 		optimizer.execute();
 	}
 
-	private static final class OptimizeMechRequestYamlAdapter implements OptimizeMechRequestAdapter
+	private static final class OptimizeMechRequestYamlAdapter implements OptimizeMechRequest
 	{
 		private final MechSpecificationYaml specYaml;
 
@@ -35,45 +41,9 @@ public class OptimizeMechCommand
 		}
 
 		@Override
-		public int getSlots()
-		{
-			return specYaml.slots;
-		}
-
-		@Override
 		public float getTons()
 		{
 			return specYaml.tons;
-		}
-
-		@Override
-		public int getAmsSlots()
-		{
-			return specYaml.amsSlots;
-		}
-
-		@Override
-		public int getEnergySlots()
-		{
-			return specYaml.energySlots;
-		}
-
-		@Override
-		public int getBallisticSlots()
-		{
-			return specYaml.ballisticSlots;
-		}
-
-		@Override
-		public int getMissileSlots()
-		{
-			return specYaml.missileSlots;
-		}
-
-		@Override
-		public int getEcmSlots()
-		{
-			return specYaml.ecmSlots;
 		}
 
 		@Override
@@ -105,9 +75,34 @@ public class OptimizeMechCommand
 		{
 			return specYaml.range;
 		}
+
+		@Override
+		public Map<LocationType, Location> getLocations()
+		{
+			final Map<LocationType, Location> locations = new HashMap<>();
+			for (final String locationType : specYaml.locations.keySet())
+			{
+				final LocationYaml location = specYaml.locations.get(locationType);
+				final LocationType valueOf = LocationType.valueOf(locationType);
+				locations.put(valueOf, LocationBuilder.location()
+						.withLocationType(valueOf)
+						.withSlots(location.slots)
+						.withEnergy(location.energy)
+						.withBallistics(location.ballistic)
+						.withMissile(location.missile)
+						.build());
+			}
+			return locations;
+		}
+
+		@Override
+		public int getSlots()
+		{
+			return specYaml.slots;
+		}
 	}
 
-	private static final class MechSpecificationYaml
+	static final class MechSpecificationYaml
 	{
 		public String faction;
 
@@ -121,16 +116,19 @@ public class OptimizeMechCommand
 
 		public int slots;
 
-		public int energySlots;
-
-		public int ballisticSlots;
-
-		public int missileSlots;
-
-		public int ecmSlots;
-
-		public int amsSlots;
-
 		public int range;
+
+		public Map<String, LocationYaml> locations;
+
+		static final class LocationYaml
+		{
+			public int slots;
+
+			public int energy;
+
+			public int missile;
+
+			public int ballistic;
+		}
 	}
 }
