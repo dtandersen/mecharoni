@@ -21,14 +21,16 @@ public class OptimizeMechCommand
 
 	public static void main(final String[] args) throws Exception
 	{
+		final String file = args.length > 0 ? args[0] : DEFAULT_CONFIG;
+		final InputStream input = new FileInputStream(new File(file));
+		System.out.println("Loading " + file);
+
+		final Yaml yaml = new Yaml();
+		final MechSpecificationYaml data = yaml.loadAs(input, MechSpecificationYaml.class);
+
 		final ComponentRepository componentReader = new JsonComponentRepository();
 
 		final OptimizeMech optimizer = new OptimizeMech(componentReader);
-		final String file = args[0] != null ? args[0] : DEFAULT_CONFIG;
-		final InputStream input = new FileInputStream(new File(file));
-		System.out.println("Loading " + file);
-		final Yaml yaml = new Yaml();
-		final MechSpecificationYaml data = yaml.loadAs(input, MechSpecificationYaml.class);
 		optimizer.setRequest(new OptimizeMechRequestYamlAdapter(data));
 		optimizer.execute();
 	}
@@ -121,6 +123,8 @@ public class OptimizeMechCommand
 		public int range;
 
 		public Map<String, LocationYaml> locations;
+
+		public Map<String, Object> userData;
 
 		static final class LocationYaml
 		{

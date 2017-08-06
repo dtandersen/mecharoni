@@ -37,7 +37,7 @@ public class MyMutator extends Mutator<MechGene, Double>
 	{
 		final Random random = RandomRegistry.getRandom();
 		Component comp;
-		if (random.nextDouble() > .5)
+		if (random.nextDouble() < .5)
 		{
 			comp = heatSink;
 		}

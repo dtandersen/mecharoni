@@ -361,4 +361,14 @@ public class Component
 	{
 		return "BEAM".equals(type);
 	}
+
+	public boolean isMissile()
+	{
+		return "MISSLE".equals(type);
+	}
+
+	public boolean isBallistic()
+	{
+		return "BALLISTIC".equals(type);
+	}
 }

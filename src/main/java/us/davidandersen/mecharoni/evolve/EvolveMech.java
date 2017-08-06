@@ -3,15 +3,13 @@ package us.davidandersen.mecharoni.evolve;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import org.jenetics.BoltzmannSelector;
 import org.jenetics.Genotype;
 import org.jenetics.Mutator;
 import org.jenetics.Phenotype;
-import org.jenetics.SwapMutator;
+import org.jenetics.StochasticUniversalSelector;
 import org.jenetics.UniformCrossover;
 import org.jenetics.engine.Engine;
 import org.jenetics.engine.EvolutionResult;
-import org.jenetics.engine.limit;
 import org.jenetics.util.Factory;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.Location;
@@ -37,20 +35,22 @@ public class EvolveMech
 						// new MyMutator(.25, heatSink, config.items, empty),
 						// ,
 						// new SinglePointCrossover<>(),
-						new UniformCrossover<>(),
-						new SwapMutator<>())
+						new UniformCrossover<>()
+				// ,
+				// new SwapMutator<>()
+				)
 				// .selector(new TournamentSelector<>())
-				// .selector(new StochasticUniversalSelector<>())
-				.selector(new BoltzmannSelector<>(2))
+				.selector(new StochasticUniversalSelector<>())
+				// .selector(new BoltzmannSelector<>(2))
 				.populationSize(500)
 				.build();
 
 		final ResultPrinter resultPrinter = new ResultPrinter(config);
 		// final Genotype<MechGene> result = engine.stream().limit(100).collect(EvolutionResult.toBestGenotype());
 		final Phenotype<MechGene, Double> result = engine.stream()
-				.limit(limit.bySteadyFitness(10000))
+				// .limit(limit.bySteadyFitness(10000))
 				// .limit(limit.byFitnessConvergence(50, 100, 10E-4))
-				// .limit(50000)
+				.limit(50000)
 				.peek(r -> resultPrinter.update(r))
 				.collect(EvolutionResult.toBestPhenotype());
 		// final Phenotype<MechGene, Double> result = engine.stream().limit(100).collect(EvolutionResult.to);

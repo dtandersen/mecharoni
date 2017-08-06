@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import us.davidandersen.mecharoni.entity.Location.LocationBuilder;
-import us.davidandersen.mecharoni.entity.MechSpec.MechSpecBuilder;
 import us.davidandersen.mecharoni.repository.CompCache;
 import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
 
@@ -117,6 +115,19 @@ public class MechSimulatorTest
 				.build());
 		sim.go(0, 700);
 		assertThat((double)sim.damage(), closeTo(.277, .001));
+	}
+
+	@Test
+	public void machinegun()
+	{
+		final MechSimulator sim = new MechSimulator();
+		sim.addMech(PrefabMechs.cyclopsBuilder()
+				.withComponent(LocationType.RT, component("MACHINE GUN"))
+				.withComponent(LocationType.LT, component("MACHINE GUN"))
+				.withComponent(LocationType.LT, component("MACHINE GUN AMMO"))
+				.build());
+		sim.go(.1f, 100);
+		assertThat((double)sim.damage(), closeTo(.4, .001));
 	}
 
 	private Component component(final String name)

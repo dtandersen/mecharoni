@@ -393,4 +393,14 @@ public class MechSpec
 	{
 		return locations.values();
 	}
+
+	public boolean hasItem(final String string)
+	{
+		return getComponents().stream().anyMatch(c -> c.getFriendlyName().equals(string));
+	}
+
+	public float getFirepower()
+	{
+		return (float)getWeapons().stream().mapToDouble(Component::getDamage).sum();
+	}
 }
