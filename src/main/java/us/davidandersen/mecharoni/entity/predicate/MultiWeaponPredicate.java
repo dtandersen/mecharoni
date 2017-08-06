@@ -8,7 +8,7 @@ public class MultiWeaponPredicate implements Predicate<Component>
 {
 	private final String[] names;
 
-	MultiWeaponPredicate(final String... names)
+	public MultiWeaponPredicate(final String... names)
 	{
 		this.names = names;
 	}

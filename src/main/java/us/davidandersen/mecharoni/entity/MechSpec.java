@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import us.davidandersen.mecharoni.entity.Location.LocationBuilder;
+import us.davidandersen.mecharoni.entity.predicate.MultiWeaponPredicate;
 import us.davidandersen.mecharoni.io.MechPrinter.Node;
 
 public class MechSpec
@@ -18,11 +19,11 @@ public class MechSpec
 
 	private final int maxFreeSlots;
 
-	public int engineSinks;
+	private final int engineSinks;
 
-	public int heatSinks;
+	private final int heatSinks;
 
-	public float maxTons;
+	private final float maxTons;
 
 	public MechSpec(final MechSpecBuilder mechBuilder)
 	{
@@ -178,7 +179,7 @@ public class MechSpec
 		return getHeatCapacity() + getDisipation() + time;
 	}
 
-	private float getDisipation()
+	float getDisipation()
 	{
 		return (float)(getInternalHeatSinks() * .2 + getExternalHeatSinks() * .15);
 	}
@@ -203,7 +204,7 @@ public class MechSpec
 		return engineSinks;
 	}
 
-	private float getHeatCapacity()
+	public float getHeatCapacity()
 	{
 		return (float)(30 + getInternalHeatSinks() * 2 + getExternalHeatSinks() * 1.5);
 	}
@@ -402,5 +403,10 @@ public class MechSpec
 	public float getFirepower()
 	{
 		return (float)getWeapons().stream().mapToDouble(Component::getDamage).sum();
+	}
+
+	public long itemCount(final String... names)
+	{
+		return itemCount(new MultiWeaponPredicate(names));
 	}
 }

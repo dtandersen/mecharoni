@@ -21,11 +21,11 @@ public class MechPrinter
 	public void printMech(final MechSpec mech, final EvolveMechConfig config)
 	{
 		out.println("Firepower: " + mech.getFirepower());
-		out.println("Damage@250 (30s): " + sim(mech, 250, 30));
-		out.println("Damage@250 (120s): " + sim(mech, 250, 120));
-		out.println("Heat: " + mech.disipation() + "/" + mech.hps() + " " + (mech.heatEfficiency() * 100) + "%");
+		out.println("Damage@" + config.range + " (30s): " + sim(mech, config.range, 30));
+		out.println("Damage@" + config.range + " (120s): " + sim(mech, config.range, 120));
+		out.println("Heat: " + mech.disipation() + "/" + mech.hps() + " " + (mech.heatEfficiency() * 100) + "%" + "  Capacity:" + mech.getHeatCapacity());
 		out.println("Heat (30s): " + mech.heatExpended(30) + "/" + mech.heatRegained(30) + " " + (mech.heatRegained(30) * 100) / mech.heatExpended(30) + "%");
-		out.println("Heat Sinks: " + mech.getInternalHeatSinks() + "/" + mech.getExternalHeatSinks());
+		out.println("Heat Sinks: " + mech.getExternalHeatSinks() + "/(" + mech.getInternalHeatSinks() + ")");
 		out.println("Tons: " + mech.occupiedTons() + "/" + config.tons);
 		out.println("Slots: " + mech.getSlots() + "/" + mech.maxFreeSlots());
 		out.print("Energy: " + mech.getEnergySlots() + "/" + mech.maxHardpoints(HardpointType.ENERGY));

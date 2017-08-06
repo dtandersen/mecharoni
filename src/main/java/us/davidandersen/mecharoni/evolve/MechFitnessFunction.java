@@ -1,14 +1,14 @@
 package us.davidandersen.mecharoni.evolve;
 
-import us.davidandersen.mecharoni.entity.AlphaStrategy;
 import us.davidandersen.mecharoni.entity.FiringStrategy;
+import us.davidandersen.mecharoni.entity.MechSim3;
 import us.davidandersen.mecharoni.entity.MechSimulator;
 import us.davidandersen.mecharoni.entity.MechSpec;
 import us.davidandersen.mecharoni.entity.predicate.BallisticPredicate;
+import us.davidandersen.mecharoni.entity.predicate.ClanLargeLasersPredicate;
 import us.davidandersen.mecharoni.entity.predicate.ClanLinkedLasersPredicate;
 import us.davidandersen.mecharoni.entity.predicate.EnergyPredicate;
 import us.davidandersen.mecharoni.entity.predicate.MissilePredicate;
-import us.davidandersen.mecharoni.entity.predicate.PpcPenaltyGroupPredicate;
 import us.davidandersen.mecharoni.entity.predicate.SrmPenaltyGroupPredicate;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
@@ -24,14 +24,25 @@ public class MechFitnessFunction
 	public double eval(final MechSpec mech)
 	{
 		double score = 0;
-		if (mech.itemCount("C-HEAVY MED LASER") > 0 && mech.itemCount(new ClanLinkedLasersPredicate()) >= 4)
+		final long llCount = mech.itemCount(new ClanLargeLasersPredicate());
+		if (llCount >= 3)
 		{
 			score -= 1;
 		}
-		if (mech.itemCount(new PpcPenaltyGroupPredicate()) >= 2)
+		else if (mech.itemCount("C-HEAVY LRG LASER", "C-LRG PULSE LASER", "C-ER LRG LASER") > 0 && llCount >= 2)
 		{
 			score -= 1;
 		}
+
+		final long lCount = mech.itemCount(new ClanLinkedLasersPredicate());
+		if (mech.itemCount("C-HEAVY MED LASER") > 0 && lCount >= 4)
+		{
+			score -= 1;
+		}
+		// if (mech.itemCount(new PpcPenaltyGroupPredicate()) >= 2)
+		// {
+		// score -= 1;
+		// }
 
 		final long srmCount = mech.itemCount(new SrmPenaltyGroupPredicate());
 		if (srmCount > 4)
@@ -59,24 +70,47 @@ public class MechFitnessFunction
 		{
 			score -= 1;
 		}
-		if (mech.itemCount(new BallisticPredicate()) < 0)
+		if (mech.itemCount(new BallisticPredicate()) > 0)
 		{
 			score -= 1;
 		}
-		if (mech.uniqueWeapons() > 2)
+		if (mech.uniqueWeapons() > 3)
 		{
 			score -= 1;
 		}
 		score *= 10000;
-		final int time = 120;
-		// score += mech.getFirepower() * 30;
-		score += sim(mech, 0, config.range, new AlphaStrategy()) * 30;
+		// final int time = 30;
+		// score += mech.getFirepower();
+		// score += sim(mech, 15, config.range, new AlphaStrategy());
 		// score += sim(mech, time, config.range, new AlwaysFireStrategy());
-		score -= mech.uniqueWeapons() / 10;
+		// score -= mech.uniqueWeapons();
 		// score *= (1 + .1 * (mech.occupiedTons() / config.tons));
 		// for (int i = 0; i < 5; i++)
 		// {
 		// score += sim(mech, 120, config.range);
+		// }
+
+		// final MechSim2 sim2 = new MechSim2();
+		// sim2.addMech(mech);
+		// sim2.run(30);
+		// score += sim2.getScore();
+
+		final MechSim3 sim3 = new MechSim3();
+		sim3.addMech(mech);
+		sim3.run(15, config.range);
+		score += sim3.getDamage();
+		if (sim3.getHeatOver() > 0)
+		{
+			score -= (sim3.getHeatOver() * sim3.getDph());
+		}
+
+		// try
+		// {
+		// Thread.sleep(0);
+		// }
+		// catch (final InterruptedException e)
+		// {
+		// e.printStackTrace();
 		// }
 
 		return score;

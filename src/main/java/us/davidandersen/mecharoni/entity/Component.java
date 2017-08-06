@@ -371,4 +371,9 @@ public class Component
 	{
 		return "BALLISTIC".equals(type);
 	}
+
+	public float getDph()
+	{
+		return damage / heat;
+	}
 }
