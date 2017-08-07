@@ -10,6 +10,7 @@ public class QuirkedComponent implements Component
 	{
 		this.component = component;
 		this.quirks = quirks;
+		// quirks.apply(this);
 	}
 
 	@Override
