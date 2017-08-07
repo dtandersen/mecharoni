@@ -14,9 +14,9 @@ import us.davidandersen.mecharoni.io.MechPrinter.Node;
 
 public class MechBuild
 {
-	private final MechSpec mechSpec;
+	final MechSpec mechSpec;
 
-	private final Slots slots;
+	final Slots slots;
 
 	public MechBuild(final MechBuildBuilder mechBuilder)
 	{
@@ -26,9 +26,16 @@ public class MechBuild
 		assert mechSpec.getMaxFreeSlots() > 0;
 		assert mechSpec.getLocations().size() == 8;
 
+		final ComponentValidator validator = new ComponentValidator(this);
+
 		for (final Slot slot : mechBuilder.slots)
 		{
-			addComponent(slot.getLocationType(), slot.getComponent());
+			if (!validator.isValid(slot.getLocationType(), slot.getComponent()))
+			{
+				continue;
+			}
+
+			slots.addComponent(slot.getLocationType(), slot.getComponent());
 		}
 	}
 
@@ -165,7 +172,7 @@ public class MechBuild
 		return mechSpec.getMaxFreeSlots() - occupiedSlots();
 	}
 
-	private int occupiedSlots()
+	int occupiedSlots()
 	{
 		return slots.intSum(Component::getSlots);
 	}
@@ -200,91 +207,36 @@ public class MechBuild
 		return componentCount(new MultiWeaponPredicate(names));
 	}
 
+	public double getMaxTons()
+	{
+		return mechSpec.getMaxTons();
+	}
+
+	public Location getLocation(final LocationType locationType)
+	{
+		return mechSpec.getLocations().get(locationType);
+	}
+
+	long hardpointsUsed(final HardpointType type, final Location location)
+	{
+		return componentsInLocation(location.getLocationType()).stream().filter(c -> c.getHardpointType() == type).count();
+	}
+
+	int occupiedSlots(final LocationType locationType)
+	{
+		final List<Component> componentsInLocation = componentsInLocation(locationType);
+		return componentsInLocation.stream().mapToInt(Component::getSlots).sum();
+	}
+
 	private void forEach(final Consumer<Component> action)
 	{
 		slots.forEach(action);
-	}
-
-	private void addComponent(final LocationType locationType, final Component component)
-	{
-		if (!isValid(locationType, component)) { return; }
-
-		slots.addComponent(locationType, component);
-	}
-
-	private boolean isValid(final LocationType locationType, final Component component)
-	{
-		boolean valid = true;
-		final ComponentValidator validator;
-		if (tooHeavy(component.getTons()))
-		{
-			valid = false;
-		}
-		final Location location = mechSpec.getLocations().get(locationType);
-		final boolean locationhasSlots = locationHasSlots(component, locationType);
-		if (!locationhasSlots)
-		{
-			valid = false;
-		}
-		if (!hasFreeSlots(component.getSlots()))
-		{
-			valid = false;
-		}
-		if (isLocationFull(component, location))
-		{
-			valid = false;
-		}
-		return valid;
-	}
-
-	private boolean locationHasSlots(final Component component, final LocationType locationType)
-	{
-		final Location location = mechSpec.getLocations().get(locationType);
-		// 3 - 2 = 1 >= 1
-		final boolean locationhasSlots = location.getSlots() - occupiedSlots(locationType) >= component.getSlots();
-
-		return locationhasSlots;
-	}
-
-	private boolean hasFreeSlots(final int slots)
-	{
-		return maxFreeSlots() - occupiedSlots() >= slots;
-	}
-
-	private boolean tooHeavy(final float tons)
-	{
-		final double occupiedTons = slots.occupiedTons() + tons;
-		return occupiedTons > mechSpec.getMaxTons();
 	}
 
 	private int typeCount(final String type)
 	{
 		final Predicate<? super Component> predicate = component -> Objects.equals(component.getType(), type);
 		return (int)slots.count(predicate);
-	}
-
-	private long hardpointsUsed(final HardpointType type, final Location location)
-	{
-		return componentsInLocation(location.getLocationType()).stream().filter(c -> c.getHardpointType() == type).count();
-	}
-
-	private int occupiedSlots(final LocationType locationType)
-	{
-		final List<Component> componentsInLocation = componentsInLocation(locationType);
-		return componentsInLocation.stream().mapToInt(Component::getSlots).sum();
-	}
-
-	private boolean isLocationFull(final Component component, final Location location)
-	{
-		final long hardpointsUsed = hardpointsUsed(component.getHardpointType(), location);
-		final int hardpointsMax = location.getHardpointCount(component.getHardpointType());
-
-		final boolean isUndefinedHardpoint = component.getHardpointType() == null;
-		final boolean hasRoom = hardpointsUsed < hardpointsMax;
-
-		if (!(isUndefinedHardpoint || hasRoom)) { return true; }
-
-		return false;
 	}
 
 	public static class MechBuildBuilder
