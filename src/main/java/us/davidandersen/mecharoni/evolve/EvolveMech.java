@@ -21,7 +21,7 @@ public class EvolveMech
 {
 	public void run(final EvolveMechConfig config)
 	{
-		final int slots = config.locations.values().stream().mapToInt(Location::maxSlots).sum();
+		final int slots = config.locations.values().stream().mapToInt(Location::getSlots).sum();
 		final Factory<Genotype<MechGene>> gtf = Genotype.of(MechChromosome.of(1, slots, config.items, config));
 
 		final MechFitnessFunction fitnessCalculator = new MechFitnessFunction(config);

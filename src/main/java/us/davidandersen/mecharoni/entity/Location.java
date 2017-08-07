@@ -1,24 +1,20 @@
 package us.davidandersen.mecharoni.entity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Location
 {
-	private final List<Component> components = new ArrayList<>();
-
 	private final LocationType locationType;
 
-	private final Map<HardpointType, Integer> hardpoints;
+	private final Map<HardpointType, Integer> hardpointCount;
 
 	private final int slots;
 
 	public Location(final LocationBuilder locationBuilder)
 	{
 		locationType = locationBuilder.locationType;
-		hardpoints = locationBuilder.hardpoints;
+		hardpointCount = locationBuilder.hardpointCount;
 		slots = locationBuilder.slots;
 	}
 
@@ -27,59 +23,23 @@ public class Location
 		return locationType;
 	}
 
-	public List<Component> getComponents()
+	public int getHardpointCount(final HardpointType type)
 	{
-		return components;
+		if (!hardpointCount.containsKey(type)) { return 0; }
+
+		return hardpointCount.get(type);
 	}
 
-	public void addComponent(final Component component)
-	{
-		if (component.getHardpointType() == null)
-		{
-			components.add(component);
-		}
-		final long hardpointsUsed = hardpointsUsed(component.getHardpointType());
-		final int hardpointsMax = hardpointsMax(component.getHardpointType());
-
-		if (hardpointsUsed < hardpointsMax)
-		{
-			components.add(component);
-		}
-	}
-
-	private long hardpointsUsed(final HardpointType type)
-	{
-		return components.stream().filter(c -> c.getHardpointType() == type).count();
-	}
-
-	public int hardpointsMax(final HardpointType type)
-	{
-		if (!hardpoints.containsKey(type)) { return 0; }
-
-		return hardpoints.get(type);
-	}
-
-	public int maxSlots()
+	public int getSlots()
 	{
 		return slots;
-	}
-
-	public boolean hasFreeSlots(final int slots)
-	{
-		// 3 - 2 = 1 >= 1
-		return maxSlots() - occupiedSlots() >= slots;
-	}
-
-	private int occupiedSlots()
-	{
-		return components.stream().mapToInt(Component::getSlots).sum();
 	}
 
 	public static class LocationBuilder
 	{
 		private int slots;
 
-		private final Map<HardpointType, Integer> hardpoints = new HashMap<>();
+		private final Map<HardpointType, Integer> hardpointCount = new HashMap<>();
 
 		private LocationType locationType;
 
@@ -101,13 +61,13 @@ public class Location
 
 		public LocationBuilder withEnergy(final int energy)
 		{
-			hardpoints.put(HardpointType.ENERGY, energy);
+			hardpointCount.put(HardpointType.ENERGY, energy);
 			return this;
 		}
 
 		public LocationBuilder withBallistics(final int ballistic)
 		{
-			hardpoints.put(HardpointType.BALLISTIC, ballistic);
+			hardpointCount.put(HardpointType.BALLISTIC, ballistic);
 			return this;
 		}
 
@@ -119,19 +79,19 @@ public class Location
 
 		public LocationBuilder withMissile(final int missile)
 		{
-			hardpoints.put(HardpointType.MISSILE, missile);
+			hardpointCount.put(HardpointType.MISSILE, missile);
 			return this;
 		}
 
 		public LocationBuilder withAms(final int ams)
 		{
-			hardpoints.put(HardpointType.AMS, ams);
+			hardpointCount.put(HardpointType.AMS, ams);
 			return this;
 		}
 
 		public LocationBuilder withEcm(final int ecm)
 		{
-			hardpoints.put(HardpointType.ECM, ecm);
+			hardpointCount.put(HardpointType.ECM, ecm);
 			return this;
 		}
 	}

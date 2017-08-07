@@ -25,6 +25,8 @@ public class MechSpec
 
 	private final float maxTons;
 
+	private final List<Slot> components = new ArrayList<>();
+
 	public MechSpec(final MechSpecBuilder mechBuilder)
 	{
 		assert mechBuilder.maxTons > 0;
@@ -35,6 +37,7 @@ public class MechSpec
 		heatSinks = mechBuilder.heatSinks;
 		maxTons = mechBuilder.maxTons;
 		maxFreeSlots = mechBuilder.maxFreeSlots;
+
 		for (final Location location : mechBuilder.locations)
 		{
 			locations.put(location.getLocationType(), location);
@@ -50,29 +53,30 @@ public class MechSpec
 		if (tooHeavy(component.getTons())) { return; }
 
 		final Location location = locations.get(locationType);
-		if (!location.hasFreeSlots(component.getSlots())) { return; }
+		final boolean locationhasSlots = locationHasSlots(component, locationType);
+		if (!locationhasSlots) { return; }
 		if (!hasFreeSlots(component.getSlots())) { return; }
+		if (isLocationFull(component, location)) { return; }
 
-		location.addComponent(component);
+		components.add(new Slot(locationType, component));
 	}
 
-	// private boolean isValid(final Component item)
-	// {
-	// if (slotsFull(item.getType())) { return false; }
-	// if (tooHeavy(item.getTons())) { return false; }
-	// if (notEnoughSlots(item.getSlots())) { return false; }
-	//
-	// return true;
-	// }
+	private boolean locationHasSlots(final Component component, final LocationType locationType)
+	{
+		final Location location = locations.get(locationType);
+		// 3 - 2 = 1 >= 1
+		final boolean locationhasSlots = location.getSlots() - occupiedSlots(locationType) >= component.getSlots();
 
-	// private boolean notEnoughSlots(final int slots)
-	// {
-	// final int occupiedSlots = getSlots();
-	// final int maxSlots = getMaxSlots();
-	// final int newSlots = occupiedSlots + slots;
-	//
-	// return newSlots > maxSlots;
-	// }
+		return locationhasSlots;
+	}
+
+	public List<Component> componentsInLocation(final LocationType locationType)
+	{
+		return components.stream()
+				.filter(s -> s.getLocationType() == locationType)
+				.map(s -> s.getComponent())
+				.collect(Collectors.toList());
+	}
 
 	private boolean hasFreeSlots(final int slots)
 	{
@@ -81,7 +85,7 @@ public class MechSpec
 
 	public int getMaxSlots()
 	{
-		return locations.values().stream().mapToInt(loc -> loc.maxSlots()).sum();
+		return locations.values().stream().mapToInt(loc -> loc.getSlots()).sum();
 	}
 
 	private boolean tooHeavy(final float tons)
@@ -89,31 +93,6 @@ public class MechSpec
 		final double occupiedTons = occupiedTons() + tons;
 		return occupiedTons > maxTons;
 	}
-
-	// private boolean slotsFull(final String type)
-	// {
-	// if (type == null) { return false; }
-	// return typeCount(type) >= typeSlots(type);
-	// }
-
-	// private int typeSlots(final String type)
-	// {
-	// switch (type)
-	// {
-	// case "BEAM":
-	// return getMaxHardpoints(HardpointType.ENERGY);
-	// case "MISSLE":
-	// return getMaxHardpoints(HardpointType.MISSILE);
-	// case "BALLISTIC":
-	// return getMaxHardpoints(HardpointType.BALLISTIC);
-	// case "AMS":
-	// return getMaxHardpoints(HardpointType.AMS);
-	// case "ECM":
-	// return getMaxHardpoints(HardpointType.ECM);
-	// }
-	//
-	// throw new RuntimeException();
-	// }
 
 	public double totalDamage()
 	{
@@ -131,15 +110,9 @@ public class MechSpec
 		return getComponents().stream().mapToInt(Component::getSlots).sum();
 	}
 
-	private ArrayList<Component> getComponents()
+	List<Component> getComponents()
 	{
-		final ArrayList<Component> comps = new ArrayList<>();
-		for (final Location location : locations.values())
-		{
-			comps.addAll(location.getComponents());
-		}
-		return comps;
-		// return data.components;
+		return components.stream().map(s -> s.getComponent()).collect(Collectors.toList());
 	}
 
 	public double occupiedTons()
@@ -298,11 +271,6 @@ public class MechSpec
 		return f;
 	}
 
-	public List<Component> componentsInLocation(final LocationType locationType)
-	{
-		return locations.get(locationType).getComponents();
-	}
-
 	public int freeSlots()
 	{
 		return maxFreeSlots - occupiedSlots();
@@ -315,12 +283,55 @@ public class MechSpec
 
 	public int maxHardpoints(final HardpointType hardpointType)
 	{
-		return locations.values().stream().mapToInt(location -> location.hardpointsMax(hardpointType)).sum();
+		return locations.values().stream().mapToInt(location -> location.getHardpointCount(hardpointType)).sum();
 	}
 
 	public int maxFreeSlots()
 	{
 		return maxFreeSlots;
+	}
+
+	public Collection<Location> getLocations()
+	{
+		return locations.values();
+	}
+
+	public boolean hasItem(final String string)
+	{
+		return getComponents().stream().anyMatch(c -> c.getFriendlyName().equals(string));
+	}
+
+	public float getFirepower()
+	{
+		return (float)getWeapons().stream().mapToDouble(Component::getDamage).sum();
+	}
+
+	public long itemCount(final String... names)
+	{
+		return itemCount(new MultiWeaponPredicate(names));
+	}
+
+	long hardpointsUsed(final HardpointType type, final Location location)
+	{
+		return componentsInLocation(location.getLocationType()).stream().filter(c -> c.getHardpointType() == type).count();
+	}
+
+	private int occupiedSlots(final LocationType locationType)
+	{
+		return componentsInLocation(locationType).stream().mapToInt(Component::getSlots).sum();
+	}
+
+	boolean isLocationFull(final Component component, final Location location)
+	{
+		final long hardpointsUsed = hardpointsUsed(component.getHardpointType(), location);
+		final int hardpointsMax = location.getHardpointCount(component.getHardpointType());
+
+		final boolean isUndefinedHardpoint = component.getHardpointType() == null;
+		final boolean hasRoom = hardpointsUsed < hardpointsMax;
+
+		if (!(isUndefinedHardpoint || hasRoom)) { return true; }
+
+		return false;
 	}
 
 	public static class MechSpecBuilder
@@ -388,25 +399,5 @@ public class MechSpec
 		{
 			return new MechSpecBuilder();
 		}
-	}
-
-	public Collection<Location> getLocations()
-	{
-		return locations.values();
-	}
-
-	public boolean hasItem(final String string)
-	{
-		return getComponents().stream().anyMatch(c -> c.getFriendlyName().equals(string));
-	}
-
-	public float getFirepower()
-	{
-		return (float)getWeapons().stream().mapToDouble(Component::getDamage).sum();
-	}
-
-	public long itemCount(final String... names)
-	{
-		return itemCount(new MultiWeaponPredicate(names));
 	}
 }

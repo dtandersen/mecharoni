@@ -35,13 +35,13 @@ public class MechCodec
 		for (final Location location : config.locations.values())
 		{
 			mechSpecBuilder.withLocation(LocationBuilder.location()
-					.withEnergy(location.hardpointsMax(HardpointType.ENERGY))
-					.withMissile(location.hardpointsMax(HardpointType.MISSILE))
-					.withBallistics(location.hardpointsMax(HardpointType.BALLISTIC))
-					.withAms(location.hardpointsMax(HardpointType.AMS))
-					.withEcm(location.hardpointsMax(HardpointType.ECM))
+					.withEnergy(location.getHardpointCount(HardpointType.ENERGY))
+					.withMissile(location.getHardpointCount(HardpointType.MISSILE))
+					.withBallistics(location.getHardpointCount(HardpointType.BALLISTIC))
+					.withAms(location.getHardpointCount(HardpointType.AMS))
+					.withEcm(location.getHardpointCount(HardpointType.ECM))
 					.withLocationType(location.getLocationType())
-					.withSlots(location.maxSlots()));
+					.withSlots(location.getSlots()));
 		}
 
 		final List<LocationType> locationTypes = getLocationTypes(config.locations);
@@ -50,7 +50,6 @@ public class MechCodec
 		{
 			final MechGene g = c.getGene(i);
 			final Component component = g.getAllele();
-			// c.forEach(x -> mechSpecBuilder.add(x.getAllele()));
 			mechSpecBuilder.withComponent(locationTypes.get(i), component);
 		}
 
@@ -73,7 +72,7 @@ public class MechCodec
 		// final int total = sortedlocs.stream().mapToInt(loc -> loc.getSlots()).sum();
 		for (final Location loc : sortedlocs)
 		{
-			for (int i = 0; i < loc.maxSlots(); i++)
+			for (int i = 0; i < loc.getSlots(); i++)
 			{
 				types.add(loc.getLocationType());
 			}

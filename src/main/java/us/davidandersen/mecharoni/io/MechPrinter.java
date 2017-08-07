@@ -61,7 +61,7 @@ public class MechPrinter
 		for (final Location location : mech.getLocations())
 		{
 			// out.println(location.getLocationType());
-			for (final Component item : location.getComponents())
+			for (final Component item : mech.componentsInLocation(location.getLocationType()))
 			{
 				if (!item.isEmpty())
 				{
