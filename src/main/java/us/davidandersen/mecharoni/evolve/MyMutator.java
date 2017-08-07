@@ -6,17 +6,17 @@ import java.util.Random;
 import org.jenetics.Mutator;
 import org.jenetics.util.MSeq;
 import org.jenetics.util.RandomRegistry;
-import us.davidandersen.mecharoni.entity.Component;
+import us.davidandersen.mecharoni.entity.BasicComponent;
 
 public class MyMutator extends Mutator<MechGene, Double>
 {
-	private final Component heatSink;
+	private final BasicComponent heatSink;
 
-	private final List<Component> items;
+	private final List<BasicComponent> items;
 
-	private final Component empty;
+	private final BasicComponent empty;
 
-	public MyMutator(final double p, final Component heatSink, final List<Component> items, final Component empty)
+	public MyMutator(final double p, final BasicComponent heatSink, final List<BasicComponent> items, final BasicComponent empty)
 	{
 		super(p);
 		this.heatSink = heatSink;
@@ -24,7 +24,7 @@ public class MyMutator extends Mutator<MechGene, Double>
 		this.empty = empty;
 	}
 
-	public MyMutator(final double p, final Component heatSink, final List<Component> items)
+	public MyMutator(final double p, final BasicComponent heatSink, final List<BasicComponent> items)
 	{
 		super(p);
 		this.heatSink = heatSink;
@@ -36,7 +36,7 @@ public class MyMutator extends Mutator<MechGene, Double>
 	protected int mutate(final MSeq<MechGene> genes, final double p)
 	{
 		final Random random = RandomRegistry.getRandom();
-		Component comp;
+		BasicComponent comp;
 		if (random.nextDouble() < .5)
 		{
 			comp = heatSink;

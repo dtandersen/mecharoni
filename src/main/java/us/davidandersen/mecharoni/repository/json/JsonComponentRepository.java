@@ -9,8 +9,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import us.davidandersen.mecharoni.entity.Component;
-import us.davidandersen.mecharoni.entity.Component.ComponentBuilder;
+import us.davidandersen.mecharoni.entity.BasicComponent;
+import us.davidandersen.mecharoni.entity.BasicComponent.ComponentBuilder;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 import us.davidandersen.mecharoni.repository.json.JsonAmmoReader.AmmoJson;
 
@@ -27,9 +27,9 @@ public class JsonComponentRepository implements ComponentRepository
 	}
 
 	@Override
-	public List<Component> all() throws JsonSyntaxException, JsonIOException, FileNotFoundException
+	public List<BasicComponent> all() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final List<Component> components = new ArrayList<>();
+		final List<BasicComponent> components = new ArrayList<>();
 
 		readWeapons(components);
 		readAmmo(components);
@@ -39,9 +39,9 @@ public class JsonComponentRepository implements ComponentRepository
 	}
 
 	@Override
-	public List<Component> clanComponents() throws JsonSyntaxException, JsonIOException, FileNotFoundException
+	public List<BasicComponent> clanComponents() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final List<Component> clanItems = all().stream()
+		final List<BasicComponent> clanItems = all().stream()
 				.filter(item -> item.isClan())
 				.collect(Collectors.toList());
 
@@ -49,16 +49,16 @@ public class JsonComponentRepository implements ComponentRepository
 	}
 
 	@Override
-	public List<Component> isComponents() throws Exception
+	public List<BasicComponent> isComponents() throws Exception
 	{
-		final List<Component> clanItems = all().stream()
+		final List<BasicComponent> clanItems = all().stream()
 				.filter(item -> item.isInnerSphere())
 				.collect(Collectors.toList());
 
 		return Collections.unmodifiableList(clanItems);
 	}
 
-	private void readWeapons(final List<Component> components)
+	private void readWeapons(final List<BasicComponent> components)
 	{
 		final HashMap<String, JsonWeaponReader.WeaponJson> weapons = jsonWeaponReader.readWeapons();
 
@@ -81,7 +81,7 @@ public class JsonComponentRepository implements ComponentRepository
 						.build()));
 	}
 
-	private void readAmmo(final List<Component> components)
+	private void readAmmo(final List<BasicComponent> components)
 	{
 		final HashMap<String, AmmoJson> ammo = jsonAmmoReader.readAmmo();
 
@@ -100,13 +100,13 @@ public class JsonComponentRepository implements ComponentRepository
 		{
 			for (final String id : ammo2.weapons)
 			{
-				final Component weapon = components.stream().filter(c -> Objects.equals(id, c.getId())).findFirst().get();
+				final BasicComponent weapon = components.stream().filter(c -> Objects.equals(id, c.getId())).findFirst().get();
 				weapon.setAmmoType(ammo2.type);
 			}
 		}
 	}
 
-	private void readHeatSinks(final List<Component> components)
+	private void readHeatSinks(final List<BasicComponent> components)
 	{
 		components.add(new ComponentBuilder()
 				.withName("ClanDoubleHeatSink")

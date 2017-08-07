@@ -9,14 +9,17 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import us.davidandersen.mecharoni.entity.MechSpec.MechSpecBuilder;
+import us.davidandersen.mecharoni.entity.Quirk.QuirkBuilder;
 import us.davidandersen.mecharoni.entity.predicate.MultiWeaponPredicate;
 import us.davidandersen.mecharoni.io.MechPrinter.Node;
 
 public class MechBuild
 {
-	final MechSpec mechSpec;
+	private final MechSpec mechSpec;
 
-	final Slots slots;
+	private final Slots slots;
+
+	private final Quirks quirks;
 
 	public MechBuild(final MechBuildBuilder mechBuilder)
 	{
@@ -27,6 +30,7 @@ public class MechBuild
 		assert mechSpec.getLocations().size() == 8;
 
 		final ComponentValidator validator = new ComponentValidator(this);
+		quirks = new Quirks(mechBuilder.quirks);
 
 		for (final Slot slot : mechBuilder.slots)
 		{
@@ -35,11 +39,11 @@ public class MechBuild
 				continue;
 			}
 
-			slots.addComponent(slot.getLocationType(), slot.getComponent());
+			slots.addComponent(slot.getLocationType(), new QuirkedComponent(slot.getComponent(), quirks));
 		}
 	}
 
-	public List<Component> componentsInLocation(final LocationType locationType)
+	public List<? extends Component> componentsInLocation(final LocationType locationType)
 	{
 		return slots.componentsByLocation(locationType);
 	}
@@ -119,7 +123,7 @@ public class MechBuild
 		return typeCount("AMS");
 	}
 
-	public List<Component> getWeapons()
+	public List<? extends Component> getWeapons()
 	{
 		return slots.filter(component -> component.getDamage() > 0);
 	}
@@ -134,7 +138,7 @@ public class MechBuild
 		return slots.count(predicate);
 	}
 
-	public List<Component> getAmmo()
+	public List<? extends Component> getAmmo()
 	{
 		return slots.filter(comp -> comp.getName().contains("Ammo"));
 	}
@@ -217,6 +221,11 @@ public class MechBuild
 		return mechSpec.getLocations().get(locationType);
 	}
 
+	public Component getWeapon(final String friendlyName)
+	{
+		return slots.findFirst(component -> component.hasFriendlyName(friendlyName));
+	}
+
 	long hardpointsUsed(final HardpointType type, final Location location)
 	{
 		return componentsInLocation(location.getLocationType()).stream().filter(c -> c.getHardpointType() == type).count();
@@ -224,7 +233,7 @@ public class MechBuild
 
 	int occupiedSlots(final LocationType locationType)
 	{
-		final List<Component> componentsInLocation = componentsInLocation(locationType);
+		final List<? extends Component> componentsInLocation = componentsInLocation(locationType);
 		return componentsInLocation.stream().mapToInt(Component::getSlots).sum();
 	}
 
@@ -245,15 +254,24 @@ public class MechBuild
 
 		private final List<Slot> slots = new ArrayList<>();
 
+		private final Map<QuirkType, Quirk> quirks = new HashMap<>();
+
 		public MechBuildBuilder withSpec(final MechSpecBuilder mechSpecBuilder)
 		{
 			this.mechSpecBuilder = mechSpecBuilder;
 			return this;
 		}
 
-		public MechBuildBuilder withComponent(final LocationType location, final Component component)
+		public MechBuildBuilder withComponent(final LocationType location, final BasicComponent component)
 		{
 			slots.add(new Slot(location, component));
+			return this;
+		}
+
+		public MechBuildBuilder withQuirks(final QuirkBuilder quirkBuilder)
+		{
+			final Quirk quirk = quirkBuilder.build();
+			quirks.put(quirk.getQuirkType(), quirk);
 			return this;
 		}
 

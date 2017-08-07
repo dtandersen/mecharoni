@@ -1,13 +1,13 @@
 package us.davidandersen.mecharoni.repository;
 
 import java.util.List;
-import us.davidandersen.mecharoni.entity.Component;
+import us.davidandersen.mecharoni.entity.BasicComponent;
 
 public interface ComponentRepository
 {
-	List<Component> all() throws Exception;
+	List<BasicComponent> all() throws Exception;
 
-	List<Component> clanComponents() throws Exception;
+	List<BasicComponent> clanComponents() throws Exception;
 
-	List<Component> isComponents() throws Exception;
+	List<BasicComponent> isComponents() throws Exception;
 }

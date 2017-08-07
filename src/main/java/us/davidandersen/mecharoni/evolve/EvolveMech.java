@@ -11,7 +11,7 @@ import org.jenetics.UniformCrossover;
 import org.jenetics.engine.Engine;
 import org.jenetics.engine.EvolutionResult;
 import org.jenetics.util.Factory;
-import us.davidandersen.mecharoni.entity.Component;
+import us.davidandersen.mecharoni.entity.BasicComponent;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.LocationType;
 import us.davidandersen.mecharoni.entity.MechBuild;
@@ -26,8 +26,8 @@ public class EvolveMech
 
 		final MechFitnessFunction fitnessCalculator = new MechFitnessFunction(config);
 		final Function<Genotype<MechGene>, Double> ff = gt -> fitnessCalculator.eval(MechCodec.toMech(gt, config));
-		final Component heatSink = config.items.stream().filter(item -> item.getName().contains("HeatSink")).findFirst().get();
-		final Component empty = config.items.stream().filter(item -> item.getName().contains("Empty")).findFirst().get();
+		final BasicComponent heatSink = config.items.stream().filter(item -> item.getName().contains("HeatSink")).findFirst().get();
+		final BasicComponent empty = config.items.stream().filter(item -> item.getName().contains("Empty")).findFirst().get();
 		final Engine<MechGene, Double> engine = Engine.builder(ff, gtf)
 				.alterers(
 						new Mutator<>(),
@@ -71,7 +71,7 @@ public class EvolveMech
 
 		public float tons;
 
-		public List<Component> items;
+		public List<BasicComponent> items;
 
 		public int range;
 

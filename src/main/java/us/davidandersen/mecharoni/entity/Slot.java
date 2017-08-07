@@ -4,9 +4,9 @@ public class Slot
 {
 	private final LocationType location;
 
-	private final Component component;
+	private final BasicComponent component;
 
-	public Slot(final LocationType location, final Component component)
+	public Slot(final LocationType location, final BasicComponent component)
 	{
 		this.location = location;
 		this.component = component;
@@ -17,7 +17,7 @@ public class Slot
 		return location;
 	}
 
-	public Component getComponent()
+	public BasicComponent getComponent()
 	{
 		return component;
 	}

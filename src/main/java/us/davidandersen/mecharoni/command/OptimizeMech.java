@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import us.davidandersen.mecharoni.command.OptimizeMech.OptimizeMechRequest;
-import us.davidandersen.mecharoni.entity.Component;
+import us.davidandersen.mecharoni.entity.BasicComponent;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.LocationType;
 import us.davidandersen.mecharoni.evolve.EvolveMech;
@@ -25,7 +25,7 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequest, VoidResult>
 	{
 		try
 		{
-			List<Component> items;
+			List<BasicComponent> items;
 			switch (request.getFaction())
 			{
 			case "clan":
@@ -56,16 +56,16 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequest, VoidResult>
 		}
 	}
 
-	private static List<Component> filterItems(final String[] filters, final List<Component> readItems)
+	private static List<BasicComponent> filterItems(final String[] filters, final List<BasicComponent> readItems)
 	{
-		final List<Component> items = readItems.stream()
+		final List<BasicComponent> items = readItems.stream()
 				.filter(item -> !matches(item, filters))
 				.collect(Collectors.toList());
 
 		return items;
 	}
 
-	private static boolean matches(final Component item, final String[] filters)
+	private static boolean matches(final BasicComponent item, final String[] filters)
 	{
 		for (final String filter : filters)
 		{

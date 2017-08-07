@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 
 public class Slots
 {
-	private final List<Component> components;
+	private final List<? super Component> components;
 
-	private final Map<LocationType, List<Component>> componentsByLocation;
+	private final Map<LocationType, List<? super Component>> componentsByLocation;
 
 	Slots()
 	{
@@ -23,23 +23,23 @@ public class Slots
 		this.componentsByLocation = new HashMap<>();
 	}
 
-	List<Component> componentsByLocation(final LocationType locationType)
+	List<? extends Component> componentsByLocation(final LocationType locationType)
 	{
-		final List<Component> list = componentsByLocation.get(locationType);
+		final List<? super Component> list = componentsByLocation.get(locationType);
 		if (list == null) { return new ArrayList<>(); }
 
-		return list;
+		return (List<? extends Component>)list;
 	}
 
 	void addComponent(final LocationType locationType, final Component component)
 	{
 		components.add(component);
-		final List<Component> list = componentsByLocation.get(locationType);
-		List<Component> compsInLoc = list;
+		final List<? super Component> list = componentsByLocation.get(locationType);
+		List<? super Component> compsInLoc = list;
 		if (compsInLoc == null)
 		{
 			compsInLoc = new ArrayList<>();
-			final List<Component> compsInLoc1 = compsInLoc;
+			final List<? super Component> compsInLoc1 = compsInLoc;
 			componentsByLocation.put(locationType, compsInLoc1);
 		}
 		compsInLoc.add(component);
@@ -60,7 +60,7 @@ public class Slots
 		return stream().anyMatch(predicate);
 	}
 
-	List<Component> filter(final Predicate<? super Component> predicate)
+	List<? extends Component> filter(final Predicate<? super Component> predicate)
 	{
 		return stream()
 				.filter(predicate)
@@ -87,13 +87,18 @@ public class Slots
 		return stream().mapToInt(mapper).sum();
 	}
 
-	private Stream<Component> stream()
+	private Stream<? extends Component> stream()
 	{
 		return getComponents().stream();
 	}
 
-	private List<Component> getComponents()
+	private List<? extends Component> getComponents()
 	{
-		return components;
+		return (List<? extends Component>)components;
+	}
+
+	public Component findFirst(final Predicate<? super Component> predicate)
+	{
+		return stream().filter(predicate).findFirst().get();
 	}
 }

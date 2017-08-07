@@ -5,6 +5,10 @@ tons: 19
 slots: 24
 engineSinks: 10
 heatSinks: 1
+enhancements:
+  laser heat: -5
+  laser duration: -9
+  heat generation: -10
 locations:
   HEAD:
     slots: 1

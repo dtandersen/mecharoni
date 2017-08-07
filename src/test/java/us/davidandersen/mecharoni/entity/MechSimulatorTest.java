@@ -21,7 +21,7 @@ public class MechSimulatorTest
 	@Before
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final List<Component> components = new JsonComponentRepository().all();
+		final List<BasicComponent> components = new JsonComponentRepository().all();
 		compCache = new CompCache(components);
 	}
 
@@ -140,7 +140,7 @@ public class MechSimulatorTest
 		assertThat((double)sim.damage(), closeTo(.4, .001));
 	}
 
-	private Component component(final String name)
+	private BasicComponent component(final String name)
 	{
 		return compCache.getComp(name);
 	}

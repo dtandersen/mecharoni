@@ -5,8 +5,8 @@ import java.util.Map;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.HardpointType;
 import us.davidandersen.mecharoni.entity.Location;
-import us.davidandersen.mecharoni.entity.MechSimulator;
 import us.davidandersen.mecharoni.entity.MechBuild;
+import us.davidandersen.mecharoni.entity.MechSimulator;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 public class MechPrinter

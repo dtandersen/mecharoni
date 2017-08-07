@@ -9,7 +9,7 @@ public class ComponentValidator
 		this.mech = mech;
 	}
 
-	boolean isValid(final LocationType locationType, final Component component)
+	boolean isValid(final LocationType locationType, final BasicComponent component)
 	{
 		if (tooHeavy(component.getTons())) { return false; }
 		if (!hasFreeSlots(component.getSlots())) { return false; }
@@ -27,7 +27,7 @@ public class ComponentValidator
 		return occupiedTons > mech.getMaxTons();
 	}
 
-	private boolean locationHasSlots(final Component component, final Location location)
+	private boolean locationHasSlots(final BasicComponent component, final Location location)
 	{
 		// 3 - 2 = 1 >= 1
 		final boolean locationhasSlots = location.getSlots() - mech.occupiedSlots(location.getLocationType()) >= component.getSlots();
@@ -40,7 +40,7 @@ public class ComponentValidator
 		return mech.maxFreeSlots() - mech.occupiedSlots() >= slots;
 	}
 
-	private boolean isLocationFull(final Component component, final Location location)
+	private boolean isLocationFull(final BasicComponent component, final Location location)
 	{
 		final long hardpointsUsed = mech.hardpointsUsed(component.getHardpointType(), location);
 		final int hardpointsMax = location.getHardpointCount(component.getHardpointType());
