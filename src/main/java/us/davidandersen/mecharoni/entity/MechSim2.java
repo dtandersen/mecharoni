@@ -4,11 +4,11 @@ import java.util.List;
 
 public class MechSim2
 {
-	private MechSpec mech;
+	private MechBuild mech;
 
 	private float total = 0;
 
-	public void addMech(final MechSpec mech)
+	public void addMech(final MechBuild mech)
 	{
 		this.mech = mech;
 	}

@@ -5,7 +5,7 @@ import us.davidandersen.mecharoni.entity.Weapon.WeaponBuilder;
 
 public class MechSim3
 {
-	private MechSpec mech;
+	private MechBuild mech;
 
 	private float damage = 0;
 
@@ -15,7 +15,7 @@ public class MechSim3
 
 	private float heatOver;
 
-	public void addMech(final MechSpec mech)
+	public void addMech(final MechBuild mech)
 	{
 		this.mech = mech;
 	}

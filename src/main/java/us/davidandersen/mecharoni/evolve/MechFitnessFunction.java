@@ -3,7 +3,7 @@ package us.davidandersen.mecharoni.evolve;
 import us.davidandersen.mecharoni.entity.FiringStrategy;
 import us.davidandersen.mecharoni.entity.MechSim3;
 import us.davidandersen.mecharoni.entity.MechSimulator;
-import us.davidandersen.mecharoni.entity.MechSpec;
+import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.entity.predicate.BallisticPredicate;
 import us.davidandersen.mecharoni.entity.predicate.ClanLargeLasersPredicate;
 import us.davidandersen.mecharoni.entity.predicate.ClanLinkedLasersPredicate;
@@ -21,10 +21,10 @@ public class MechFitnessFunction
 		this.config = config;
 	}
 
-	public double eval(final MechSpec mech)
+	public double eval(final MechBuild mech)
 	{
 		double score = 0;
-		final long llCount = mech.itemCount(new ClanLargeLasersPredicate());
+		final long llCount = mech.componentCount(new ClanLargeLasersPredicate());
 		if (llCount >= 3)
 		{
 			score -= 1;
@@ -34,8 +34,8 @@ public class MechFitnessFunction
 			score -= 1;
 		}
 
-		final long lCount = mech.itemCount(new ClanLinkedLasersPredicate());
-		if (mech.itemCount("C-HEAVY MED LASER") > 0 && lCount >= 4)
+		final long lCount = mech.componentCount(new ClanLinkedLasersPredicate());
+		if (mech.componentCountByFriendlyName("C-HEAVY MED LASER") > 0 && lCount >= 4)
 		{
 			score -= 1;
 		}
@@ -44,7 +44,7 @@ public class MechFitnessFunction
 		// score -= 1;
 		// }
 
-		final long srmCount = mech.itemCount(new SrmPenaltyGroupPredicate());
+		final long srmCount = mech.componentCount(new SrmPenaltyGroupPredicate());
 		if (srmCount > 4)
 		{
 			score -= 1;
@@ -62,15 +62,15 @@ public class MechFitnessFunction
 			score -= 1;
 		}
 
-		if (mech.itemCount(new EnergyPredicate()) < 0)
+		if (mech.componentCount(new EnergyPredicate()) < 0)
 		{
 			score -= 1;
 		}
-		if (mech.itemCount(new MissilePredicate()) < 0)
+		if (mech.componentCount(new MissilePredicate()) < 0)
 		{
 			score -= 1;
 		}
-		if (mech.itemCount(new BallisticPredicate()) > 0)
+		if (mech.componentCount(new BallisticPredicate()) > 0)
 		{
 			score -= 1;
 		}
@@ -116,7 +116,7 @@ public class MechFitnessFunction
 		return score;
 	}
 
-	private float sim(final MechSpec a, final int endTime, final int range, final FiringStrategy firingStrategy)
+	private float sim(final MechBuild a, final int endTime, final int range, final FiringStrategy firingStrategy)
 	{
 		final MechSimulator ms = new MechSimulator(firingStrategy);
 		ms.addMech(a);

@@ -17,7 +17,8 @@ import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.HardpointType;
 import us.davidandersen.mecharoni.entity.LocationType;
-import us.davidandersen.mecharoni.entity.MechSpec;
+import us.davidandersen.mecharoni.entity.MechBuild;
+import us.davidandersen.mecharoni.entity.MechBuild.MechBuildBuilder;
 import us.davidandersen.mecharoni.entity.PrefabMechs;
 import us.davidandersen.mecharoni.repository.CompCache;
 import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
@@ -38,7 +39,8 @@ public class AssembleMechTest
 	@Test
 	public void abc()
 	{
-		final MechSpec mech = PrefabMechs.genericMech()
+		final MechBuild mech = MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.genericMech())
 				.withComponent(LocationType.LT, component("C-ER LRG LASER"))
 				.build();
 
@@ -48,7 +50,8 @@ public class AssembleMechTest
 	@Test
 	public void noHardpointDefined()
 	{
-		final MechSpec mech = PrefabMechs.genericMech()
+		final MechBuild mech = MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.genericMech())
 				.withComponent(LocationType.RT, component("C-SRM 6"))
 				.build();
 
@@ -58,7 +61,8 @@ public class AssembleMechTest
 	@Test
 	public void tooHeavy()
 	{
-		final MechSpec mech = PrefabMechs.genericMech()
+		final MechBuild mech = MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.genericMech())
 				.withComponent(LocationType.RT, component("AC/10"))
 				.build();
 
@@ -68,7 +72,8 @@ public class AssembleMechTest
 	@Test
 	public void cyclops()
 	{
-		final MechSpec mech = PrefabMechs.cyclopsBuilder()
+		final MechBuild mech = MechBuildBuilder.mech().withSpec(
+				PrefabMechs.cyclopsBuilder())
 				.withComponent(LocationType.RT, component("AC/10"))
 				.build();
 
@@ -98,9 +103,10 @@ public class AssembleMechTest
 	@Test
 	public void sleipnir()
 	{
-		final MechSpec mech = PrefabMechs.cyclopsBuilder()
-				.withTons(40)
-				.withFreeSlots(27)
+		final MechBuild mech = MechBuildBuilder.mech().withSpec(
+				PrefabMechs.cyclopsBuilder()
+						.withTons(40)
+						.withFreeSlots(27))
 				.withComponent(LocationType.LT, component("AC/2 AMMO"))
 				.withComponent(LocationType.LT, component("Double Heat Sink"))
 				.withComponent(LocationType.LT, component("Double Heat Sink"))
@@ -122,7 +128,8 @@ public class AssembleMechTest
 	@Test
 	public void locationOverflow()
 	{
-		final MechSpec mech = PrefabMechs.locustBuilder()
+		final MechBuild mech = MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.locustBuilder())
 				.withComponent(LocationType.HEAD, component("Double Heat Sink"))
 				.build();
 
@@ -132,7 +139,8 @@ public class AssembleMechTest
 	@Test
 	public void fillLocation()
 	{
-		final MechSpec mech = PrefabMechs.locustBuilder()
+		final MechBuild mech = MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.locustBuilder())
 				.withComponent(LocationType.RA, component("Double Heat Sink"))
 				.withComponent(LocationType.RA, component("Double Heat Sink"))
 				.withComponent(LocationType.RA, component("Double Heat Sink"))
@@ -146,7 +154,8 @@ public class AssembleMechTest
 	@Test
 	public void fillMech()
 	{
-		final MechSpec mech = PrefabMechs.locustBuilder()
+		final MechBuild mech = MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.locustBuilder())
 				.withComponent(LocationType.RA, component("Double Heat Sink"))
 				.withComponent(LocationType.RA, component("Double Heat Sink"))
 				.withComponent(LocationType.RA, component("Double Heat Sink"))
@@ -162,9 +171,10 @@ public class AssembleMechTest
 	@Test
 	public void fillAllSlotsInLocation()
 	{
-		final MechSpec mech = PrefabMechs.locustBuilder()
-				.withTons(9.5f)
-				.withFreeSlots(17)
+		final MechBuild mech = MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.locustBuilder()
+						.withTons(9.5f)
+						.withFreeSlots(17))
 				.withComponent(LocationType.RA, component("SRM AMMO (1/2)"))
 				.withComponent(LocationType.RA, component("SRM AMMO (1/2)"))
 				.withComponent(LocationType.RA, component("SRM AMMO (1/2)"))
@@ -195,9 +205,10 @@ public class AssembleMechTest
 	@Test
 	public void fillAllSlots()
 	{
-		final MechSpec mech = PrefabMechs.locustBuilder()
-				.withTons(9.5f)
-				.withFreeSlots(17)
+		final MechBuild mech = MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.locustBuilder()
+						.withTons(9.5f)
+						.withFreeSlots(17))
 				.withComponent(LocationType.RA, component("SRM AMMO (1/2)"))
 				.withComponent(LocationType.RA, component("SRM AMMO (1/2)"))
 				.withComponent(LocationType.RA, component("SRM AMMO (1/2)"))

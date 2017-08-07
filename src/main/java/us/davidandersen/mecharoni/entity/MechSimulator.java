@@ -21,7 +21,7 @@ public class MechSimulator
 		this(new AlwaysFireStrategy());
 	}
 
-	public void addMech(final MechSpec mech)
+	public void addMech(final MechBuild mech)
 	{
 		for (final Component component : mech.getWeapons())
 		{

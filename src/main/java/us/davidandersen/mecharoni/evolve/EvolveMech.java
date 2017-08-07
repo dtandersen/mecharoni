@@ -14,7 +14,7 @@ import org.jenetics.util.Factory;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.LocationType;
-import us.davidandersen.mecharoni.entity.MechSpec;
+import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.io.MechPrinter;
 
 public class EvolveMech
@@ -54,7 +54,7 @@ public class EvolveMech
 				.peek(r -> resultPrinter.update(r))
 				.collect(EvolutionResult.toBestPhenotype());
 		// final Phenotype<MechGene, Double> result = engine.stream().limit(100).collect(EvolutionResult.to);
-		final MechSpec mech = resultPrinter.bestMech();
+		final MechBuild mech = resultPrinter.bestMech();
 
 		final MechPrinter mechPrinter = new MechPrinter(System.out);
 		mechPrinter.printMech(mech, config);

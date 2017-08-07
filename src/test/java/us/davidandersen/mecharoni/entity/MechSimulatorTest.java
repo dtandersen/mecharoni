@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
+import us.davidandersen.mecharoni.entity.MechBuild.MechBuildBuilder;
 import us.davidandersen.mecharoni.repository.CompCache;
 import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
 
@@ -28,7 +29,8 @@ public class MechSimulatorTest
 	public void test()
 	{
 		final MechSimulator sim = new MechSimulator();
-		sim.addMech(PrefabMechs.boarsHead()
+		sim.addMech(MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.boarsHead())
 				.withComponent(LocationType.RA, component("ClanERLargeLaser"))
 				.withComponent(LocationType.RA, component("ClanERLargeLaser"))
 				.build());
@@ -40,7 +42,8 @@ public class MechSimulatorTest
 	public void tooMuchHeat()
 	{
 		final MechSimulator sim = new MechSimulator();
-		sim.addMech(PrefabMechs.boarsHead()
+		sim.addMech(MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.boarsHead())
 				.withComponent(LocationType.RA, component("SnubNosePPC"))
 				.withComponent(LocationType.RA, component("SnubNosePPC"))
 				.build());
@@ -52,7 +55,8 @@ public class MechSimulatorTest
 	public void noAmmo()
 	{
 		final MechSimulator sim = new MechSimulator();
-		sim.addMech(PrefabMechs.boarsHead()
+		sim.addMech(MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.boarsHead())
 				.withComponent(LocationType.LT, component("SRM6"))
 				.build());
 		sim.go(0f, 200);
@@ -63,7 +67,8 @@ public class MechSimulatorTest
 	public void useAllAmmo()
 	{
 		final MechSimulator sim = new MechSimulator();
-		sim.addMech(PrefabMechs.boarsHead()
+		sim.addMech(MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.boarsHead())
 				.withComponent(LocationType.LT, component("SRM4"))
 				.withComponent(LocationType.LT, component("SRMAmmo"))
 				.withComponent(LocationType.LT, component("SRMAmmo"))
@@ -76,7 +81,8 @@ public class MechSimulatorTest
 	public void outOfRange()
 	{
 		final MechSimulator sim = new MechSimulator();
-		sim.addMech(PrefabMechs.boarsHead()
+		sim.addMech(MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.boarsHead())
 				.withComponent(LocationType.LT, component("SRM4"))
 				.withComponent(LocationType.LT, component("SRMAmmo"))
 				.build());
@@ -88,7 +94,8 @@ public class MechSimulatorTest
 	public void tooClose()
 	{
 		final MechSimulator sim = new MechSimulator();
-		sim.addMech(PrefabMechs.boarsHead()
+		sim.addMech(MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.boarsHead())
 				.withComponent(LocationType.RA, component("LightPPC"))
 				.build());
 		sim.go(0, 0);
@@ -99,7 +106,8 @@ public class MechSimulatorTest
 	public void longRange()
 	{
 		final MechSimulator sim = new MechSimulator();
-		sim.addMech(PrefabMechs.boarsHead()
+		sim.addMech(MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.boarsHead())
 				.withComponent(LocationType.RA, component("ClanERLargeLaser"))
 				.build());
 		sim.go(0, 1110);
@@ -110,7 +118,8 @@ public class MechSimulatorTest
 	public void longRange2()
 	{
 		final MechSimulator sim = new MechSimulator();
-		sim.addMech(PrefabMechs.boarsHead()
+		sim.addMech(MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.boarsHead())
 				.withComponent(LocationType.LA, component("ERMediumLaser"))
 				.build());
 		sim.go(0, 700);
@@ -121,7 +130,8 @@ public class MechSimulatorTest
 	public void machinegun()
 	{
 		final MechSimulator sim = new MechSimulator();
-		sim.addMech(PrefabMechs.cyclopsBuilder()
+		sim.addMech(MechBuildBuilder.mech()
+				.withSpec(PrefabMechs.cyclopsBuilder())
 				.withComponent(LocationType.RT, component("MACHINE GUN"))
 				.withComponent(LocationType.LT, component("MACHINE GUN"))
 				.withComponent(LocationType.LT, component("MACHINE GUN AMMO"))

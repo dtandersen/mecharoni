@@ -11,22 +11,23 @@ import us.davidandersen.mecharoni.entity.HardpointType;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.Location.LocationBuilder;
 import us.davidandersen.mecharoni.entity.LocationType;
-import us.davidandersen.mecharoni.entity.MechSpec;
+import us.davidandersen.mecharoni.entity.MechBuild;
+import us.davidandersen.mecharoni.entity.MechBuild.MechBuildBuilder;
 import us.davidandersen.mecharoni.entity.MechSpec.MechSpecBuilder;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 public class MechCodec
 {
-	public static MechSpec toMech(final Genotype<MechGene> gt, final EvolveMechConfig config)
+	public static MechBuild toMech(final Genotype<MechGene> gt, final EvolveMechConfig config)
 	{
 		final MechChromosome c = gt.getChromosome()
 				.as(MechChromosome.class);
 		return MechCodec.toMech2(c, config);
 	}
 
-	public static MechSpec toMech2(final MechChromosome c, final EvolveMechConfig config)
+	public static MechBuild toMech2(final MechChromosome c, final EvolveMechConfig config)
 	{
-		final MechSpecBuilder mechSpecBuilder = new MechSpecBuilder()
+		final MechSpecBuilder spec = MechSpecBuilder.mech()
 				.withExternalHeatSinks(config.heatSinks)
 				.withEngineSinks(config.engineSinks)
 				.withTons(config.tons)
@@ -34,7 +35,7 @@ public class MechCodec
 
 		for (final Location location : config.locations.values())
 		{
-			mechSpecBuilder.withLocation(LocationBuilder.location()
+			spec.withLocation(LocationBuilder.location()
 					.withEnergy(location.getHardpointCount(HardpointType.ENERGY))
 					.withMissile(location.getHardpointCount(HardpointType.MISSILE))
 					.withBallistics(location.getHardpointCount(HardpointType.BALLISTIC))
@@ -43,6 +44,8 @@ public class MechCodec
 					.withLocationType(location.getLocationType())
 					.withSlots(location.getSlots()));
 		}
+		final MechBuildBuilder mechSpecBuilder = MechBuildBuilder.mech()
+				.withSpec(spec);
 
 		final List<LocationType> locationTypes = getLocationTypes(config.locations);
 

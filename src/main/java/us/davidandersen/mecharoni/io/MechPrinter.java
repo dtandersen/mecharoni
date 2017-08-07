@@ -6,7 +6,7 @@ import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.HardpointType;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.MechSimulator;
-import us.davidandersen.mecharoni.entity.MechSpec;
+import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 public class MechPrinter
@@ -18,16 +18,16 @@ public class MechPrinter
 		this.out = out;
 	}
 
-	public void printMech(final MechSpec mech, final EvolveMechConfig config)
+	public void printMech(final MechBuild mech, final EvolveMechConfig config)
 	{
 		out.println("Firepower: " + mech.getFirepower());
 		out.println("Damage@" + config.range + " (30s): " + sim(mech, config.range, 30));
 		out.println("Damage@" + config.range + " (120s): " + sim(mech, config.range, 120));
-		out.println("Heat: " + mech.disipation() + "/" + mech.hps() + " " + (mech.heatEfficiency() * 100) + "%" + "  Capacity:" + mech.getHeatCapacity());
+		out.println("Heat: " + mech.getDisipation() + "/" + mech.hps() + " " + (mech.heatEfficiency() * 100) + "%" + "  Capacity:" + mech.getHeatCapacity());
 		out.println("Heat (30s): " + mech.heatExpended(30) + "/" + mech.heatRegained(30) + " " + (mech.heatRegained(30) * 100) / mech.heatExpended(30) + "%");
 		out.println("Heat Sinks: " + mech.getExternalHeatSinks() + "/(" + mech.getInternalHeatSinks() + ")");
 		out.println("Tons: " + mech.occupiedTons() + "/" + config.tons);
-		out.println("Slots: " + mech.getSlots() + "/" + mech.maxFreeSlots());
+		out.println("Slots: " + mech.getOccupiedSlots() + "/" + mech.maxFreeSlots());
 		out.print("Energy: " + mech.getEnergySlots() + "/" + mech.maxHardpoints(HardpointType.ENERGY));
 		out.print("  Ballistic: " + mech.getBallisticSlots() + "/" + mech.maxHardpoints(HardpointType.BALLISTIC));
 		out.print("  Missile: " + mech.getMissileSlots() + "/" + mech.maxHardpoints(HardpointType.MISSILE));
@@ -37,7 +37,7 @@ public class MechPrinter
 		// printLocationComps(mech);
 	}
 
-	private void printConsolidatedItems(final MechSpec mech)
+	private void printConsolidatedItems(final MechBuild mech)
 	{
 		final Map<String, Node> it = mech.combineItems();
 		// mech.forEach(item -> {
@@ -56,7 +56,7 @@ public class MechPrinter
 		}
 	}
 
-	private void printLocationComps(final MechSpec mech)
+	private void printLocationComps(final MechBuild mech)
 	{
 		for (final Location location : mech.getLocations())
 		{
@@ -72,7 +72,7 @@ public class MechPrinter
 		}
 	}
 
-	private float sim(final MechSpec mech, final int range, final int endTime)
+	private float sim(final MechBuild mech, final int range, final int endTime)
 	{
 		final MechSimulator s = new MechSimulator();
 		s.addMech(mech);

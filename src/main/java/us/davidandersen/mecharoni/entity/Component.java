@@ -1,5 +1,7 @@
 package us.davidandersen.mecharoni.entity;
 
+import java.util.Objects;
+
 public class Component
 {
 	private final float tons;
@@ -375,5 +377,10 @@ public class Component
 	public float getDph()
 	{
 		return damage / heat;
+	}
+
+	boolean hasFriendlyName(final String friendlyName)
+	{
+		return Objects.equals(this.friendlyName, friendlyName);
 	}
 }
