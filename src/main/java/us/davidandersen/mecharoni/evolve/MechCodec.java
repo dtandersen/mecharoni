@@ -45,7 +45,8 @@ public class MechCodec
 					.withSlots(location.getSlots()));
 		}
 		final MechBuildBuilder mechSpecBuilder = MechBuildBuilder.mech()
-				.withSpec(spec);
+				.withSpec(spec)
+				.withQuirks(config.quirks);
 
 		final List<LocationType> locationTypes = getLocationTypes(config.locations);
 

@@ -15,6 +15,8 @@ import us.davidandersen.mecharoni.entity.BasicComponent;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.LocationType;
 import us.davidandersen.mecharoni.entity.MechBuild;
+import us.davidandersen.mecharoni.entity.Quirk;
+import us.davidandersen.mecharoni.entity.QuirkType;
 import us.davidandersen.mecharoni.io.MechPrinter;
 
 public class EvolveMech
@@ -78,5 +80,7 @@ public class EvolveMech
 		public Map<LocationType, Location> locations;
 
 		public int slots;
+
+		public Map<QuirkType, Quirk> quirks;
 	}
 }

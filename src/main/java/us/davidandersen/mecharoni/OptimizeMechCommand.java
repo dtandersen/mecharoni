@@ -12,6 +12,9 @@ import us.davidandersen.mecharoni.command.OptimizeMech.OptimizeMechRequest;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.Location.LocationBuilder;
 import us.davidandersen.mecharoni.entity.LocationType;
+import us.davidandersen.mecharoni.entity.Quirk;
+import us.davidandersen.mecharoni.entity.Quirk.QuirkBuilder;
+import us.davidandersen.mecharoni.entity.QuirkType;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
 
@@ -104,6 +107,24 @@ public class OptimizeMechCommand
 		{
 			return specYaml.slots;
 		}
+
+		@Override
+		public Map<QuirkType, Quirk> getQuirks()
+		{
+			final Map<QuirkType, Quirk> quirks = new HashMap<>();
+			if (specYaml.enhancements == null) { return new HashMap<>(); }
+
+			for (final String quirkName : specYaml.enhancements.keySet())
+			{
+				final QuirkType quirkType = QuirkType.find(quirkName);
+				quirks.put(quirkType, new QuirkBuilder()
+						.withQuirkType(quirkType)
+						.withValue(specYaml.enhancements.get(quirkName) / 100f)
+						.build());
+			}
+
+			return quirks;
+		}
 	}
 
 	static final class MechSpecificationYaml
@@ -125,6 +146,8 @@ public class OptimizeMechCommand
 		public Map<String, LocationYaml> locations;
 
 		public Map<String, Object> userData;
+
+		public Map<String, Float> enhancements;
 
 		static final class LocationYaml
 		{

@@ -51,7 +51,18 @@ public class MechPrinter
 			final Component item = n.item;
 			if (!item.isEmpty())
 			{
-				out.println(n.quantity + " " + item.getFriendlyName());
+				out.print(n.quantity + " " + item.getFriendlyName());
+				if (item.isWeapon())
+				{
+					out.print("[");
+					out.print("damage=" + item.getDamage() + ", ");
+					out.print("heat=" + item.getHeat() + ", ");
+					out.print("range=" + item.getMaxRange() + ", ");
+					out.print("cooldown=" + item.getCooldown() + ", ");
+					out.print("duration=" + item.getDuration());
+					out.print("]");
+				}
+				out.println();
 			}
 		}
 	}

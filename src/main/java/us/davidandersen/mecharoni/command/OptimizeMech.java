@@ -7,6 +7,8 @@ import us.davidandersen.mecharoni.command.OptimizeMech.OptimizeMechRequest;
 import us.davidandersen.mecharoni.entity.BasicComponent;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.LocationType;
+import us.davidandersen.mecharoni.entity.Quirk;
+import us.davidandersen.mecharoni.entity.QuirkType;
 import us.davidandersen.mecharoni.evolve.EvolveMech;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
@@ -46,6 +48,7 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequest, VoidResult>
 			spec.range = request.getRange();
 			spec.locations = request.getLocations();
 			spec.slots = request.getSlots();
+			spec.quirks = request.getQuirks();
 
 			final EvolveMech evolver = new EvolveMech();
 			evolver.run(spec);
@@ -93,5 +96,7 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequest, VoidResult>
 		int getHeatSinks();
 
 		Map<LocationType, Location> getLocations();
+
+		Map<QuirkType, Quirk> getQuirks();
 	}
 }

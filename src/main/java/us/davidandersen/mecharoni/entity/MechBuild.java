@@ -254,7 +254,7 @@ public class MechBuild
 
 		private final List<Slot> slots = new ArrayList<>();
 
-		private final Map<QuirkType, Quirk> quirks = new HashMap<>();
+		private Map<QuirkType, Quirk> quirks = new HashMap<>();
 
 		public MechBuildBuilder withSpec(final MechSpecBuilder mechSpecBuilder)
 		{
@@ -272,6 +272,12 @@ public class MechBuild
 		{
 			final Quirk quirk = quirkBuilder.build();
 			quirks.put(quirk.getQuirkType(), quirk);
+			return this;
+		}
+
+		public MechBuildBuilder withQuirks(final Map<QuirkType, Quirk> quirks)
+		{
+			this.quirks = quirks;
 			return this;
 		}
 

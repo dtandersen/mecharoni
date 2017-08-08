@@ -22,7 +22,7 @@ public class Quirk
 		return value;
 	}
 
-	static class QuirkBuilder
+	public static class QuirkBuilder
 	{
 		private QuirkType quirkType;
 

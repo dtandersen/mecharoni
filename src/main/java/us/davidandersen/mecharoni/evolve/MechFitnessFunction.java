@@ -1,9 +1,9 @@
 package us.davidandersen.mecharoni.evolve;
 
 import us.davidandersen.mecharoni.entity.FiringStrategy;
+import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.entity.MechSim3;
 import us.davidandersen.mecharoni.entity.MechSimulator;
-import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.entity.predicate.BallisticPredicate;
 import us.davidandersen.mecharoni.entity.predicate.ClanLargeLasersPredicate;
 import us.davidandersen.mecharoni.entity.predicate.ClanLinkedLasersPredicate;
@@ -79,9 +79,9 @@ public class MechFitnessFunction
 			score -= 1;
 		}
 		score *= 10000;
-		// final int time = 30;
+		// final int time = 120;
 		// score += mech.getFirepower();
-		// score += sim(mech, 15, config.range, new AlphaStrategy());
+		// score += sim(mech, 15, config.range, new AlphaStrategy()) * (time / 15f);
 		// score += sim(mech, time, config.range, new AlwaysFireStrategy());
 		// score -= mech.uniqueWeapons();
 		// score *= (1 + .1 * (mech.occupiedTons() / config.tons));
@@ -99,10 +99,10 @@ public class MechFitnessFunction
 		sim3.addMech(mech);
 		sim3.run(15, config.range);
 		score += sim3.getDamage();
-		if (sim3.getHeatOver() > 0)
-		{
-			score -= (sim3.getHeatOver() * sim3.getDph());
-		}
+		// if (sim3.getHeatOver() > 0)
+		// {
+		// score -= (sim3.getHeatOver() * sim3.getDph());
+		// }
 
 		// try
 		// {

@@ -4,13 +4,13 @@ public class QuirkedComponent implements Component
 {
 	private final Component component;
 
-	private final Quirks quirks;
+	private final QuirkContext quirkContext;
 
 	public QuirkedComponent(final Component component, final Quirks quirks)
 	{
 		this.component = component;
-		this.quirks = quirks;
-		// quirks.apply(this);
+		quirkContext = new QuirkContext();
+		quirks.apply(component, quirkContext);
 	}
 
 	@Override
@@ -70,19 +70,19 @@ public class QuirkedComponent implements Component
 	@Override
 	public float getHeat()
 	{
-		return component.getHeat();
+		return component.getHeat() * (1 + quirkContext.getHeat());
 	}
 
 	@Override
 	public float getDuration()
 	{
-		return component.getDuration() * (1 + quirks.get(QuirkType.LASER_DURATION));
+		return component.getDuration() * (1 + quirkContext.getDuration());
 	}
 
 	@Override
 	public float getCooldown()
 	{
-		return component.getCooldown();
+		return component.getCooldown() * (1 + quirkContext.getCooldown());
 	}
 
 	@Override
@@ -100,19 +100,19 @@ public class QuirkedComponent implements Component
 	@Override
 	public int getMinRange()
 	{
-		return component.getMinRange();
+		return (int)(component.getMinRange() * (1 + quirkContext.getRange()));
 	}
 
 	@Override
 	public int getLongRange()
 	{
-		return component.getLongRange();
+		return (int)(component.getLongRange() * (1 + quirkContext.getRange()));
 	}
 
 	@Override
 	public int getMaxRange()
 	{
-		return component.getMaxRange();
+		return (int)(component.getMaxRange() * (1 + quirkContext.getRange()));
 	}
 
 	@Override

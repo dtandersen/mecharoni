@@ -18,4 +18,15 @@ public class Quirks
 
 		return quirk.getValue();
 	}
+
+	public void apply(final Component component, final QuirkContext quirkContext)
+	{
+		for (final Quirk quirk : quirks.values())
+		{
+			if (quirk.getQuirkType().matches(component))
+			{
+				quirk.getQuirkType().applier(quirkContext, quirk);
+			}
+		}
+	}
 }
