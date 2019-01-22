@@ -7,7 +7,6 @@ import org.jenetics.Genotype;
 import org.jenetics.Mutator;
 import org.jenetics.Phenotype;
 import org.jenetics.StochasticUniversalSelector;
-import org.jenetics.UniformCrossover;
 import org.jenetics.engine.Engine;
 import org.jenetics.engine.EvolutionResult;
 import org.jenetics.util.Factory;
@@ -32,12 +31,12 @@ public class EvolveMech
 		final BasicComponent empty = config.items.stream().filter(item -> item.getName().contains("Empty")).findFirst().get();
 		final Engine<MechGene, Double> engine = Engine.builder(ff, gtf)
 				.alterers(
-						new Mutator<>(),
-						new MyMutator(.25, heatSink, config.items, empty),
-						// new MyMutator(.25, heatSink, config.items, empty),
-						// ,
-						// new SinglePointCrossover<>(),
-						new UniformCrossover<>()
+						new Mutator<>()
+				// new MyMutator(.25, heatSink, config.items, empty),
+				// new MyMutator(.25, heatSink, config.items, empty),
+				// ,
+				// new SinglePointCrossover<>(),
+				// new UniformCrossover<>()
 				// ,
 				// new SwapMutator<>()
 				)
@@ -48,14 +47,16 @@ public class EvolveMech
 				.build();
 
 		final ResultPrinter resultPrinter = new ResultPrinter(config);
-		// final Genotype<MechGene> result = engine.stream().limit(100).collect(EvolutionResult.toBestGenotype());
+		// final Genotype<MechGene> result =
+		// engine.stream().limit(100).collect(EvolutionResult.toBestGenotype());
 		final Phenotype<MechGene, Double> result = engine.stream()
 				// .limit(limit.bySteadyFitness(10000))
 				// .limit(limit.byFitnessConvergence(50, 100, 10E-4))
-				.limit(50000)
 				.peek(r -> resultPrinter.update(r))
+				.limit(50000)
 				.collect(EvolutionResult.toBestPhenotype());
-		// final Phenotype<MechGene, Double> result = engine.stream().limit(100).collect(EvolutionResult.to);
+		// final Phenotype<MechGene, Double> result =
+		// engine.stream().limit(100).collect(EvolutionResult.to);
 		final MechBuild mech = resultPrinter.bestMech();
 
 		final MechPrinter mechPrinter = new MechPrinter(System.out);

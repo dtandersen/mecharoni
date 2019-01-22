@@ -20,7 +20,7 @@ import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
 
 public class OptimizeMechCommand
 {
-	private static final String DEFAULT_CONFIG = "mech.yaml";
+	private static final String DEFAULT_CONFIG = "archer-3r.yaml";
 
 	public static void main(final String[] args) throws Exception
 	{
@@ -112,7 +112,10 @@ public class OptimizeMechCommand
 		public Map<QuirkType, Quirk> getQuirks()
 		{
 			final Map<QuirkType, Quirk> quirks = new HashMap<>();
-			if (specYaml.enhancements == null) { return new HashMap<>(); }
+			if (specYaml.enhancements == null)
+			{
+				return new HashMap<>();
+			}
 
 			for (final String quirkName : specYaml.enhancements.keySet())
 			{

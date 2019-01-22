@@ -72,8 +72,14 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequest, VoidResult>
 	{
 		for (final String filter : filters)
 		{
-			if (item.getName().equalsIgnoreCase(filter)) { return true; }
-			if (item.getFriendlyName() != null && item.getFriendlyName().equalsIgnoreCase(filter)) { return true; }
+			if (item.getName().equalsIgnoreCase(filter))
+			{
+				return true;
+			}
+			if (item.getFriendlyName() != null && item.getFriendlyName().equalsIgnoreCase(filter))
+			{
+				return true;
+			}
 		}
 
 		return false;
