@@ -75,6 +75,7 @@ public class BasicComponent implements Component
 		}
 	}
 
+	@Override
 	public final float getTons()
 	{
 		return tons;
@@ -86,11 +87,13 @@ public class BasicComponent implements Component
 		return slots;
 	}
 
+	@Override
 	public float getDps()
 	{
 		return dps;
 	}
 
+	@Override
 	public float getHps()
 	{
 		return hps;
@@ -102,26 +105,31 @@ public class BasicComponent implements Component
 		return friendlyName;
 	}
 
+	@Override
 	public float getDamage()
 	{
 		return damage;
 	}
 
+	@Override
 	public boolean isClan()
 	{
 		return name.startsWith("Clan") || empty;
 	}
 
+	@Override
 	public boolean isInnerSphere()
 	{
 		return !name.startsWith("Clan") || empty;
 	}
 
+	@Override
 	public boolean isHeatSink()
 	{
 		return heatSink;
 	}
 
+	@Override
 	public String getType()
 	{
 		return type;
@@ -133,6 +141,7 @@ public class BasicComponent implements Component
 		return HardpointType.fromType(type);
 	}
 
+	@Override
 	public String getName()
 	{
 		return name;
@@ -165,10 +174,6 @@ public class BasicComponent implements Component
 		private float cooldown;
 
 		private float duration;
-
-		// private double heatCapacity;
-		//
-		// private double heatDisipation;
 
 		private boolean heatSink;
 
@@ -297,21 +302,25 @@ public class BasicComponent implements Component
 		}
 	}
 
+	@Override
 	public float getHeat()
 	{
 		return heat;
 	}
 
+	@Override
 	public float getDuration()
 	{
 		return duration;
 	}
 
+	@Override
 	public float getCooldown()
 	{
 		return cooldown;
 	}
 
+	@Override
 	public String getAmmoType()
 	{
 		return ammoType;
@@ -327,11 +336,13 @@ public class BasicComponent implements Component
 		this.ammoType = ammoType;
 	}
 
+	@Override
 	public int getNumShots()
 	{
 		return num_shots;
 	}
 
+	@Override
 	public int getDamageMultiplier()
 	{
 		return damageMultiplier;
@@ -343,36 +354,43 @@ public class BasicComponent implements Component
 		return friendlyName;
 	}
 
+	@Override
 	public int getMinRange()
 	{
 		return minRange;
 	}
 
+	@Override
 	public int getLongRange()
 	{
 		return longRange;
 	}
 
+	@Override
 	public int getMaxRange()
 	{
 		return maxRange;
 	}
 
+	@Override
 	public boolean isWeapon()
 	{
 		return getDamage() > 0;
 	}
 
+	@Override
 	public boolean isEnergy()
 	{
 		return "BEAM".equals(type);
 	}
 
+	@Override
 	public boolean isMissile()
 	{
 		return "MISSLE".equals(type);
 	}
 
+	@Override
 	public boolean isBallistic()
 	{
 		return "BALLISTIC".equals(type);

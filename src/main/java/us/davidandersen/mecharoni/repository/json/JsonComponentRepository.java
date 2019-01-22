@@ -11,6 +11,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.BasicComponent;
 import us.davidandersen.mecharoni.entity.BasicComponent.ComponentBuilder;
+import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 import us.davidandersen.mecharoni.repository.json.JsonAmmoReader.AmmoJson;
 
@@ -27,7 +28,7 @@ public class JsonComponentRepository implements ComponentRepository
 	}
 
 	@Override
-	public List<BasicComponent> all() throws JsonSyntaxException, JsonIOException, FileNotFoundException
+	public List<Component> all() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
 		final List<BasicComponent> components = new ArrayList<>();
 
@@ -39,9 +40,9 @@ public class JsonComponentRepository implements ComponentRepository
 	}
 
 	@Override
-	public List<BasicComponent> clanComponents() throws JsonSyntaxException, JsonIOException, FileNotFoundException
+	public List<Component> clanComponents() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final List<BasicComponent> clanItems = all().stream()
+		final List<Component> clanItems = all().stream()
 				.filter(item -> item.isClan())
 				.collect(Collectors.toList());
 
@@ -49,9 +50,9 @@ public class JsonComponentRepository implements ComponentRepository
 	}
 
 	@Override
-	public List<BasicComponent> isComponents() throws Exception
+	public List<Component> isComponents() throws Exception
 	{
-		final List<BasicComponent> clanItems = all().stream()
+		final List<Component> clanItems = all().stream()
 				.filter(item -> item.isInnerSphere())
 				.collect(Collectors.toList());
 

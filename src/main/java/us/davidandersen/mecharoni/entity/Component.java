@@ -40,6 +40,8 @@ public interface Component
 
 	float getDps();
 
+	String getType();
+
 	boolean isWeapon();
 
 	boolean isBallistic();
@@ -48,7 +50,9 @@ public interface Component
 
 	boolean isEnergy();
 
-	String getType();
-
 	boolean isHeatSink();
+
+	boolean isClan();
+
+	boolean isInnerSphere();
 }

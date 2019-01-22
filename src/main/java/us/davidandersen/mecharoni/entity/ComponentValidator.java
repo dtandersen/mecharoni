@@ -9,14 +9,26 @@ public class ComponentValidator
 		this.mech = mech;
 	}
 
-	boolean isValid(final LocationType locationType, final BasicComponent component)
+	boolean isValid(final LocationType locationType, final Component component)
 	{
-		if (tooHeavy(component.getTons())) { return false; }
-		if (!hasFreeSlots(component.getSlots())) { return false; }
+		if (tooHeavy(component.getTons()))
+		{
+			return false;
+		}
+		if (!hasFreeSlots(component.getSlots()))
+		{
+			return false;
+		}
 
 		final Location location = mech.getLocation(locationType);
-		if (!locationHasSlots(component, location)) { return false; }
-		if (isLocationFull(component, location)) { return false; }
+		if (!locationHasSlots(component, location))
+		{
+			return false;
+		}
+		if (isLocationFull(component, location))
+		{
+			return false;
+		}
 
 		return true;
 	}
@@ -27,7 +39,7 @@ public class ComponentValidator
 		return occupiedTons > mech.getMaxTons();
 	}
 
-	private boolean locationHasSlots(final BasicComponent component, final Location location)
+	private boolean locationHasSlots(final Component component, final Location location)
 	{
 		// 3 - 2 = 1 >= 1
 		final boolean locationhasSlots = location.getSlots() - mech.occupiedSlots(location.getLocationType()) >= component.getSlots();
@@ -40,7 +52,7 @@ public class ComponentValidator
 		return mech.maxFreeSlots() - mech.occupiedSlots() >= slots;
 	}
 
-	private boolean isLocationFull(final BasicComponent component, final Location location)
+	private boolean isLocationFull(final Component component, final Location location)
 	{
 		final long hardpointsUsed = mech.hardpointsUsed(component.getHardpointType(), location);
 		final int hardpointsMax = location.getHardpointCount(component.getHardpointType());
@@ -48,7 +60,10 @@ public class ComponentValidator
 		final boolean isUndefinedHardpoint = component.getHardpointType() == null;
 		final boolean hasRoom = hardpointsUsed < hardpointsMax;
 
-		if (!(isUndefinedHardpoint || hasRoom)) { return true; }
+		if (!(isUndefinedHardpoint || hasRoom))
+		{
+			return true;
+		}
 
 		return false;
 	}

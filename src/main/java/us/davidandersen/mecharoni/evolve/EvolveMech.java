@@ -3,14 +3,14 @@ package us.davidandersen.mecharoni.evolve;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import org.jenetics.Genotype;
-import org.jenetics.Mutator;
-import org.jenetics.Phenotype;
-import org.jenetics.StochasticUniversalSelector;
-import org.jenetics.engine.Engine;
-import org.jenetics.engine.EvolutionResult;
-import org.jenetics.util.Factory;
-import us.davidandersen.mecharoni.entity.BasicComponent;
+import io.jenetics.Genotype;
+import io.jenetics.Mutator;
+import io.jenetics.Phenotype;
+import io.jenetics.StochasticUniversalSelector;
+import io.jenetics.engine.Engine;
+import io.jenetics.engine.EvolutionResult;
+import io.jenetics.util.Factory;
+import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.LocationType;
 import us.davidandersen.mecharoni.entity.MechBuild;
@@ -76,7 +76,7 @@ public class EvolveMech
 
 		public float tons;
 
-		public List<BasicComponent> items;
+		public List<Component> items;
 
 		public int range;
 

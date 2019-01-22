@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import org.jenetics.Genotype;
-import us.davidandersen.mecharoni.entity.BasicComponent;
+import io.jenetics.Genotype;
+import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.HardpointType;
 import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.Location.LocationBuilder;
@@ -53,7 +53,7 @@ public class MechCodec
 		for (int i = 0; i < c.length(); i++)
 		{
 			final MechGene g = c.getGene(i);
-			final BasicComponent component = g.getAllele();
+			final Component component = g.getAllele();
 			mechSpecBuilder.withComponent(locationTypes.get(i), component);
 		}
 
@@ -73,7 +73,8 @@ public class MechCodec
 			}
 		});
 
-		// final int total = sortedlocs.stream().mapToInt(loc -> loc.getSlots()).sum();
+		// final int total = sortedlocs.stream().mapToInt(loc ->
+		// loc.getSlots()).sum();
 		for (final Location loc : sortedlocs)
 		{
 			for (int i = 0; i < loc.getSlots(); i++)

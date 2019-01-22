@@ -1,7 +1,7 @@
 package us.davidandersen.mecharoni.evolve;
 
-import org.jenetics.Phenotype;
-import org.jenetics.engine.EvolutionResult;
+import io.jenetics.Phenotype;
+import io.jenetics.engine.EvolutionResult;
 import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 import us.davidandersen.mecharoni.io.MechPrinter;

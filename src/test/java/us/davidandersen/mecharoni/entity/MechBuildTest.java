@@ -20,7 +20,7 @@ public class MechBuildTest
 	@Before
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final List<BasicComponent> components = new JsonComponentRepository().all();
+		final List<Component> components = new JsonComponentRepository().all();
 		compCache = new CompCache(components);
 	}
 
@@ -38,7 +38,7 @@ public class MechBuildTest
 		assertThat((double)mech.getWeapon("LRG PULSE LASER").getDuration(), closeTo(0.67 * (1 - .1), .01));
 	}
 
-	private BasicComponent component(final String name)
+	private Component component(final String name)
 	{
 		return compCache.getComp(name);
 	}

@@ -2,11 +2,11 @@ package us.davidandersen.mecharoni.evolve;
 
 import java.io.Serializable;
 import java.util.List;
-import org.jenetics.AbstractChromosome;
-import org.jenetics.Chromosome;
-import org.jenetics.util.ISeq;
-import org.jenetics.util.MSeq;
-import us.davidandersen.mecharoni.entity.BasicComponent;
+import io.jenetics.AbstractChromosome;
+import io.jenetics.Chromosome;
+import io.jenetics.util.ISeq;
+import io.jenetics.util.MSeq;
+import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 
 @SuppressWarnings("serial")
@@ -33,14 +33,14 @@ public class MechChromosome extends
 		return new MechChromosome(genes, config);
 	}
 
-	public static MechChromosome of(final int geneCount, final List<BasicComponent> items, final EvolveMechConfig config)
+	public static MechChromosome of(final int geneCount, final List<Component> items, final EvolveMechConfig config)
 	{
 		final MechChromosome mechChromosome = new MechChromosome(MSeq.<MechGene> ofLength(geneCount).fill(() -> new MechGene(items))
 				.toISeq(), config);
 		return mechChromosome;
 	}
 
-	public static ISeq<MechChromosome> of(final int chromosomeCount, final int geneCount, final List<BasicComponent> items, final EvolveMechConfig config)
+	public static ISeq<MechChromosome> of(final int chromosomeCount, final int geneCount, final List<Component> items, final EvolveMechConfig config)
 	{
 		return MSeq.<MechChromosome> ofLength(chromosomeCount).fill(() -> MechChromosome.of(geneCount, items, config)).toISeq();
 	}

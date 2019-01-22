@@ -21,7 +21,10 @@ public enum HardpointType
 	{
 		for (final HardpointType hardpointType : HardpointType.values())
 		{
-			if (Objects.equals(hardpointType.type, type)) { return hardpointType; }
+			if (Objects.equals(hardpointType.type, type))
+			{
+				return hardpointType;
+			}
 		}
 
 		return null;

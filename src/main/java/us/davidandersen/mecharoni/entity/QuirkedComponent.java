@@ -162,4 +162,16 @@ public class QuirkedComponent implements Component
 	{
 		return component.isHeatSink();
 	}
+
+	@Override
+	public boolean isClan()
+	{
+		return component.isClan();
+	}
+
+	@Override
+	public boolean isInnerSphere()
+	{
+		return component.isInnerSphere();
+	}
 }

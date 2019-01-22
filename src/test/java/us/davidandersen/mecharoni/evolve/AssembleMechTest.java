@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import us.davidandersen.mecharoni.entity.BasicComponent;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.HardpointType;
 import us.davidandersen.mecharoni.entity.LocationType;
@@ -33,7 +32,7 @@ public class AssembleMechTest
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
 		final JsonComponentRepository repo = new JsonComponentRepository();
-		final List<BasicComponent> comps = repo.all();
+		final List<Component> comps = repo.all();
 		compCache = new CompCache(comps);
 	}
 
@@ -269,7 +268,7 @@ public class AssembleMechTest
 		return matcher;
 	}
 
-	private BasicComponent component(final String string)
+	private Component component(final String string)
 	{
 		return compCache.getComp(string);
 	}

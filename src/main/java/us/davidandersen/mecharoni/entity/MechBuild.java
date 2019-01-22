@@ -262,7 +262,7 @@ public class MechBuild
 			return this;
 		}
 
-		public MechBuildBuilder withComponent(final LocationType location, final BasicComponent component)
+		public MechBuildBuilder withComponent(final LocationType location, final Component component)
 		{
 			slots.add(new Slot(location, component));
 			return this;
