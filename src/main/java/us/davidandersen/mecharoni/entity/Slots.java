@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 
 public class Slots
 {
-	private final List<? super Component> components;
+	private final List<Component> components;
 
-	private final Map<LocationType, List<? super Component>> componentsByLocation;
+	private final Map<LocationType, List<Component>> componentsByLocation;
 
 	Slots()
 	{
@@ -23,23 +23,26 @@ public class Slots
 		this.componentsByLocation = new HashMap<>();
 	}
 
-	List<? extends Component> componentsByLocation(final LocationType locationType)
+	List<Component> componentsByLocation(final LocationType locationType)
 	{
-		final List<? super Component> list = componentsByLocation.get(locationType);
-		if (list == null) { return new ArrayList<>(); }
+		final List<Component> list = componentsByLocation.get(locationType);
+		if (list == null)
+		{
+			return new ArrayList<>();
+		}
 
-		return (List<? extends Component>)list;
+		return list;
 	}
 
 	void addComponent(final LocationType locationType, final Component component)
 	{
 		components.add(component);
-		final List<? super Component> list = componentsByLocation.get(locationType);
-		List<? super Component> compsInLoc = list;
+		final List<Component> list = componentsByLocation.get(locationType);
+		List<Component> compsInLoc = list;
 		if (compsInLoc == null)
 		{
 			compsInLoc = new ArrayList<>();
-			final List<? super Component> compsInLoc1 = compsInLoc;
+			final List<Component> compsInLoc1 = compsInLoc;
 			componentsByLocation.put(locationType, compsInLoc1);
 		}
 		compsInLoc.add(component);
@@ -94,7 +97,7 @@ public class Slots
 
 	private List<? extends Component> getComponents()
 	{
-		return (List<? extends Component>)components;
+		return components;
 	}
 
 	public Component findFirst(final Predicate<? super Component> predicate)

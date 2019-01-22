@@ -4,7 +4,6 @@ import java.io.PrintStream;
 import java.util.Map;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.HardpointType;
-import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.entity.MechSimulator;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
@@ -43,7 +42,9 @@ public class MechPrinter
 		// mech.forEach(item -> {
 		// if (!item.isEmpty())
 		// {
-		// out.println(item.getFriendlyName() + ", dps=" + item.getDps() + ", hps=" + item.getHps() + ", tons=" + item.getTons() + ", slots=" + item.getSlots());
+		// out.println(item.getFriendlyName() + ", dps=" + item.getDps() + ",
+		// hps=" + item.getHps() + ", tons=" + item.getTons() + ", slots=" +
+		// item.getSlots());
 		// }
 		// });
 		for (final Node n : it.values())
@@ -67,21 +68,22 @@ public class MechPrinter
 		}
 	}
 
-	private void printLocationComps(final MechBuild mech)
-	{
-		for (final Location location : mech.getLocations())
-		{
-			// out.println(location.getLocationType());
-			for (final Component item : mech.componentsInLocation(location.getLocationType()))
-			{
-				if (!item.isEmpty())
-				{
-					out.println(location.getLocationType() + ": " + item.getFriendlyName());
-				}
-			}
-
-		}
-	}
+	// private void printLocationComps(final MechBuild mech)
+	// {
+	// for (final Location location : mech.getLocations())
+	// {
+	// // out.println(location.getLocationType());
+	// for (final Component item :
+	// mech.componentsInLocation(location.getLocationType()))
+	// {
+	// if (!item.isEmpty())
+	// {
+	// out.println(location.getLocationType() + ": " + item.getFriendlyName());
+	// }
+	// }
+	//
+	// }
+	// }
 
 	private float sim(final MechBuild mech, final int range, final int endTime)
 	{

@@ -1,9 +1,7 @@
 package us.davidandersen.mecharoni.evolve;
 
-import us.davidandersen.mecharoni.entity.FiringStrategy;
 import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.entity.MechSim3;
-import us.davidandersen.mecharoni.entity.MechSimulator;
 import us.davidandersen.mecharoni.entity.predicate.BallisticPredicate;
 import us.davidandersen.mecharoni.entity.predicate.ClanLargeLasersPredicate;
 import us.davidandersen.mecharoni.entity.predicate.ClanLinkedLasersPredicate;
@@ -29,10 +27,11 @@ public class MechFitnessFunction
 		{
 			score -= 1;
 		}
-		else if (mech.itemCount("C-HEAVY LRG LASER", "C-LRG PULSE LASER", "C-ER LRG LASER") > 0 && llCount >= 2)
-		{
-			score -= 1;
-		}
+		else
+			if (mech.itemCount("C-HEAVY LRG LASER", "C-LRG PULSE LASER", "C-ER LRG LASER") > 0 && llCount >= 2)
+			{
+				score -= 1;
+			}
 
 		final long lCount = mech.componentCount(new ClanLinkedLasersPredicate());
 		if (mech.componentCountByFriendlyName("C-HEAVY MED LASER") > 0 && lCount >= 4)
@@ -49,18 +48,21 @@ public class MechFitnessFunction
 		{
 			score -= 1;
 		}
-		else if (srmCount > 1 && mech.hasItem("MRM 40"))
-		{
-			score -= 1;
-		}
-		else if (srmCount > 2 && mech.hasItem("MRM 30"))
-		{
-			score -= 1;
-		}
-		else if (srmCount > 3 && mech.hasItem("MRM 20"))
-		{
-			score -= 1;
-		}
+		else
+			if (srmCount > 1 && mech.hasItem("MRM 40"))
+			{
+				score -= 1;
+			}
+			else
+				if (srmCount > 2 && mech.hasItem("MRM 30"))
+				{
+					score -= 1;
+				}
+				else
+					if (srmCount > 3 && mech.hasItem("MRM 20"))
+					{
+						score -= 1;
+					}
 
 		if (mech.componentCount(new EnergyPredicate()) < 0)
 		{
@@ -81,7 +83,8 @@ public class MechFitnessFunction
 		score *= 10000;
 		// final int time = 120;
 		// score += mech.getFirepower();
-		// score += sim(mech, 15, config.range, new AlphaStrategy()) * (time / 15f);
+		// score += sim(mech, 15, config.range, new AlphaStrategy()) * (time /
+		// 15f);
 		// score += sim(mech, time, config.range, new AlwaysFireStrategy());
 		// score -= mech.uniqueWeapons();
 		// score *= (1 + .1 * (mech.occupiedTons() / config.tons));
@@ -116,12 +119,13 @@ public class MechFitnessFunction
 		return score;
 	}
 
-	private float sim(final MechBuild a, final int endTime, final int range, final FiringStrategy firingStrategy)
-	{
-		final MechSimulator ms = new MechSimulator(firingStrategy);
-		ms.addMech(a);
-		ms.go(endTime, range);
-		final float damage = ms.damage();
-		return damage;
-	}
+	// private float sim(final MechBuild a, final int endTime, final int range,
+	// final FiringStrategy firingStrategy)
+	// {
+	// final MechSimulator ms = new MechSimulator(firingStrategy);
+	// ms.addMech(a);
+	// ms.go(endTime, range);
+	// final float damage = ms.damage();
+	// return damage;
+	// }
 }

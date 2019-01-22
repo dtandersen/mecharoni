@@ -27,8 +27,10 @@ public class EvolveMech
 
 		final MechFitnessFunction fitnessCalculator = new MechFitnessFunction(config);
 		final Function<Genotype<MechGene>, Double> ff = gt -> fitnessCalculator.eval(MechCodec.toMech(gt, config));
-		final BasicComponent heatSink = config.items.stream().filter(item -> item.getName().contains("HeatSink")).findFirst().get();
-		final BasicComponent empty = config.items.stream().filter(item -> item.getName().contains("Empty")).findFirst().get();
+		// final BasicComponent heatSink = config.items.stream().filter(item ->
+		// item.getName().contains("HeatSink")).findFirst().get();
+		// final BasicComponent empty = config.items.stream().filter(item ->
+		// item.getName().contains("Empty")).findFirst().get();
 		final Engine<MechGene, Double> engine = Engine.builder(ff, gtf)
 				.alterers(
 						new Mutator<>()

@@ -55,8 +55,11 @@ public class MechSimulator
 			@Override
 			public int compare(final Weapon o1, final Weapon o2)
 			{
-				if (o1.getDph() == o2.getDph()) { return 0; }
-				return new Float(o2.getDph()).compareTo(o1.getDph());
+				if (o1.getDph() == o2.getDph())
+				{
+					return 0;
+				}
+				return Float.valueOf(o2.getDph()).compareTo(o1.getDph());
 			}
 		});
 		// }
@@ -82,7 +85,8 @@ public class MechSimulator
 
 		while (curTime <= endTime)
 		{
-			// System.out.println("time: " + curTime + " | heat: " + data.getHeat() + "/" + getHeatCapacity());
+			// System.out.println("time: " + curTime + " | heat: " +
+			// data.getHeat() + "/" + getHeatCapacity());
 			disipateHeat(delta);
 			for (final Weapon weapon : data.getWeapons())
 			{
@@ -117,10 +121,16 @@ public class MechSimulator
 
 	private boolean hasAmmo(final Weapon weapon)
 	{
-		if (!weapon.isAmmoConsumer()) { return true; }
+		if (!weapon.isAmmoConsumer())
+		{
+			return true;
+		}
 
 		final Ammo ammo = data.getAmmo().get(weapon.getAmmoType());
-		if (ammo == null) { return false; }
+		if (ammo == null)
+		{
+			return false;
+		}
 
 		return weapon.getDamageMultiplier() <= ammo.getNumShots();
 	}
