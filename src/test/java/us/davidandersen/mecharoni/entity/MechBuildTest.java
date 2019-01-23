@@ -1,11 +1,11 @@
 package us.davidandersen.mecharoni.entity;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
-import static org.junit.Assert.assertThat;
 import java.io.FileNotFoundException;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.MechBuild.MechBuildBuilder;
@@ -17,7 +17,7 @@ public class MechBuildTest
 {
 	private CompCache compCache;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
 		final List<Component> components = new JsonComponentRepository().all();

@@ -1,13 +1,13 @@
 package us.davidandersen.mecharoni.entity;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import java.io.FileNotFoundException;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.MechBuild.MechBuildBuilder;
@@ -18,7 +18,7 @@ public class MechSimulatorTest
 {
 	private CompCache compCache;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
 		final List<Component> components = new JsonComponentRepository().all();
@@ -29,13 +29,14 @@ public class MechSimulatorTest
 	public void test()
 	{
 		final MechSimulator sim = new MechSimulator();
+		final Component llaser = component("ClanERLargeLaser");
 		sim.addMech(MechBuildBuilder.mech()
 				.withSpec(PrefabMechs.boarsHead())
-				.withComponent(LocationType.RA, component("ClanERLargeLaser"))
-				.withComponent(LocationType.RA, component("ClanERLargeLaser"))
+				.withComponent(LocationType.RA, llaser)
+				.withComponent(LocationType.RA, llaser)
 				.build());
-		sim.go(3.75f + 1.35f, 500);
-		assertThat(sim.damage(), equalTo(44f));
+		sim.go(llaser.getCooldown() + llaser.getDuration(), 500);
+		assertThat(sim.damage(), equalTo(llaser.getDamage() * 4));
 	}
 
 	@Test
@@ -67,14 +68,15 @@ public class MechSimulatorTest
 	public void useAllAmmo()
 	{
 		final MechSimulator sim = new MechSimulator();
+		final Component srm4 = component("SRM4");
 		sim.addMech(MechBuildBuilder.mech()
 				.withSpec(PrefabMechs.boarsHead())
-				.withComponent(LocationType.LT, component("SRM4"))
+				.withComponent(LocationType.LT, srm4)
 				.withComponent(LocationType.LT, component("SRMAmmo"))
 				.withComponent(LocationType.LT, component("SRMAmmo"))
 				.build());
 		sim.go(3 * 55, 200);
-		assertThat((double)sim.damage(), closeTo(8.6 * 50, .001));
+		assertThat((double)sim.damage(), closeTo(srm4.getDamage() * 50, .001));
 	}
 
 	@Test
@@ -106,12 +108,13 @@ public class MechSimulatorTest
 	public void longRange()
 	{
 		final MechSimulator sim = new MechSimulator();
+		final Component llaser = component("ClanERLargeLaser");
 		sim.addMech(MechBuildBuilder.mech()
 				.withSpec(PrefabMechs.boarsHead())
-				.withComponent(LocationType.RA, component("ClanERLargeLaser"))
+				.withComponent(LocationType.RA, llaser)
 				.build());
-		sim.go(0, 1110);
-		assertThat(sim.damage(), equalTo(11 / 2f));
+		sim.go(0, (llaser.getLongRange() + llaser.getMaxRange()) / 2);
+		assertThat(sim.damage(), equalTo(llaser.getDamage() / 2f));
 	}
 
 	@Test
