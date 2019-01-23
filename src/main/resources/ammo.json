@@ -7,11 +7,11 @@
 		"price": {
 			"id": 2007,
 			"mc": -1,
-			"cb": 8000
+			"cb": 9200
 		},
 		"translated_name": "AC\/10 AMMO",
 		"translated_desc": "A large caliber slug fired from an AC\/10.",
-		"num_shots": 20,
+		"num_shots": 23,
 		"weapons": ["1020"]
 	},
 	"2036": {
@@ -22,11 +22,11 @@
 		"price": {
 			"id": 2036,
 			"mc": -1,
-			"cb": 4000
+			"cb": 4400
 		},
 		"translated_name": "AC\/10 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an AC\/10.",
-		"num_shots": 10,
+		"num_shots": 11,
 		"weapons": ["1020"]
 	},
 	"2000": {
@@ -37,11 +37,11 @@
 		"price": {
 			"id": 2000,
 			"mc": -1,
-			"cb": 10003
+			"cb": 11432
 		},
 		"translated_name": "AC\/20 AMMO",
 		"translated_desc": "A large caliber slug fired from an AC\/20.",
-		"num_shots": 7,
+		"num_shots": 8,
 		"weapons": ["1000"]
 	},
 	"2032": {
@@ -52,11 +52,11 @@
 		"price": {
 			"id": 2032,
 			"mc": -1,
-			"cb": 4287
+			"cb": 5716
 		},
 		"translated_name": "AC\/20 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an AC\/20.",
-		"num_shots": 3,
+		"num_shots": 4,
 		"weapons": ["1000"]
 	},
 	"2005": {
@@ -67,11 +67,11 @@
 		"price": {
 			"id": 2005,
 			"mc": -1,
-			"cb": 975
+			"cb": 1131
 		},
 		"translated_name": "AC\/2 AMMO",
 		"translated_desc": "A large caliber slug fired from an AC\/2.",
-		"num_shots": 75,
+		"num_shots": 87,
 		"weapons": ["1018"]
 	},
 	"2034": {
@@ -82,11 +82,11 @@
 		"price": {
 			"id": 2034,
 			"mc": -1,
-			"cb": 481
+			"cb": 559
 		},
 		"translated_name": "AC\/2 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an AC\/2.",
-		"num_shots": 37,
+		"num_shots": 43,
 		"weapons": ["1018"]
 	},
 	"2006": {
@@ -97,11 +97,11 @@
 		"price": {
 			"id": 2006,
 			"mc": -1,
-			"cb": 4500
+			"cb": 5250
 		},
 		"translated_name": "AC\/5 AMMO",
 		"translated_desc": "A large caliber slug fired from an AC\/5.",
-		"num_shots": 30,
+		"num_shots": 35,
 		"weapons": ["1019"]
 	},
 	"2035": {
@@ -112,11 +112,11 @@
 		"price": {
 			"id": 2035,
 			"mc": -1,
-			"cb": 2250
+			"cb": 2550
 		},
 		"translated_name": "AC\/5 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an AC\/5.",
-		"num_shots": 15,
+		"num_shots": 17,
 		"weapons": ["1019"]
 	},
 	"2001": {
@@ -127,11 +127,11 @@
 		"price": {
 			"id": 2001,
 			"mc": -1,
-			"cb": 4000
+			"cb": 4400
 		},
 		"translated_name": "AMS AMMO",
 		"translated_desc": "Anti-Missile System Ammunition",
-		"num_shots": 2000,
+		"num_shots": 2200,
 		"weapons": ["1014"]
 	},
 	"2033": {
@@ -142,11 +142,11 @@
 		"price": {
 			"id": 2033,
 			"mc": -1,
-			"cb": 2000
+			"cb": 2200
 		},
 		"translated_name": "AMS AMMO (1\/2)",
 		"translated_desc": "Anti-Missile System Ammunition",
-		"num_shots": 1000,
+		"num_shots": 1100,
 		"weapons": ["1014"]
 	},
 	"2008": {
@@ -247,11 +247,11 @@
 		"price": {
 			"id": 2010,
 			"mc": -1,
-			"cb": 26660
+			"cb": 30659
 		},
 		"translated_name": "LB 10-X AMMO",
 		"translated_desc": "A splinter round that is fired by a LB 10-X.",
-		"num_shots": 20,
+		"num_shots": 23,
 		"weapons": ["1023"]
 	},
 	"2038": {
@@ -262,11 +262,11 @@
 		"price": {
 			"id": 2038,
 			"mc": -1,
-			"cb": 13330
+			"cb": 14663
 		},
 		"translated_name": "LB 10-X AMMO (1\/2)",
 		"translated_desc": "A splinter round that is fired by a LB 10-X.",
-		"num_shots": 10,
+		"num_shots": 11,
 		"weapons": ["1023"]
 	},
 	"2047": {
@@ -281,7 +281,7 @@
 		},
 		"translated_name": "LB 2-X AMMO",
 		"translated_desc": "A splinter round that is fired by an LB 2-X.",
-		"num_shots": 75,
+		"num_shots": 87,
 		"weapons": ["1050"]
 	},
 	"2048": {
@@ -296,7 +296,7 @@
 		},
 		"translated_name": "LB 2-X AMMO (1\/2)",
 		"translated_desc": "A splinter round that is fired by an LB 2-X.",
-		"num_shots": 37,
+		"num_shots": 43,
 		"weapons": ["1050"]
 	},
 	"2051": {
@@ -311,7 +311,7 @@
 		},
 		"translated_name": "LB 20-X AMMO",
 		"translated_desc": "A splinter round that is fired by an LB 20-X.",
-		"num_shots": 7,
+		"num_shots": 8,
 		"weapons": ["1052"]
 	},
 	"2052": {
@@ -326,7 +326,7 @@
 		},
 		"translated_name": "LB 20-X AMMO (1\/2)",
 		"translated_desc": "A splinter round that is fired by an LB 20-X.",
-		"num_shots": 3,
+		"num_shots": 4,
 		"weapons": ["1052"]
 	},
 	"2049": {
@@ -341,7 +341,7 @@
 		},
 		"translated_name": "LB 5-X AMMO",
 		"translated_desc": "A splinter round that is fired by an LB 5-X.",
-		"num_shots": 30,
+		"num_shots": 35,
 		"weapons": ["1051"]
 	},
 	"2050": {
@@ -356,7 +356,7 @@
 		},
 		"translated_name": "LB 5-X AMMO (1\/2)",
 		"translated_desc": "A splinter round that is fired by an LB 5-X.",
-		"num_shots": 15,
+		"num_shots": 17,
 		"weapons": ["1051"]
 	},
 	"2027": {
@@ -367,12 +367,15 @@
 		"price": {
 			"id": 2027,
 			"mc": -1,
-			"cb": 30060
+			"cb": 40080
 		},
 		"translated_name": "LRM AMMO",
 		"translated_desc": "A Long Range Missile",
-		"num_shots": 180,
-		"weapons": ["1002", "1026", "1027", "1028"],
+		"num_shots": 240,
+		"weapons": ["1002",
+		"1026",
+		"1027",
+		"1028"],
 		"id_artemis_swap": 2030
 	},
 	"2042": {
@@ -383,12 +386,15 @@
 		"price": {
 			"id": 2042,
 			"mc": -1,
-			"cb": 15030
+			"cb": 20040
 		},
 		"translated_name": "LRM AMMO (1\/2)",
 		"translated_desc": "A Long Range Missile",
-		"num_shots": 90,
-		"weapons": ["1002", "1026", "1027", "1028"],
+		"num_shots": 120,
+		"weapons": ["1002",
+		"1026",
+		"1027",
+		"1028"],
 		"id_artemis_swap": 2045
 	},
 	"2030": {
@@ -399,12 +405,15 @@
 		"price": {
 			"id": 2030,
 			"mc": -1,
-			"cb": 60120
+			"cb": 80160
 		},
 		"translated_name": "LRM AMMO + ARTEMIS IV",
 		"translated_desc": "Artemis IV LRM Ammo",
-		"num_shots": 180,
-		"weapons": ["1041", "1042", "1043", "1044"],
+		"num_shots": 240,
+		"weapons": ["1041",
+		"1042",
+		"1043",
+		"1044"],
 		"id_artemis_swap": 2027
 	},
 	"2045": {
@@ -415,12 +424,15 @@
 		"price": {
 			"id": 2045,
 			"mc": -1,
-			"cb": 30060
+			"cb": 40080
 		},
 		"translated_name": "LRM AMMO + ARTEMIS IV (1\/2)",
 		"translated_desc": "Artemis IV LRM Ammo",
-		"num_shots": 90,
-		"weapons": ["1041", "1042", "1043", "1044"],
+		"num_shots": 120,
+		"weapons": ["1041",
+		"1042",
+		"1043",
+		"1044"],
 		"id_artemis_swap": 2042
 	},
 	"2059": {
@@ -435,7 +447,7 @@
 		},
 		"translated_name": "LIGHT GAUSS AMMO",
 		"translated_desc": "A ferrous nickle-iron slug that is electromagnetically fired from a Light Gauss Rifle.",
-		"num_shots": 20,
+		"num_shots": 25,
 		"weapons": ["1056"]
 	},
 	"2060": {
@@ -450,7 +462,7 @@
 		},
 		"translated_name": "LIGHT GAUSS AMMO (1\/2)",
 		"translated_desc": "A ferrous nickle-iron slug that is electromagnetically fired from a Light Gauss Rifle.",
-		"num_shots": 10,
+		"num_shots": 12,
 		"weapons": ["1056"]
 	},
 	"2067": {
@@ -495,8 +507,11 @@
 		},
 		"translated_name": "MRM AMMO",
 		"translated_desc": "A Medium Range Missile.",
-		"num_shots": 300,
-		"weapons": ["1064", "1065", "1066", "1067"]
+		"num_shots": 340,
+		"weapons": ["1064",
+		"1065",
+		"1066",
+		"1067"]
 	},
 	"2072": {
 		"id": "2072",
@@ -510,8 +525,11 @@
 		},
 		"translated_name": "MRM AMMO (1\/2)",
 		"translated_desc": "A Medium Range Missile.",
-		"num_shots": 150,
-		"weapons": ["1064", "1065", "1066", "1067"]
+		"num_shots": 170,
+		"weapons": ["1064",
+		"1065",
+		"1066",
+		"1067"]
 	},
 	"2011": {
 		"id": "2011",
@@ -551,11 +569,11 @@
 		"price": {
 			"id": 2017,
 			"mc": -1,
-			"cb": 12000
+			"cb": 13000
 		},
 		"translated_name": "NARC AMMO",
 		"translated_desc": "A targeting projectile fired from a NARC cannon.",
-		"num_shots": 12,
+		"num_shots": 13,
 		"weapons": ["1029"]
 	},
 	"2041": {
@@ -585,7 +603,7 @@
 		},
 		"translated_name": "R-AC\/2 AMMO",
 		"translated_desc": "Rapid-fire rounds for the R-AC\/2.",
-		"num_shots": 300,
+		"num_shots": 350,
 		"weapons": ["1058"]
 	},
 	"2064": {
@@ -600,7 +618,7 @@
 		},
 		"translated_name": "R-AC\/2 AMMO (1\/2)",
 		"translated_desc": "Rapid-fire rounds for the R-AC\/2.",
-		"num_shots": 150,
+		"num_shots": 175,
 		"weapons": ["1058"]
 	},
 	"2065": {
@@ -615,7 +633,7 @@
 		},
 		"translated_name": "R-AC\/5 AMMO",
 		"translated_desc": "Rapid-fire rounds for the R-AC\/5.",
-		"num_shots": 150,
+		"num_shots": 175,
 		"weapons": ["1059"]
 	},
 	"2066": {
@@ -630,7 +648,7 @@
 		},
 		"translated_name": "R-AC\/5 AMMO (1\/2)",
 		"translated_desc": "Rapid-fire rounds for the R-AC\/5.",
-		"num_shots": 75,
+		"num_shots": 87,
 		"weapons": ["1059"]
 	},
 	"2028": {
@@ -641,12 +659,14 @@
 		"price": {
 			"id": 2028,
 			"mc": -1,
-			"cb": 27000
+			"cb": 32400
 		},
 		"translated_name": "SRM AMMO",
 		"translated_desc": "A Short Range Missile",
-		"num_shots": 100,
-		"weapons": ["1004", "1030", "1031"],
+		"num_shots": 120,
+		"weapons": ["1004",
+		"1030",
+		"1031"],
 		"id_artemis_swap": 2031
 	},
 	"2043": {
@@ -657,12 +677,14 @@
 		"price": {
 			"id": 2043,
 			"mc": -1,
-			"cb": 13500
+			"cb": 16200
 		},
 		"translated_name": "SRM AMMO (1\/2)",
 		"translated_desc": "A Short Range Missile",
-		"num_shots": 50,
-		"weapons": ["1004", "1030", "1031"],
+		"num_shots": 60,
+		"weapons": ["1004",
+		"1030",
+		"1031"],
 		"id_artemis_swap": 2046
 	},
 	"2031": {
@@ -673,12 +695,14 @@
 		"price": {
 			"id": 2031,
 			"mc": -1,
-			"cb": 54000
+			"cb": 64800
 		},
 		"translated_name": "SRM AMMO + ARTEMIS IV",
 		"translated_desc": "Artemis IV SRM Ammo",
-		"num_shots": 100,
-		"weapons": ["1038", "1039", "1040"],
+		"num_shots": 120,
+		"weapons": ["1038",
+		"1039",
+		"1040"],
 		"id_artemis_swap": 2028
 	},
 	"2046": {
@@ -689,12 +713,14 @@
 		"price": {
 			"id": 2046,
 			"mc": -1,
-			"cb": 27000
+			"cb": 32400
 		},
 		"translated_name": "SRM AMMO + ART. IV (1\/2)",
 		"translated_desc": "Artemis IV SRM Ammo",
-		"num_shots": 50,
-		"weapons": ["1038", "1039", "1040"],
+		"num_shots": 60,
+		"weapons": ["1038",
+		"1039",
+		"1040"],
 		"id_artemis_swap": 2043
 	},
 	"2029": {
@@ -705,12 +731,14 @@
 		"price": {
 			"id": 2029,
 			"mc": -1,
-			"cb": 54000
+			"cb": 64800
 		},
 		"translated_name": "STREAK SRM AMMO",
 		"translated_desc": "A Homing Short Range Missile",
-		"num_shots": 100,
-		"weapons": ["1032", "1062", "1063"]
+		"num_shots": 120,
+		"weapons": ["1032",
+		"1062",
+		"1063"]
 	},
 	"2044": {
 		"id": "2044",
@@ -720,12 +748,14 @@
 		"price": {
 			"id": 2044,
 			"mc": -1,
-			"cb": 27000
+			"cb": 32400
 		},
 		"translated_name": "STREAK SRM AMMO (1\/2)",
 		"translated_desc": "A Homing Short Range Missile",
-		"num_shots": 50,
-		"weapons": ["1032", "1062", "1063"]
+		"num_shots": 60,
+		"weapons": ["1032",
+		"1062",
+		"1063"]
 	},
 	"2055": {
 		"id": "2055",
@@ -739,7 +769,7 @@
 		},
 		"translated_name": "U-AC\/10 AMMO",
 		"translated_desc": "A large caliber slug fired from an U-AC\/10.",
-		"num_shots": 40,
+		"num_shots": 46,
 		"weapons": ["1054"]
 	},
 	"2056": {
@@ -754,7 +784,7 @@
 		},
 		"translated_name": "U-AC\/10 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an U-AC\/10.",
-		"num_shots": 20,
+		"num_shots": 22,
 		"weapons": ["1054"]
 	},
 	"2057": {
@@ -769,7 +799,7 @@
 		},
 		"translated_name": "U-AC\/20 AMMO",
 		"translated_desc": "A large caliber slug fired from an U-AC\/20.",
-		"num_shots": 21,
+		"num_shots": 24,
 		"weapons": ["1055"]
 	},
 	"2058": {
@@ -784,7 +814,7 @@
 		},
 		"translated_name": "U-AC\/20 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an U-AC\/20.",
-		"num_shots": 9,
+		"num_shots": 12,
 		"weapons": ["1055"]
 	},
 	"2053": {
@@ -799,7 +829,7 @@
 		},
 		"translated_name": "U-AC\/2 AMMO",
 		"translated_desc": "A large caliber slug fired from an U-AC\/2.",
-		"num_shots": 75,
+		"num_shots": 87,
 		"weapons": ["1053"]
 	},
 	"2054": {
@@ -814,7 +844,7 @@
 		},
 		"translated_name": "U-AC\/2 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an U-AC\/2.",
-		"num_shots": 37,
+		"num_shots": 43,
 		"weapons": ["1053"]
 	},
 	"2012": {
@@ -825,11 +855,11 @@
 		"price": {
 			"id": 2012,
 			"mc": -1,
-			"cb": 10800
+			"cb": 12600
 		},
 		"translated_name": "U-AC\/5 AMMO",
 		"translated_desc": "A large caliber slug fired from an U-AC\/5.",
-		"num_shots": 30,
+		"num_shots": 35,
 		"weapons": ["1025"]
 	},
 	"2040": {
@@ -840,11 +870,11 @@
 		"price": {
 			"id": 2040,
 			"mc": -1,
-			"cb": 5400
+			"cb": 6120
 		},
 		"translated_name": "U-AC\/5 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an U-AC\/5.",
-		"num_shots": 15,
+		"num_shots": 17,
 		"weapons": ["1025"]
 	},
 	"2205": {
@@ -855,11 +885,11 @@
 		"price": {
 			"id": 2205,
 			"mc": -1,
-			"cb": 12000
+			"cb": 13800
 		},
 		"translated_name": "C-AC\/10 AMMO",
 		"translated_desc": "A large caliber slug fired from an Clan AC\/10.",
-		"num_shots": 60,
+		"num_shots": 69,
 		"weapons": ["1240"]
 	},
 	"2225": {
@@ -870,11 +900,11 @@
 		"price": {
 			"id": 2225,
 			"mc": -1,
-			"cb": 6000
+			"cb": 6600
 		},
 		"translated_name": "C-AC\/10 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an Clan AC\/10.",
-		"num_shots": 30,
+		"num_shots": 33,
 		"weapons": ["1240"]
 	},
 	"2207": {
@@ -885,11 +915,11 @@
 		"price": {
 			"id": 2207,
 			"mc": -1,
-			"cb": 15988
+			"cb": 18272
 		},
 		"translated_name": "C-AC\/20 AMMO",
 		"translated_desc": "A large caliber slug fired from an Clan AC\/20.",
-		"num_shots": 28,
+		"num_shots": 32,
 		"weapons": ["1241"]
 	},
 	"2227": {
@@ -900,11 +930,11 @@
 		"price": {
 			"id": 2227,
 			"mc": -1,
-			"cb": 7994
+			"cb": 9136
 		},
 		"translated_name": "C-AC\/20 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an Clan AC\/20.",
-		"num_shots": 14,
+		"num_shots": 16,
 		"weapons": ["1241"]
 	},
 	"2201": {
@@ -915,11 +945,11 @@
 		"price": {
 			"id": 2201,
 			"mc": -1,
-			"cb": 1050
+			"cb": 1218
 		},
 		"translated_name": "C-AC\/2 AMMO",
 		"translated_desc": "A large caliber slug fired from an Clan AC\/2.",
-		"num_shots": 75,
+		"num_shots": 87,
 		"weapons": ["1238"]
 	},
 	"2221": {
@@ -930,11 +960,11 @@
 		"price": {
 			"id": 2221,
 			"mc": -1,
-			"cb": 518
+			"cb": 602
 		},
 		"translated_name": "C-AC\/2 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an Clan AC\/2.",
-		"num_shots": 37,
+		"num_shots": 43,
 		"weapons": ["1238"]
 	},
 	"2203": {
@@ -945,11 +975,11 @@
 		"price": {
 			"id": 2203,
 			"mc": -1,
-			"cb": 6000
+			"cb": 7000
 		},
 		"translated_name": "C-AC\/5 AMMO",
 		"translated_desc": "A large caliber slug fired from an Clan AC\/5.",
-		"num_shots": 60,
+		"num_shots": 70,
 		"weapons": ["1239"]
 	},
 	"2223": {
@@ -960,11 +990,11 @@
 		"price": {
 			"id": 2223,
 			"mc": -1,
-			"cb": 3000
+			"cb": 3400
 		},
 		"translated_name": "C-AC\/5 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from an Clan AC\/5.",
-		"num_shots": 30,
+		"num_shots": 34,
 		"weapons": ["1239"]
 	},
 	"2240": {
@@ -975,11 +1005,11 @@
 		"price": {
 			"id": 2240,
 			"mc": -1,
-			"cb": 4000
+			"cb": 4400
 		},
 		"translated_name": "C-AMS AMMO",
 		"translated_desc": "Clan Anti-Missile System Ammunition",
-		"num_shots": 2000,
+		"num_shots": 2200,
 		"weapons": ["1237"]
 	},
 	"2241": {
@@ -990,11 +1020,11 @@
 		"price": {
 			"id": 2241,
 			"mc": -1,
-			"cb": 2000
+			"cb": 2200
 		},
 		"translated_name": "C-AMS AMMO (1\/2)",
 		"translated_desc": "Clan Anti-Missile System Ammunition",
-		"num_shots": 1000,
+		"num_shots": 1100,
 		"weapons": ["1237"]
 	},
 	"2246": {
@@ -1009,8 +1039,11 @@
 		},
 		"translated_name": "C-ATM AMMO",
 		"translated_desc": "An Advanced Tactical Missile.",
-		"num_shots": 90,
-		"weapons": ["1249", "1250", "1251", "1252"]
+		"num_shots": 105,
+		"weapons": ["1249",
+		"1250",
+		"1251",
+		"1252"]
 	},
 	"2247": {
 		"id": "2247",
@@ -1024,8 +1057,11 @@
 		},
 		"translated_name": "C-ATM AMMO (1\/2)",
 		"translated_desc": "An Advanced Tactical Missile.",
-		"num_shots": 45,
-		"weapons": ["1249", "1250", "1251", "1252"]
+		"num_shots": 52,
+		"weapons": ["1249",
+		"1250",
+		"1251",
+		"1252"]
 	},
 	"2212": {
 		"id": "2212",
@@ -1095,11 +1131,11 @@
 		"price": {
 			"id": 2204,
 			"mc": -1,
-			"cb": 6660
+			"cb": 7659
 		},
 		"translated_name": "C-LB 10-X AMMO",
 		"translated_desc": "A splinter round that is fired by a Clan LB 10-X.",
-		"num_shots": 20,
+		"num_shots": 23,
 		"weapons": ["1202"]
 	},
 	"2224": {
@@ -1110,11 +1146,11 @@
 		"price": {
 			"id": 2224,
 			"mc": -1,
-			"cb": 3330
+			"cb": 3663
 		},
 		"translated_name": "C-LB 10-X AMMO (1\/2)",
 		"translated_desc": "A splinter round that is fired by a Clan LB 10-X.",
-		"num_shots": 10,
+		"num_shots": 11,
 		"weapons": ["1202"]
 	},
 	"2200": {
@@ -1125,11 +1161,11 @@
 		"price": {
 			"id": 2200,
 			"mc": -1,
-			"cb": 1650
+			"cb": 1914
 		},
 		"translated_name": "C-LB 2-X AC AMMO",
 		"translated_desc": "A splinter round that is fired by a Clan LB 2-X AC.",
-		"num_shots": 75,
+		"num_shots": 87,
 		"weapons": ["1200"]
 	},
 	"2220": {
@@ -1140,11 +1176,11 @@
 		"price": {
 			"id": 2220,
 			"mc": -1,
-			"cb": 814
+			"cb": 946
 		},
 		"translated_name": "C-LB 2-X AC AMMO (1\/2)",
 		"translated_desc": "A splinter round that is fired by a Clan LB 2-X AC.",
-		"num_shots": 37,
+		"num_shots": 43,
 		"weapons": ["1200"]
 	},
 	"2206": {
@@ -1155,11 +1191,11 @@
 		"price": {
 			"id": 2206,
 			"mc": -1,
-			"cb": 6797
+			"cb": 7768
 		},
 		"translated_name": "C-LB 20-X AMMO",
 		"translated_desc": "A splinter round that is fired by a Clan LB 20-X.",
-		"num_shots": 7,
+		"num_shots": 8,
 		"weapons": ["1203"]
 	},
 	"2226": {
@@ -1170,11 +1206,11 @@
 		"price": {
 			"id": 2226,
 			"mc": -1,
-			"cb": 2913
+			"cb": 3884
 		},
 		"translated_name": "C-LB 20-X AMMO (1\/2)",
 		"translated_desc": "A splinter round that is fired by a Clan LB 20-X.",
-		"num_shots": 3,
+		"num_shots": 4,
 		"weapons": ["1203"]
 	},
 	"2202": {
@@ -1185,11 +1221,11 @@
 		"price": {
 			"id": 2202,
 			"mc": -1,
-			"cb": 5010
+			"cb": 5845
 		},
 		"translated_name": "C-LB 5-X AC AMMO",
 		"translated_desc": "A splinter round that is fired by a Clan LB 5-X AC.",
-		"num_shots": 30,
+		"num_shots": 35,
 		"weapons": ["1201"]
 	},
 	"2222": {
@@ -1200,11 +1236,11 @@
 		"price": {
 			"id": 2222,
 			"mc": -1,
-			"cb": 2505
+			"cb": 2839
 		},
 		"translated_name": "C-LB 5-X AC AMMO (1\/2)",
 		"translated_desc": "A splinter round that is fired by a Clan LB 5-X AC.",
-		"num_shots": 15,
+		"num_shots": 17,
 		"weapons": ["1201"]
 	},
 	"2214": {
@@ -1215,12 +1251,15 @@
 		"price": {
 			"id": 2214,
 			"mc": -1,
-			"cb": 30060
+			"cb": 40080
 		},
 		"translated_name": "C-LRM AMMO",
 		"translated_desc": "A Long Range Missile",
-		"num_shots": 180,
-		"weapons": ["1218", "1219", "1220", "1221"],
+		"num_shots": 240,
+		"weapons": ["1218",
+		"1219",
+		"1220",
+		"1221"],
 		"id_artemis_swap": 2215
 	},
 	"2234": {
@@ -1231,12 +1270,15 @@
 		"price": {
 			"id": 2234,
 			"mc": -1,
-			"cb": 15030
+			"cb": 20040
 		},
 		"translated_name": "C-LRM AMMO (1\/2)",
 		"translated_desc": "A Long Range Missile",
-		"num_shots": 90,
-		"weapons": ["1218", "1219", "1220", "1221"],
+		"num_shots": 120,
+		"weapons": ["1218",
+		"1219",
+		"1220",
+		"1221"],
 		"id_artemis_swap": 2235
 	},
 	"2215": {
@@ -1247,12 +1289,15 @@
 		"price": {
 			"id": 2215,
 			"mc": -1,
-			"cb": 60120
+			"cb": 80160
 		},
 		"translated_name": "C-LRM AMMO + ART. IV",
 		"translated_desc": "Clan Artemis IV LRM Ammo",
-		"num_shots": 180,
-		"weapons": ["1222", "1223", "1224", "1225"],
+		"num_shots": 240,
+		"weapons": ["1222",
+		"1223",
+		"1224",
+		"1225"],
 		"id_artemis_swap": 2214
 	},
 	"2235": {
@@ -1263,12 +1308,15 @@
 		"price": {
 			"id": 2235,
 			"mc": -1,
-			"cb": 30060
+			"cb": 40080
 		},
 		"translated_name": "C-LRM AMMO+ART. IV (1\/2)",
 		"translated_desc": "Clan Artemis IV LRM Ammo (Half)",
-		"num_shots": 90,
-		"weapons": ["1222", "1223", "1224", "1225"],
+		"num_shots": 120,
+		"weapons": ["1222",
+		"1223",
+		"1224",
+		"1225"],
 		"id_artemis_swap": 2234
 	},
 	"2242": {
@@ -1339,11 +1387,11 @@
 		"price": {
 			"id": 2219,
 			"mc": -1,
-			"cb": 12000
+			"cb": 13000
 		},
 		"translated_name": "C-NARC AMMO",
 		"translated_desc": "A targeting projectile fired from a Clan NARC cannon.",
-		"num_shots": 12,
+		"num_shots": 13,
 		"weapons": ["1235"]
 	},
 	"2239": {
@@ -1369,12 +1417,14 @@
 		"price": {
 			"id": 2216,
 			"mc": -1,
-			"cb": 27000
+			"cb": 32400
 		},
 		"translated_name": "C-SRM AMMO",
 		"translated_desc": "A Short Range Missile",
-		"num_shots": 100,
-		"weapons": ["1226", "1227", "1228"],
+		"num_shots": 120,
+		"weapons": ["1226",
+		"1227",
+		"1228"],
 		"id_artemis_swap": 2217
 	},
 	"2236": {
@@ -1385,12 +1435,14 @@
 		"price": {
 			"id": 2236,
 			"mc": -1,
-			"cb": 13500
+			"cb": 16200
 		},
 		"translated_name": "C-SRM AMMO (1\/2)",
 		"translated_desc": "A Short Range Missile",
-		"num_shots": 50,
-		"weapons": ["1226", "1227", "1228"],
+		"num_shots": 60,
+		"weapons": ["1226",
+		"1227",
+		"1228"],
 		"id_artemis_swap": 2237
 	},
 	"2217": {
@@ -1401,12 +1453,14 @@
 		"price": {
 			"id": 2217,
 			"mc": -1,
-			"cb": 54000
+			"cb": 64800
 		},
 		"translated_name": "C-SRM AMMO + ART. IV",
 		"translated_desc": "Clan Artemis IV SRM Ammo",
-		"num_shots": 100,
-		"weapons": ["1229", "1230", "1231"],
+		"num_shots": 120,
+		"weapons": ["1229",
+		"1230",
+		"1231"],
 		"id_artemis_swap": 2216
 	},
 	"2237": {
@@ -1417,12 +1471,14 @@
 		"price": {
 			"id": 2237,
 			"mc": -1,
-			"cb": 27000
+			"cb": 32400
 		},
 		"translated_name": "C-SRM AMMO+ART. IV (1\/2)",
 		"translated_desc": "Clan Artemis IV SRM Ammo (Half)",
-		"num_shots": 50,
-		"weapons": ["1229", "1230", "1231"],
+		"num_shots": 60,
+		"weapons": ["1229",
+		"1230",
+		"1231"],
 		"id_artemis_swap": 2236
 	},
 	"2218": {
@@ -1433,12 +1489,14 @@
 		"price": {
 			"id": 2218,
 			"mc": -1,
-			"cb": 54000
+			"cb": 64800
 		},
 		"translated_name": "C-S-SRM AMMO",
 		"translated_desc": "A Homing Short Range Missile",
-		"num_shots": 100,
-		"weapons": ["1232", "1233", "1234"]
+		"num_shots": 120,
+		"weapons": ["1232",
+		"1233",
+		"1234"]
 	},
 	"2238": {
 		"id": "2238",
@@ -1448,12 +1506,14 @@
 		"price": {
 			"id": 2238,
 			"mc": -1,
-			"cb": 27000
+			"cb": 32400
 		},
 		"translated_name": "C-S-SRM AMMO (1\/2)",
 		"translated_desc": "A Homing Short Range Missile",
-		"num_shots": 50,
-		"weapons": ["1232", "1233", "1234"]
+		"num_shots": 60,
+		"weapons": ["1232",
+		"1233",
+		"1234"]
 	},
 	"2210": {
 		"id": "2210",
@@ -1463,11 +1523,11 @@
 		"price": {
 			"id": 2210,
 			"mc": -1,
-			"cb": 12000
+			"cb": 13800
 		},
 		"translated_name": "C-U-AC\/10 AMMO",
 		"translated_desc": "A large caliber slug fired from a Clan U-AC\/10.",
-		"num_shots": 60,
+		"num_shots": 69,
 		"weapons": ["1206"]
 	},
 	"2230": {
@@ -1478,11 +1538,11 @@
 		"price": {
 			"id": 2230,
 			"mc": -1,
-			"cb": 6000
+			"cb": 6600
 		},
 		"translated_name": "C-U-AC\/10 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from a Clan U-AC\/10.",
-		"num_shots": 30,
+		"num_shots": 33,
 		"weapons": ["1206"]
 	},
 	"2211": {
@@ -1493,11 +1553,11 @@
 		"price": {
 			"id": 2211,
 			"mc": -1,
-			"cb": 15988
+			"cb": 18272
 		},
 		"translated_name": "C-U-AC\/20 AMMO",
 		"translated_desc": "A large caliber slug fired from a Clan U-AC\/20.",
-		"num_shots": 28,
+		"num_shots": 32,
 		"weapons": ["1207"]
 	},
 	"2231": {
@@ -1508,11 +1568,11 @@
 		"price": {
 			"id": 2231,
 			"mc": -1,
-			"cb": 7994
+			"cb": 9136
 		},
 		"translated_name": "C-U-AC\/20 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from a Clan U-AC\/20.",
-		"num_shots": 14,
+		"num_shots": 16,
 		"weapons": ["1207"]
 	},
 	"2208": {
@@ -1523,11 +1583,11 @@
 		"price": {
 			"id": 2208,
 			"mc": -1,
-			"cb": 525
+			"cb": 609
 		},
 		"translated_name": "C-U-AC\/2 AMMO",
 		"translated_desc": "A large caliber slug fired from a Clan U-AC\/2.",
-		"num_shots": 75,
+		"num_shots": 87,
 		"weapons": ["1204"]
 	},
 	"2228": {
@@ -1538,11 +1598,11 @@
 		"price": {
 			"id": 2228,
 			"mc": -1,
-			"cb": 259
+			"cb": 301
 		},
 		"translated_name": "C-U-AC\/2 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from a Clan U-AC\/2.",
-		"num_shots": 37,
+		"num_shots": 43,
 		"weapons": ["1204"]
 	},
 	"2209": {
@@ -1553,11 +1613,11 @@
 		"price": {
 			"id": 2209,
 			"mc": -1,
-			"cb": 6000
+			"cb": 7000
 		},
 		"translated_name": "C-U-AC\/5 AMMO",
 		"translated_desc": "A large caliber slug fired from a Clan U-AC\/5.",
-		"num_shots": 60,
+		"num_shots": 70,
 		"weapons": ["1205"]
 	},
 	"2229": {
@@ -1568,11 +1628,11 @@
 		"price": {
 			"id": 2229,
 			"mc": -1,
-			"cb": 3000
+			"cb": 3400
 		},
 		"translated_name": "C-U-AC\/5 AMMO (1\/2)",
 		"translated_desc": "A large caliber slug fired from a Clan U-AC\/5.",
-		"num_shots": 30,
+		"num_shots": 34,
 		"weapons": ["1205"]
 	}
 }

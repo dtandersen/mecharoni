@@ -20,7 +20,7 @@ import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
 
 public class OptimizeMechCommand
 {
-	private static final String DEFAULT_CONFIG = "archer-3r.yaml";
+	private static final String DEFAULT_CONFIG = "linebacker-rl.yaml";
 
 	public static void main(final String[] args) throws Exception
 	{
