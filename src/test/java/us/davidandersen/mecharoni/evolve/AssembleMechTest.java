@@ -20,20 +20,20 @@ import us.davidandersen.mecharoni.entity.LocationType;
 import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.entity.MechBuild.MechBuildBuilder;
 import us.davidandersen.mecharoni.entity.PrefabMechs;
-import us.davidandersen.mecharoni.repository.CompCache;
+import us.davidandersen.mecharoni.repository.Components;
 import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
 import us.davidandersen.mecharoni.util.ComposeBuilder;
 
 public class AssembleMechTest
 {
-	private CompCache compCache;
+	private Components compCache;
 
 	@BeforeEach
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
 		final JsonComponentRepository repo = new JsonComponentRepository();
 		final List<Component> comps = repo.all();
-		compCache = new CompCache(comps);
+		compCache = new Components(comps);
 	}
 
 	@Test
@@ -270,6 +270,6 @@ public class AssembleMechTest
 
 	private Component component(final String string)
 	{
-		return compCache.getComp(string);
+		return compCache.getComponentByName(string);
 	}
 }

@@ -21,6 +21,8 @@ public class MechBuild
 
 	private final Quirks quirks;
 
+	private float heat;
+
 	public MechBuild(final MechBuildBuilder mechBuilder)
 	{
 		mechSpec = mechBuilder.mechSpecBuilder.build();
@@ -248,6 +250,17 @@ public class MechBuild
 		return (int)slots.count(predicate);
 	}
 
+	public float getHeat()
+	{
+		return heat;
+	}
+
+	public void fire(final int linkedGroup)
+	{
+		final List<Component> weapons = slots.componentsByLinkedGroup(linkedGroup);
+		heat += weapons.stream().mapToDouble(c -> c.getHeat()).sum();
+	}
+
 	public static class MechBuildBuilder
 	{
 		private MechSpecBuilder mechSpecBuilder = new MechSpecBuilder();
@@ -265,6 +278,12 @@ public class MechBuild
 		public MechBuildBuilder withComponent(final LocationType location, final Component component)
 		{
 			slots.add(new Slot(location, component));
+			return this;
+		}
+
+		public MechBuildBuilder withComponent(final LocationType location, final Component component, final int linkedGroup)
+		{
+			slots.add(new Slot(location, component, linkedGroup));
 			return this;
 		}
 

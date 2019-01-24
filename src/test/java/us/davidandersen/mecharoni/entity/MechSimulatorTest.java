@@ -11,18 +11,18 @@ import org.junit.jupiter.api.Test;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.MechBuild.MechBuildBuilder;
-import us.davidandersen.mecharoni.repository.CompCache;
+import us.davidandersen.mecharoni.repository.Components;
 import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
 
 public class MechSimulatorTest
 {
-	private CompCache compCache;
+	private Components compCache;
 
 	@BeforeEach
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
 		final List<Component> components = new JsonComponentRepository().all();
-		compCache = new CompCache(components);
+		compCache = new Components(components);
 	}
 
 	@Test
@@ -75,8 +75,9 @@ public class MechSimulatorTest
 				.withComponent(LocationType.LT, component("SRMAmmo"))
 				.withComponent(LocationType.LT, component("SRMAmmo"))
 				.build());
-		sim.go(3 * 55, 200);
-		assertThat((double)sim.damage(), closeTo(srm4.getDamage() * 50, .001));
+		// 240/4=60 shots
+		sim.go(3 * 60, 200);
+		assertThat((double)sim.damage(), closeTo(srm4.getDamage() * 60, .001));
 	}
 
 	@Test
@@ -145,6 +146,6 @@ public class MechSimulatorTest
 
 	private Component component(final String name)
 	{
-		return compCache.getComp(name);
+		return compCache.getComponentByName(name);
 	}
 }

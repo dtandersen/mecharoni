@@ -6,10 +6,20 @@ public class Slot
 
 	private final Component component;
 
+	private final int linkedGroup;
+
 	public Slot(final LocationType location, final Component component)
 	{
 		this.location = location;
 		this.component = component;
+		linkedGroup = 0;
+	}
+
+	public Slot(final LocationType location, final Component component, final int linkedGroup)
+	{
+		this.location = location;
+		this.component = component;
+		this.linkedGroup = linkedGroup;
 	}
 
 	public LocationType getLocationType()
@@ -25,6 +35,6 @@ public class Slot
 	@Override
 	public String toString()
 	{
-		return location.toString() + ":" + component.getFriendlyName();
+		return location.toString() + ":" + component.getFriendlyName() + " [" + linkedGroup + "]";
 	}
 }

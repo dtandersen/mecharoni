@@ -34,6 +34,11 @@ public class Slots
 		return list;
 	}
 
+	public List<Component> componentsByLinkedGroup(final int linkedGroup)
+	{
+		return null;
+	}
+
 	void addComponent(final LocationType locationType, final Component component)
 	{
 		components.add(component);
