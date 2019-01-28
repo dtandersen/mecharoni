@@ -1,9 +1,7 @@
 package us.davidandersen.mecharoni.entity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
@@ -13,44 +11,32 @@ import java.util.stream.Stream;
 
 public class Slots
 {
-	private final List<Component> components;
-
-	private final Map<LocationType, List<Component>> componentsByLocation;
+	private final List<Slot> slots;
 
 	Slots()
 	{
-		this.components = new ArrayList<>();
-		this.componentsByLocation = new HashMap<>();
+		slots = new ArrayList<>();
 	}
 
 	List<Component> componentsByLocation(final LocationType locationType)
 	{
-		final List<Component> list = componentsByLocation.get(locationType);
-		if (list == null)
-		{
-			return new ArrayList<>();
-		}
-
-		return list;
+		return slots.stream()
+				.filter(slot -> slot.hasLocation(locationType))
+				.map(slot -> slot.getComponent())
+				.collect(Collectors.toList());
 	}
 
 	public List<Component> componentsByLinkedGroup(final int linkedGroup)
 	{
-		return null;
+		return slots.stream()
+				.filter(slot -> slot.hasLinkedGroup(linkedGroup))
+				.map(slot -> slot.getComponent())
+				.collect(Collectors.toList());
 	}
 
-	void addComponent(final LocationType locationType, final Component component)
+	void addComponent(final Slot slot)
 	{
-		components.add(component);
-		final List<Component> list = componentsByLocation.get(locationType);
-		List<Component> compsInLoc = list;
-		if (compsInLoc == null)
-		{
-			compsInLoc = new ArrayList<>();
-			final List<Component> compsInLoc1 = compsInLoc;
-			componentsByLocation.put(locationType, compsInLoc1);
-		}
-		compsInLoc.add(component);
+		slots.add(slot);
 	}
 
 	int occupiedSlots()
@@ -102,7 +88,9 @@ public class Slots
 
 	private List<? extends Component> getComponents()
 	{
-		return components;
+		return slots.stream()
+				.map(slot -> slot.getComponent())
+				.collect(Collectors.toList());
 	}
 
 	public Component findFirst(final Predicate<? super Component> predicate)

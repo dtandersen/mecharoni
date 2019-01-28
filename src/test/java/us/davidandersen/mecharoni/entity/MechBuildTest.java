@@ -68,6 +68,22 @@ public class MechBuildTest
 		assertThat(boarsHead.getHeat(), is(component("MEDIUM LASER").getHeat() * 2));
 	}
 
+	@Test
+	public void cooldown()
+	{
+		boarsHead.fire(2);
+		boarsHead.update(.1f);
+		assertThat((double)boarsHead.getHeat(), closeTo(component("MEDIUM LASER").getHeat() * 2 - boarsHead.hps() * .1, .0000001));
+	}
+
+	@Test
+	public void cantCoolBelowZero()
+	{
+		boarsHead.fire(2);
+		boarsHead.update(5f);
+		assertThat(boarsHead.getHeat(), is(0f));
+	}
+
 	private Component component(final String name)
 	{
 		return components.getComponentByName(name);

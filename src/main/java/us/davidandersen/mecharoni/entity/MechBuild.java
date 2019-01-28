@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import us.davidandersen.mecharoni.entity.MechSpec.MechSpecBuilder;
 import us.davidandersen.mecharoni.entity.Quirk.QuirkBuilder;
+import us.davidandersen.mecharoni.entity.Slot.SlotBuilder;
 import us.davidandersen.mecharoni.entity.predicate.MultiWeaponPredicate;
 import us.davidandersen.mecharoni.io.MechPrinter.Node;
 
@@ -34,14 +35,16 @@ public class MechBuild
 		final ComponentValidator validator = new ComponentValidator(this);
 		quirks = new Quirks(mechBuilder.quirks);
 
-		for (final Slot slot : mechBuilder.slots)
+		for (final SlotBuilder slotBuilder : mechBuilder.slotBuilders)
 		{
+			final Slot slot = slotBuilder.build();
 			if (!validator.isValid(slot.getLocationType(), slot.getComponent()))
 			{
 				continue;
 			}
 
-			slots.addComponent(slot.getLocationType(), new QuirkedComponent(slot.getComponent(), quirks));
+			slotBuilder.withComponent(new QuirkedComponent(slot.getComponent(), quirks));
+			slots.addComponent(slotBuilder.build());
 		}
 	}
 
@@ -265,9 +268,9 @@ public class MechBuild
 	{
 		private MechSpecBuilder mechSpecBuilder = new MechSpecBuilder();
 
-		private final List<Slot> slots = new ArrayList<>();
-
 		private Map<QuirkType, Quirk> quirks = new HashMap<>();
+
+		private final List<SlotBuilder> slotBuilders = new ArrayList<>();
 
 		public MechBuildBuilder withSpec(final MechSpecBuilder mechSpecBuilder)
 		{
@@ -275,15 +278,28 @@ public class MechBuild
 			return this;
 		}
 
+		@Deprecated
 		public MechBuildBuilder withComponent(final LocationType location, final Component component)
 		{
-			slots.add(new Slot(location, component));
+			slotBuilders.add(SlotBuilder.slot()
+					.withLocation(location)
+					.withComponent(component));
 			return this;
 		}
 
+		public MechBuildBuilder withComponent(final SlotBuilder slotBuilder)
+		{
+			slotBuilders.add(slotBuilder);
+			return this;
+		}
+
+		@Deprecated
 		public MechBuildBuilder withComponent(final LocationType location, final Component component, final int linkedGroup)
 		{
-			slots.add(new Slot(location, component, linkedGroup));
+			slotBuilders.add(SlotBuilder.slot()
+					.withLocation(location)
+					.withComponent(component)
+					.withLinkedGroup(linkedGroup));
 			return this;
 		}
 
@@ -308,6 +324,17 @@ public class MechBuild
 		public static MechBuildBuilder mech()
 		{
 			return new MechBuildBuilder();
+		}
+	}
+
+	public void update(final float dt)
+	{
+		if (heat == 0)
+		{ return; }
+		heat -= hps() * dt;
+		if (heat < 0)
+		{
+			heat = 0;
 		}
 	}
 }
