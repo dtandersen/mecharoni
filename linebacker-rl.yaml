@@ -1,12 +1,12 @@
 faction: clan
 range: 200
-tons: 16.5
-slots: 31
+tons: 17
+slots: 33
 engineSinks: 4
 heatSinks: 0
 locations:
   HEAD:
-    slots: 2
+    slots: 0
     missile: 0
     energy: 0
     ballistic: 0
@@ -26,15 +26,15 @@ locations:
     energy: 2
     ballistic: 0
   RA:
-    slots: 6
-    missile: 1
-    energy: 0
+    slots: 8
+    missile: 0
+    energy: 1
     ballistic: 0
   LA:
     slots: 8
     missile: 0
-    energy: 0
-    ballistic: 1
+    energy: 2
+    ballistic: 0
   RL:
     slots: 0
     missile: 0
