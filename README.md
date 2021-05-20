@@ -1,0 +1,1 @@
+https://mwomercs.com/static/data/ammo/list.json
