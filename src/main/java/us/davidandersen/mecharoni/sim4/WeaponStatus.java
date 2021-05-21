@@ -10,14 +10,24 @@ public class WeaponStatus
 
 	private final float maxCooldown;
 
-	private float currentCooldown;
+	private float cooldown;
+
+	private final int heatPenaltyId;
+
+	private final float minHeatPenaltyLevel;
+
+	private float heatPenaltyCooldown;
 
 	@Generated("SparkTools")
 	private WeaponStatus(final WeaponStatusBuilder weaponStatusBuilder)
 	{
 		this.damage = weaponStatusBuilder.damage;
 		this.heat = weaponStatusBuilder.heat;
-		this.maxCooldown = weaponStatusBuilder.cooldown;
+		this.maxCooldown = weaponStatusBuilder.maxCooldown;
+		this.cooldown = weaponStatusBuilder.cooldown;
+		this.heatPenaltyId = weaponStatusBuilder.heatPenaltyId;
+		this.minHeatPenaltyLevel = weaponStatusBuilder.minHeatPenaltyLevel;
+		this.heatPenaltyCooldown = weaponStatusBuilder.heatPenaltyCooldown;
 	}
 
 	public float getHeat()
@@ -27,23 +37,49 @@ public class WeaponStatus
 
 	public float getCooldown()
 	{
-		return maxCooldown;
+		return cooldown;
+	}
+
+	public boolean hasHeatPenaltyId(final int heatPenaltyId)
+	{
+		return this.heatPenaltyId == heatPenaltyId;
 	}
 
 	public void fire()
 	{
-		currentCooldown = maxCooldown;
+		cooldown = maxCooldown;
+		heatPenaltyCooldown = 0.5f;
 	}
 
 	public boolean isOffCooldown()
 	{
-		return currentCooldown == 0;
+		return cooldown == 0;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "WeaponStatus [damage=" + damage + ", heat=" + getHeat() + ", cooldown=" + maxCooldown + "]";
+		return "WeaponStatus [damage=" + damage + ", heat=" + heat + ", maxCooldown=" + maxCooldown + ", currentCooldown=" + cooldown +
+				", heatPenaltyId=" + heatPenaltyId + ", minHeatPenaltyLevel=" + minHeatPenaltyLevel + "]";
+	}
+
+	public float getHeatCooldown()
+	{
+		return heatPenaltyCooldown;
+	}
+
+	public void cooldown(final float time)
+	{
+		cooldown -= time;
+		if (cooldown < 0)
+		{
+			cooldown = 0;
+		}
+		heatPenaltyCooldown -= time;
+		if (heatPenaltyCooldown < 0)
+		{
+			heatPenaltyCooldown = 0;
+		}
 	}
 
 	/**
@@ -67,7 +103,15 @@ public class WeaponStatus
 
 		private float heat;
 
+		private float maxCooldown;
+
 		private float cooldown;
+
+		private int heatPenaltyId;
+
+		private float minHeatPenaltyLevel;
+
+		private float heatPenaltyCooldown;
 
 		private WeaponStatusBuilder()
 		{
@@ -85,9 +129,33 @@ public class WeaponStatus
 			return this;
 		}
 
+		public WeaponStatusBuilder withMaxCooldown(final float maxCooldown)
+		{
+			this.maxCooldown = maxCooldown;
+			return this;
+		}
+
 		public WeaponStatusBuilder withCooldown(final float cooldown)
 		{
 			this.cooldown = cooldown;
+			return this;
+		}
+
+		public WeaponStatusBuilder withHeatPenaltyId(final int heatPenaltyId)
+		{
+			this.heatPenaltyId = heatPenaltyId;
+			return this;
+		}
+
+		public WeaponStatusBuilder withMinHeatPenaltyLevel(final float minHeatPenaltyLevel)
+		{
+			this.minHeatPenaltyLevel = minHeatPenaltyLevel;
+			return this;
+		}
+
+		public WeaponStatusBuilder withHeatPenaltyCooldown(final float heatPenaltyCooldown)
+		{
+			this.heatPenaltyCooldown = heatPenaltyCooldown;
 			return this;
 		}
 

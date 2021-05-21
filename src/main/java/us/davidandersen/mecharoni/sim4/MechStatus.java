@@ -65,6 +65,52 @@ public class MechStatus
 		weapon.fire();
 	}
 
+	public void fire(final int slot)
+	{
+		fire(weapons.get(slot));
+	}
+
+	public void dissipateHeat(final float time)
+	{
+		heat -= getHeatDisipation() * time;
+
+		if (heat < 0)
+		{
+			heat = 0;
+		}
+	}
+
+	public float getWeaponsGroupCooldown(final int heatPenaltyId)
+	{
+		float heatCooldown = 0;
+
+		for (final WeaponStatus weapon : weapons)
+		{
+			if (weapon.hasHeatPenaltyId(heatPenaltyId))
+			{
+				if (weapon.getHeatCooldown() > heatCooldown)
+				{
+					heatCooldown = weapon.getHeatCooldown();
+				}
+			}
+		}
+
+		return heatCooldown;
+	}
+
+	public void regen()
+	{
+		heat -= Heat.dissipation(internalHeatSinks, externalHeatSinks) * 1 / 30f;
+		if (heat < 0)
+		{
+			heat = 0;
+		}
+		for (final WeaponStatus weapon : weapons)
+		{
+			weapon.cooldown(1 / 30f);
+		}
+	}
+
 	/**
 	 * Creates builder to build {@link MechStatus}.
 	 *
@@ -121,16 +167,6 @@ public class MechStatus
 		public MechStatus build()
 		{
 			return new MechStatus(this);
-		}
-	}
-
-	public void dissipateHeat(final float time)
-	{
-		heat -= getHeatDisipation() * time;
-
-		if (heat < 0)
-		{
-			heat = 0;
 		}
 	}
 }
