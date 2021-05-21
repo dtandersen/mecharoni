@@ -56,7 +56,7 @@ public class Slot
 		return location.toString() + ":" + component.getFriendlyName() + " [" + linkedGroup + "]";
 	}
 
-	static class SlotBuilder
+	public static class SlotBuilder
 	{
 		private int linkedGroup;
 

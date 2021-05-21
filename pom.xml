@@ -19,6 +19,11 @@
 			<artifactId>snakeyaml</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.hobsoft.hamcrest</groupId>
 			<artifactId>hamcrest-compose</artifactId>
 			<exclusions>
@@ -27,12 +32,6 @@
 					<artifactId>hamcrest-core</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest</artifactId>
-			<version>2.1</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -50,7 +49,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>2.1.2.RELEASE</version>
+				<version>2.4.6</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -61,8 +60,8 @@
 			</dependency>
 			<dependency>
 				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest-junit</artifactId>
-				<version>2.0.0.0</version>
+				<artifactId>hamcrest</artifactId>
+				<version>2.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hobsoft.hamcrest</groupId>
