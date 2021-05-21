@@ -330,7 +330,9 @@ public class MechBuild
 	public void update(final float dt)
 	{
 		if (heat == 0)
-		{ return; }
+		{
+			return;
+		}
 		heat -= hps() * dt;
 		if (heat < 0)
 		{

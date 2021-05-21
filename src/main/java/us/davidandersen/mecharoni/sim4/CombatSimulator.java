@@ -1,67 +1,59 @@
 package us.davidandersen.mecharoni.sim4;
 
-import java.util.ArrayList;
 import java.util.List;
-import us.davidandersen.mecharoni.entity.Component;
-import us.davidandersen.mecharoni.entity.MechBuild;
 
 public class CombatSimulator
 {
-	private MechBuild mech;
-
-	private final MechStatus status;
-
-	private final List<WeaponStatus> weaponStatuses;
+	private final MechStatus mech;
 
 	private final float TICK_TIME = 1 / 30f;
 
-	public CombatSimulator()
+	public CombatSimulator(final MechStatus mech)
 	{
-		status = new MechStatus();
-		weaponStatuses = new ArrayList<WeaponStatus>();
+		this.mech = mech;
 	}
 
 	public void tick()
 	{
-		float heat = status.getHeat();
-		heat -= mech.getHeatDisipation() * TICK_TIME;
-		if (heat < 0)
-		{
-			heat = 0;
-		}
+		mech.dissipateHeat(TICK_TIME);
 
-		for (final WeaponStatus weapon : weaponStatuses)
+		for (final WeaponStatus weapon : mech.getWeapons())
 		{
-			if (weapon.isOffCooldown())
+			if (mech.canFire(weapon))
 			{
-				heat += weapon.getHeat();
-				weapon.fire();
+				mech.fire(weapon);
 			}
 		}
-
-		status.setHeat(heat);
 	}
 
-	public void addMech(final MechBuild mech)
-	{
-		this.mech = mech;
-		for (final Component weapon : mech.getWeapons())
-		{
-			weaponStatuses.add(WeaponStatus.builder()
-					.withDamage(weapon.getDamage())
-					.withHeat(weapon.getHeat())
-					.withCooldown(weapon.getCooldown())
-					.build());
-		}
-	}
+	// public void addMech(final MechBuild mechBuild)
+	// {
+	// final List<WeaponStatus> weapons = new ArrayList<>();
+	//
+	// for (final Component weapon : mechBuild.getWeapons())
+	// {
+	// weapons.add(WeaponStatus.builder()
+	// .withDamage(weapon.getDamage())
+	// .withHeat(weapon.getHeat())
+	// .withCooldown(weapon.getCooldown())
+	// .build());
+	// }
+	//
+	// mech = MechStatus.builder()
+	// .withInternalHeatSinks(mechBuild.getInternalHeatSinks())
+	// .withExternalHeatSinks(mechBuild.getExternalHeatSinks())
+	// .withWeapons(weapons)
+	// .build();
+	//
+	// }
 
 	public MechStatus getStatus()
 	{
-		return status;
+		return mech;
 	}
 
 	public List<WeaponStatus> getWeapons()
 	{
-		return weaponStatuses;
+		return mech.getWeapons();
 	}
 }
