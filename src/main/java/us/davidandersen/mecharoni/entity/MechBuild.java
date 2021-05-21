@@ -75,10 +75,10 @@ public class MechBuild
 
 	public float heatRegained(final float time)
 	{
-		return getHeatCapacity() + getDisipation() + time;
+		return getHeatCapacity() + getHeatDisipation() + time;
 	}
 
-	public float getDisipation()
+	public float getHeatDisipation()
 	{
 		return (float)(getInternalHeatSinks() * .2 + getExternalHeatSinks() * .15);
 	}
@@ -172,7 +172,7 @@ public class MechBuild
 
 	public float heatEfficiency()
 	{
-		final float f = getDisipation() / hps();
+		final float f = getHeatDisipation() / hps();
 		return f;
 	}
 

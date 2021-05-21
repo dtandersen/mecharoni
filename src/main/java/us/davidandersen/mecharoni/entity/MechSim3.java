@@ -23,7 +23,7 @@ public class MechSim3
 	public void run(final float time, final int range)
 	{
 		final float capacity = mech.getHeatCapacity();
-		final float disipation = mech.getDisipation();
+		final float disipation = mech.getHeatDisipation();
 		heatAvailableToMech = capacity + disipation * time;
 		final List<? extends Component> weapons = mech.getWeapons();
 		// final float totalHps = (float)weapons.stream().filter(c -> c.isWeapon()).mapToDouble(Component::getHps).sum();

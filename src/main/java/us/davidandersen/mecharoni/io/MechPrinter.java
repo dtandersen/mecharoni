@@ -22,7 +22,7 @@ public class MechPrinter
 		out.println("Firepower: " + mech.getFirepower());
 		out.println("Damage@" + config.range + " (30s): " + sim(mech, config.range, 30));
 		out.println("Damage@" + config.range + " (120s): " + sim(mech, config.range, 120));
-		out.println("Heat: " + mech.getDisipation() + "/" + mech.hps() + " " + (mech.heatEfficiency() * 100) + "%" + "  Capacity:" + mech.getHeatCapacity());
+		out.println("Heat: " + mech.getHeatDisipation() + "/" + mech.hps() + " " + (mech.heatEfficiency() * 100) + "%" + "  Capacity:" + mech.getHeatCapacity());
 		out.println("Heat (30s): " + mech.heatExpended(30) + "/" + mech.heatRegained(30) + " " + (mech.heatRegained(30) * 100) / mech.heatExpended(30) + "%");
 		out.println("Heat Sinks: " + mech.getExternalHeatSinks() + "/(" + mech.getInternalHeatSinks() + ")");
 		out.println("Tons: " + mech.occupiedTons() + "/" + config.tons);
