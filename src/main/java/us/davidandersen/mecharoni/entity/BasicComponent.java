@@ -44,7 +44,13 @@ public class BasicComponent implements Component
 
 	private final int maxRange;
 
-	public BasicComponent(final ComponentBuilder itemBuilder)
+	private final int minHeatPenaltyLevel;
+
+	private final float heatPenalty;
+
+	private final int heatPenaltyId;
+
+	public BasicComponent(final BasicComponentBuilder itemBuilder)
 	{
 		id = itemBuilder.id;
 		tons = itemBuilder.tons;
@@ -63,6 +69,9 @@ public class BasicComponent implements Component
 		minRange = itemBuilder.min_range;
 		longRange = itemBuilder.long_range;
 		maxRange = itemBuilder.max_range;
+		minHeatPenaltyLevel = itemBuilder.minHeatPenaltyLevel;
+		heatPenalty = itemBuilder.heatPenalty;
+		heatPenaltyId = itemBuilder.heatPenaltyId;
 		if (cooldown + duration == 0)
 		{
 			dps = 0;
@@ -151,155 +160,6 @@ public class BasicComponent implements Component
 	public boolean isEmpty()
 	{
 		return empty;
-	}
-
-	public static class ComponentBuilder
-	{
-		public int num_shots;
-
-		public float heat;
-
-		private String type;
-
-		private float tons;
-
-		private int slots;
-
-		private String name;
-
-		private float damage;
-
-		private boolean empty;
-
-		private float cooldown;
-
-		private float duration;
-
-		private boolean heatSink;
-
-		private String friendlyName;
-
-		private String id;
-
-		private int damageMultiplier;
-
-		private int min_range;
-
-		private int long_range;
-
-		private int max_range;
-
-		public BasicComponent build()
-		{
-			return new BasicComponent(this);
-		}
-
-		public ComponentBuilder withTons(final float tons)
-		{
-			this.tons = tons;
-			return this;
-		}
-
-		public ComponentBuilder withSlots(final int slots)
-		{
-			this.slots = slots;
-			return this;
-		}
-
-		public ComponentBuilder withName(final String name)
-		{
-			this.name = name;
-			return this;
-		}
-
-		public ComponentBuilder withDamage(final float damage)
-		{
-			this.damage = damage;
-			return this;
-		}
-
-		public ComponentBuilder empty()
-		{
-			empty = true;
-			return this;
-		}
-
-		public ComponentBuilder withCooldown(final float cooldown)
-		{
-			this.cooldown = cooldown;
-			return this;
-		}
-
-		public ComponentBuilder withDuration(final float duration)
-		{
-			this.duration = duration;
-			return this;
-		}
-
-		public ComponentBuilder withType(final String type)
-		{
-			this.type = type;
-			return this;
-		}
-
-		public ComponentBuilder withHeat(final float heat)
-		{
-			this.heat = heat;
-			return this;
-		}
-
-		public ComponentBuilder heatSink()
-		{
-			this.heatSink = true;
-			return this;
-		}
-
-		public static ComponentBuilder component()
-		{
-			return new ComponentBuilder();
-		}
-
-		public ComponentBuilder withFriendlyName(final String friendlyName)
-		{
-			this.friendlyName = friendlyName;
-			return this;
-		}
-
-		public ComponentBuilder withId(final String id)
-		{
-			this.id = id;
-			return this;
-		}
-
-		public ComponentBuilder withNumShots(final int num_shots)
-		{
-			this.num_shots = num_shots;
-			return this;
-		}
-
-		public ComponentBuilder withDamageMultiplier(final int damageMultiplier)
-		{
-			this.damageMultiplier = damageMultiplier;
-			return this;
-		}
-
-		public ComponentBuilder withMinRange(final int min_range)
-		{
-			this.min_range = min_range;
-			return this;
-		}
-
-		public ComponentBuilder withLongRange(final int long_range)
-		{
-			this.long_range = long_range;
-			return this;
-		}
-
-		public ComponentBuilder withMaxRange(final int max_range)
-		{
-			this.max_range = max_range;
-			return this;
-		}
 	}
 
 	@Override
@@ -405,5 +265,205 @@ public class BasicComponent implements Component
 	public boolean hasFriendlyName(final String friendlyName)
 	{
 		return Objects.equals(this.friendlyName, friendlyName);
+	}
+
+	@Override
+	public int getMinHeatPenaltyLevel()
+	{
+		return minHeatPenaltyLevel;
+	}
+
+	@Override
+	public float getHeatPenalty()
+	{
+		return heatPenalty;
+	}
+
+	@Override
+	public int getHeatPenaltyId()
+	{
+		return heatPenaltyId;
+	}
+
+	public static BasicComponentBuilder builder()
+	{
+		return new BasicComponentBuilder();
+	}
+
+	public static class BasicComponentBuilder
+	{
+		public int num_shots;
+
+		public float heat;
+
+		private String type;
+
+		private float tons;
+
+		private int slots;
+
+		private String name;
+
+		private float damage;
+
+		private boolean empty;
+
+		private float cooldown;
+
+		private float duration;
+
+		private boolean heatSink;
+
+		private String friendlyName;
+
+		private String id;
+
+		private int damageMultiplier;
+
+		private int min_range;
+
+		private int long_range;
+
+		private int max_range;
+
+		private int minHeatPenaltyLevel;
+
+		private float heatPenalty;
+
+		private int heatPenaltyId;
+
+		private BasicComponentBuilder()
+		{
+		}
+
+		public BasicComponent build()
+		{
+			return new BasicComponent(this);
+		}
+
+		public BasicComponentBuilder withTons(final float tons)
+		{
+			this.tons = tons;
+			return this;
+		}
+
+		public BasicComponentBuilder withSlots(final int slots)
+		{
+			this.slots = slots;
+			return this;
+		}
+
+		public BasicComponentBuilder withName(final String name)
+		{
+			this.name = name;
+			return this;
+		}
+
+		public BasicComponentBuilder withDamage(final float damage)
+		{
+			this.damage = damage;
+			return this;
+		}
+
+		public BasicComponentBuilder empty()
+		{
+			empty = true;
+			return this;
+		}
+
+		public BasicComponentBuilder withCooldown(final float cooldown)
+		{
+			this.cooldown = cooldown;
+			return this;
+		}
+
+		public BasicComponentBuilder withDuration(final float duration)
+		{
+			this.duration = duration;
+			return this;
+		}
+
+		public BasicComponentBuilder withType(final String type)
+		{
+			this.type = type;
+			return this;
+		}
+
+		public BasicComponentBuilder withHeat(final float heat)
+		{
+			this.heat = heat;
+			return this;
+		}
+
+		public BasicComponentBuilder heatSink()
+		{
+			this.heatSink = true;
+			return this;
+		}
+
+		public static BasicComponentBuilder component()
+		{
+			return new BasicComponentBuilder();
+		}
+
+		public BasicComponentBuilder withFriendlyName(final String friendlyName)
+		{
+			this.friendlyName = friendlyName;
+			return this;
+		}
+
+		public BasicComponentBuilder withId(final String id)
+		{
+			this.id = id;
+			return this;
+		}
+
+		public BasicComponentBuilder withNumShots(final int num_shots)
+		{
+			this.num_shots = num_shots;
+			return this;
+		}
+
+		public BasicComponentBuilder withDamageMultiplier(final int damageMultiplier)
+		{
+			this.damageMultiplier = damageMultiplier;
+			return this;
+		}
+
+		public BasicComponentBuilder withMinRange(final int min_range)
+		{
+			this.min_range = min_range;
+			return this;
+		}
+
+		public BasicComponentBuilder withLongRange(final int long_range)
+		{
+			this.long_range = long_range;
+			return this;
+		}
+
+		public BasicComponentBuilder withMaxRange(final int max_range)
+		{
+			this.max_range = max_range;
+			return this;
+		}
+
+		public BasicComponentBuilder withMinHeatPenaltyLevel(final int minHeatPenaltyLevel)
+		{
+			this.minHeatPenaltyLevel = minHeatPenaltyLevel;
+			return this;
+		}
+
+		public BasicComponentBuilder withHeatPenalty(final float heatPenalty)
+		{
+			this.heatPenalty = heatPenalty;
+			return this;
+		}
+
+		public BasicComponentBuilder withHeatPenaltyId(final int heatPenaltyId)
+		{
+			this.heatPenaltyId = heatPenaltyId;
+			return this;
+		}
 	}
 }

@@ -12,8 +12,10 @@ public class JsonWeaponReader
 	HashMap<String, WeaponJson> readWeapons()
 	{
 		final Gson gson = new Gson();
-		final Type listType = new TypeToken<HashMap<String, JsonWeaponReader.WeaponJson>>() {}.getType();
-		final HashMap<String, JsonWeaponReader.WeaponJson> weapons = gson.fromJson(new InputStreamReader(EvolveMech.class.getResourceAsStream("/weapons.json")), listType);
+		final Type listType = new TypeToken<HashMap<String, JsonWeaponReader.WeaponJson>>() {
+		}.getType();
+		final HashMap<String, JsonWeaponReader.WeaponJson> weapons = gson
+				.fromJson(new InputStreamReader(EvolveMech.class.getResourceAsStream("/weapons.json")), listType);
 
 		return weapons;
 	}
@@ -52,5 +54,11 @@ public class JsonWeaponReader
 
 			int damageMultiplier;
 		}
+
+		public int min_heat_penalty_level;
+
+		public float heat_penalty;
+
+		public int heat_penalty_id;
 	}
 }

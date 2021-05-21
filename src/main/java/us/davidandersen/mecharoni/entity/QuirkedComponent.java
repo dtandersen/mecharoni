@@ -174,4 +174,22 @@ public class QuirkedComponent implements Component
 	{
 		return component.isInnerSphere();
 	}
+
+	@Override
+	public int getMinHeatPenaltyLevel()
+	{
+		return 0;
+	}
+
+	@Override
+	public float getHeatPenalty()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getHeatPenaltyId()
+	{
+		return 0;
+	}
 }

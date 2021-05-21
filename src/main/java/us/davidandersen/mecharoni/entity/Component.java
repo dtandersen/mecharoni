@@ -55,4 +55,10 @@ public interface Component
 	boolean isClan();
 
 	boolean isInnerSphere();
+
+	int getMinHeatPenaltyLevel();
+
+	float getHeatPenalty();
+
+	int getHeatPenaltyId();
 }

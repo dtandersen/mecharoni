@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.BasicComponent;
-import us.davidandersen.mecharoni.entity.BasicComponent.ComponentBuilder;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 import us.davidandersen.mecharoni.repository.json.JsonAmmoReader.AmmoJson;
@@ -64,7 +63,7 @@ public class JsonComponentRepository implements ComponentRepository
 		final HashMap<String, JsonWeaponReader.WeaponJson> weapons = jsonWeaponReader.readWeapons();
 
 		weapons.values().stream()
-				.forEach(it -> components.add(ComponentBuilder.component()
+				.forEach(it -> components.add(BasicComponent.builder()
 						.withId(it.id)
 						.withTons(it.tons)
 						.withSlots(it.slots)
@@ -79,6 +78,10 @@ public class JsonComponentRepository implements ComponentRepository
 						.withLongRange(it.long_range)
 						.withMaxRange(it.max_range)
 						.withDamageMultiplier(it.calc_stats.damageMultiplier)
+						.withMinHeatPenaltyLevel(it.min_heat_penalty_level)
+						.withHeatPenalty(it.heat_penalty)
+						.withHeatPenaltyId(it.heat_penalty_id)
+
 						.build()));
 	}
 
@@ -87,7 +90,7 @@ public class JsonComponentRepository implements ComponentRepository
 		final HashMap<String, AmmoJson> ammo = jsonAmmoReader.readAmmo();
 
 		ammo.values().stream()
-				.forEach(component -> components.add(ComponentBuilder.component()
+				.forEach(component -> components.add(BasicComponent.builder()
 						.withId(component.id)
 						.withTons(component.tons)
 						.withSlots(component.slots)
@@ -109,7 +112,7 @@ public class JsonComponentRepository implements ComponentRepository
 
 	private void readHeatSinks(final List<BasicComponent> components)
 	{
-		components.add(new ComponentBuilder()
+		components.add(BasicComponent.builder()
 				.withName("ClanDoubleHeatSink")
 				.withFriendlyName("Clan Double Heat Sink")
 				.heatSink()
@@ -117,7 +120,7 @@ public class JsonComponentRepository implements ComponentRepository
 				.withTons(1)
 				.build());
 
-		components.add(new ComponentBuilder()
+		components.add(BasicComponent.builder()
 				.withName("DoubleHeatSink")
 				.withFriendlyName("Double Heat Sink")
 				.heatSink()
@@ -125,7 +128,7 @@ public class JsonComponentRepository implements ComponentRepository
 				.withTons(1)
 				.build());
 
-		components.add(new ComponentBuilder()
+		components.add(BasicComponent.builder()
 				.withName("EmptySlot")
 				.withFriendlyName("Empty Slot")
 				.empty()
