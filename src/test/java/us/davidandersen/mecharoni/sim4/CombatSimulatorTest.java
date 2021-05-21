@@ -69,7 +69,7 @@ class CombatSimulatorTest
 		return weapons;
 	}
 
-	private Matcher<? super WeaponStatus> weaponMatching(final WeaponStatusBuilder builder)
+	private Matcher<WeaponStatus> weaponMatching(final WeaponStatusBuilder builder)
 	{
 		final WeaponStatus weaponStatus = builder.build();
 
