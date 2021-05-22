@@ -12,9 +12,12 @@ public class CombatSimulator
 
 	final static float TICK_TIME = 1 / 30f;
 
-	public CombatSimulator(final MechStatus mech)
+	private final int range;
+
+	public CombatSimulator(final MechStatus mech, final int range)
 	{
 		this.mech = mech;
+		this.range = range;
 		this.target = new TargetDummy();
 	}
 
@@ -35,7 +38,7 @@ public class CombatSimulator
 		{
 			if (mech.isWeaponReady(weapon))
 			{
-				mech.fire(weapon, target);
+				mech.fire(weapon, target, range);
 			}
 		}
 	}

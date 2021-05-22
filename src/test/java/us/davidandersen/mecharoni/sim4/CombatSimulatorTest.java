@@ -37,7 +37,7 @@ class CombatSimulatorTest
 				.withWeapons(weapons("ClanERLargeLaser"))
 				.build();
 
-		final CombatSimulator sim = new CombatSimulator(mech);
+		final CombatSimulator sim = new CombatSimulator(mech, 50);
 
 		sim.tick();
 
@@ -66,6 +66,9 @@ class CombatSimulatorTest
 				.withDamage(llaser.getDamage())
 				.withHeat(llaser.getHeat())
 				.withMaxCooldown(llaser.getCooldown())
+				.withOptimalRange(llaser.getLongRange())
+				.withMaxRange(llaser.getMaxRange())
+				.withMinRange(llaser.getMinRange())
 				.build();
 
 		final List<WeaponStatus> weapons = new ArrayList<WeaponStatus>();

@@ -13,6 +13,7 @@ import us.davidandersen.mecharoni.entity.Quirk.QuirkBuilder;
 import us.davidandersen.mecharoni.entity.Slot.SlotBuilder;
 import us.davidandersen.mecharoni.entity.predicate.MultiWeaponPredicate;
 import us.davidandersen.mecharoni.io.MechPrinter.Node;
+import us.davidandersen.mecharoni.sim4.Heat;
 
 public class MechBuild
 {
@@ -80,7 +81,7 @@ public class MechBuild
 
 	public float getHeatDisipation()
 	{
-		return (float)(getInternalHeatSinks() * .2 + getExternalHeatSinks() * .15);
+		return Heat.dissipation(getInternalHeatSinks(), getExternalHeatSinks());
 	}
 
 	public float hps()
@@ -100,7 +101,7 @@ public class MechBuild
 
 	public float getHeatCapacity()
 	{
-		return (float)(30 + getInternalHeatSinks() * 2 + getExternalHeatSinks() * 1.5);
+		return Heat.getHeatCapacity(getInternalHeatSinks(), getExternalHeatSinks());
 	}
 
 	public int getEnergySlots()

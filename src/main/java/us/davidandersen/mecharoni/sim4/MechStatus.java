@@ -55,16 +55,36 @@ public class MechStatus
 		return Heat.dissipation(internalHeatSinks, externalHeatSinks);
 	}
 
-	public void fire(final WeaponStatus weapon, final TargetDummy target)
+	public void fire(final WeaponStatus weapon, final TargetDummy target, final int range)
 	{
 		heat += weapon.getHeat();
 		weapon.fire();
-		target.applyDamage(weapon.getDamage());
+		target.applyDamage(calcDamage(weapon.getDamage(), range, weapon.getOptimalRange(), weapon.getMaxRange(), weapon.getMinRange()));
 	}
 
-	public void fire(final int slot, final TargetDummy target)
+	private float calcDamage(final float damage, final int range, final int optimalRange, final int maxRange, final int minRange)
 	{
-		fire(weapons.get(slot), target);
+		if (range < minRange)
+		{
+			return 0;
+		}
+		if (range <= optimalRange)
+		{
+			return damage;
+		}
+		if (range > maxRange)
+		{
+			return 0;
+		}
+
+		// 1000 - 500 / 1000 - 500
+		final float calculatedDamage = damage * (range - optimalRange) / (maxRange - optimalRange);
+		return calculatedDamage;
+	}
+
+	public void fire(final int slot, final TargetDummy target, final int range)
+	{
+		fire(weapons.get(slot), target, range);
 	}
 
 	public float getWeaponsGroupCooldown(final int heatPenaltyId)

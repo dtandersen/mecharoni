@@ -18,6 +18,12 @@ public class WeaponStatus
 
 	private float heatPenaltyCooldown;
 
+	private final int optimalRange;
+
+	private final int maxRange;
+
+	private final int minRange;
+
 	@Generated("SparkTools")
 	private WeaponStatus(final WeaponStatusBuilder weaponStatusBuilder)
 	{
@@ -28,6 +34,9 @@ public class WeaponStatus
 		this.heatPenaltyId = weaponStatusBuilder.heatPenaltyId;
 		this.minHeatPenaltyLevel = weaponStatusBuilder.minHeatPenaltyLevel;
 		this.heatPenaltyCooldown = weaponStatusBuilder.heatPenaltyCooldown;
+		this.optimalRange = weaponStatusBuilder.optimalRange;
+		this.maxRange = weaponStatusBuilder.maxRange;
+		this.minRange = weaponStatusBuilder.minRange;
 	}
 
 	public float getHeat()
@@ -102,6 +111,21 @@ public class WeaponStatus
 		return minHeatPenaltyLevel;
 	}
 
+	public int getOptimalRange()
+	{
+		return optimalRange;
+	}
+
+	public int getMaxRange()
+	{
+		return maxRange;
+	}
+
+	public int getMinRange()
+	{
+		return minRange;
+	}
+
 	/**
 	 * Creates builder to build {@link WeaponStatus}.
 	 *
@@ -132,6 +156,12 @@ public class WeaponStatus
 		private int minHeatPenaltyLevel;
 
 		private float heatPenaltyCooldown;
+
+		private int optimalRange;
+
+		private int maxRange;
+
+		private int minRange;
 
 		private WeaponStatusBuilder()
 		{
@@ -176,6 +206,24 @@ public class WeaponStatus
 		public WeaponStatusBuilder withHeatPenaltyCooldown(final float heatPenaltyCooldown)
 		{
 			this.heatPenaltyCooldown = heatPenaltyCooldown;
+			return this;
+		}
+
+		public WeaponStatusBuilder withOptimalRange(final int optimalRange)
+		{
+			this.optimalRange = optimalRange;
+			return this;
+		}
+
+		public WeaponStatusBuilder withMaxRange(final int maxRange)
+		{
+			this.maxRange = maxRange;
+			return this;
+		}
+
+		public WeaponStatusBuilder withMinRange(final int minRange)
+		{
+			this.minRange = minRange;
 			return this;
 		}
 

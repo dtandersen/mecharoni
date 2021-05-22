@@ -46,7 +46,7 @@ class MechStatusTest
 		assertThat("mech has suffient heat to fire",
 				mech.isWeaponReady(0), is(true));
 
-		mech.fire(0, target);
+		mech.fire(0, target, 50);
 
 		assertThat("target should take damage",
 				target.getDamage(), is(10.75f));
@@ -87,7 +87,7 @@ class MechStatusTest
 
 		assertThat(mech.getWeapon(0).isReady(), is(true));
 
-		mech.fire(0, target);
+		mech.fire(0, target, 50);
 
 		assertThat(mech.getWeapon(0).isReady(), is(false));
 
@@ -136,7 +136,7 @@ class MechStatusTest
 		assertThat("mech has insuffient heat to fire",
 				mech.isWeaponReady(1), is(true));
 
-		mech.fire(0, target);
+		mech.fire(0, target, 50);
 
 		assertThat("ac/20 penalty group in cooldown",
 				mech.getHeatPenaltyGroupCooldown(9), is(0.5f));
@@ -169,9 +169,9 @@ class MechStatusTest
 				mech.isWeaponReady(1), is(true));
 
 		// fire 3 ERLargeLaser
-		mech.fire(0, target);
-		mech.fire(1, target);
-		mech.fire(2, target);
+		mech.fire(0, target, 50);
+		mech.fire(1, target, 50);
+		mech.fire(2, target, 50);
 
 		assertThat("ERLargeLaser penalty group in cooldown",
 				mech.getHeatPenaltyGroupCooldown(3), is(0.5f));
@@ -192,8 +192,8 @@ class MechStatusTest
 				.withWeapons(weapons("AutoCannon10", "AutoCannon10", "AutoCannon10", "UltraAutoCannon10"))
 				.build();
 
-		mech.fire(0, target);
-		mech.fire(1, target);
+		mech.fire(0, target, 50);
+		mech.fire(1, target, 50);
 
 		assertThat("ac/20 penalty group in cooldown",
 				mech.getHeatPenaltyGroupCooldownCount(8), is(2));
@@ -242,6 +242,9 @@ class MechStatusTest
 					.withMaxCooldown(llaser.getCooldown())
 					.withHeatPenaltyId(llaser.getHeatPenaltyId())
 					.withMinHeatPenaltyLevel(llaser.getMinHeatPenaltyLevel())
+					.withOptimalRange(llaser.getLongRange())
+					.withMaxRange(llaser.getMaxRange())
+					.withMinRange(llaser.getMinRange())
 					.build();
 
 			weapons.add(weapon2);

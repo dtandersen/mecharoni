@@ -13,6 +13,8 @@ public class MechSimulatorFitnessFunction
 {
 	private final EvolveMechConfig config;
 
+	private final float TIME = 15f;;
+
 	public MechSimulatorFitnessFunction(final EvolveMechConfig config)
 	{
 		this.config = config;
@@ -27,11 +29,12 @@ public class MechSimulatorFitnessFunction
 				.withExternalHeatSinks(mechBuild.getExternalHeatSinks())
 				.withWeapons(weapons(mechBuild))
 				.build();
-		final CombatSimulator sim = new CombatSimulator(mech);
+		final CombatSimulator sim = new CombatSimulator(mech, config.range);
 
-		sim.run(1);
+		sim.run(TIME);
 		score = sim.getTarget().getDamage();
-		return score;
+		final double alpha = mech.getWeapons().stream().mapToDouble(w -> w.getDamage()).sum();
+		return score + 1.5 * alpha;
 	}
 
 	private List<WeaponStatus> weapons(final MechBuild mechBuild)
@@ -43,9 +46,12 @@ public class MechSimulatorFitnessFunction
 			final WeaponStatus weapon = WeaponStatus.builder()
 					.withDamage(component.getDamage())
 					.withHeat(component.getHeat())
-					.withMaxCooldown(component.getCooldown())
+					.withMaxCooldown(component.getCooldown() + component.getDuration())
 					.withHeatPenaltyId(component.getHeatPenaltyId())
 					.withMinHeatPenaltyLevel(component.getMinHeatPenaltyLevel())
+					.withOptimalRange(component.getLongRange())
+					.withMaxRange(component.getMaxRange())
+					.withMinRange(component.getMinRange())
 					.build();
 
 			weapons.add(weapon);
