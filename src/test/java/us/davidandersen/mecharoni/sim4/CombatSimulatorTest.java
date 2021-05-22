@@ -3,6 +3,7 @@ package us.davidandersen.mecharoni.sim4;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +49,13 @@ class CombatSimulatorTest
 						weaponMatching(WeaponStatus.builder()
 								.withCooldown(4.0f))));
 
+		assertThat("target should take damage",
+				sim.getTarget().getDamage(), is(10.75f));
+
 		sim.tick();
 
-		assertThat("should dissipate 1/30th of heat",
-				sim.getStatus().getHeat(), equalTo(11.8f - mech.getHeatDisipation() * 1 / 30f));
+		assertThat("should dissipate one tick of heat",
+				sim.getStatus().getHeat(), equalTo(11.8f - mech.getHeatDisipation() * CombatSimulator.TICK_TIME));
 	}
 
 	private List<WeaponStatus> weapons(final String name)

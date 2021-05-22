@@ -14,7 +14,7 @@ public class WeaponStatus
 
 	private final int heatPenaltyId;
 
-	private final float minHeatPenaltyLevel;
+	private final int minHeatPenaltyLevel;
 
 	private float heatPenaltyCooldown;
 
@@ -51,11 +51,6 @@ public class WeaponStatus
 		heatPenaltyCooldown = 0.5f;
 	}
 
-	public boolean isOffCooldown()
-	{
-		return cooldown == 0;
-	}
-
 	@Override
 	public String toString()
 	{
@@ -87,6 +82,26 @@ public class WeaponStatus
 		return heatPenaltyCooldown == 0 && cooldown == 0;
 	}
 
+	public float getDamage()
+	{
+		return damage;
+	}
+
+	public int getHeatPenaltyId()
+	{
+		return heatPenaltyId;
+	}
+
+	public boolean isHeatPenaltyCooldown()
+	{
+		return heatPenaltyCooldown > 0;
+	}
+
+	public int getMinHeatPenaltyLevel()
+	{
+		return minHeatPenaltyLevel;
+	}
+
 	/**
 	 * Creates builder to build {@link WeaponStatus}.
 	 *
@@ -114,7 +129,7 @@ public class WeaponStatus
 
 		private int heatPenaltyId;
 
-		private float minHeatPenaltyLevel;
+		private int minHeatPenaltyLevel;
 
 		private float heatPenaltyCooldown;
 
@@ -152,7 +167,7 @@ public class WeaponStatus
 			return this;
 		}
 
-		public WeaponStatusBuilder withMinHeatPenaltyLevel(final float minHeatPenaltyLevel)
+		public WeaponStatusBuilder withMinHeatPenaltyLevel(final int minHeatPenaltyLevel)
 		{
 			this.minHeatPenaltyLevel = minHeatPenaltyLevel;
 			return this;

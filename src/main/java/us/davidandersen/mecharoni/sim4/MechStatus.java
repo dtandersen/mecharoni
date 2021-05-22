@@ -3,6 +3,7 @@ package us.davidandersen.mecharoni.sim4;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.OptionalDouble;
 import javax.annotation.processing.Generated;
 
 public class MechStatus
@@ -49,35 +50,21 @@ public class MechStatus
 		weapons.add(weapon);
 	}
 
-	boolean canFire(final WeaponStatus weapon)
-	{
-		return weapon.isOffCooldown();
-	}
-
 	public float getHeatDisipation()
 	{
 		return Heat.dissipation(internalHeatSinks, externalHeatSinks);
 	}
 
-	public void fire(final WeaponStatus weapon)
+	public void fire(final WeaponStatus weapon, final TargetDummy target)
 	{
 		heat += weapon.getHeat();
 		weapon.fire();
+		target.applyDamage(weapon.getDamage());
 	}
 
-	public void fire(final int slot)
+	public void fire(final int slot, final TargetDummy target)
 	{
-		fire(weapons.get(slot));
-	}
-
-	public void dissipateHeat(final float time)
-	{
-		heat -= getHeatDisipation() * time;
-
-		if (heat < 0)
-		{
-			heat = 0;
-		}
+		fire(weapons.get(slot), target);
 	}
 
 	public float getWeaponsGroupCooldown(final int heatPenaltyId)
@@ -121,6 +108,33 @@ public class MechStatus
 		return Heat.getHeatCapacity(internalHeatSinks, externalHeatSinks) - heat;
 	}
 
+	public boolean isWeaponReady(final WeaponStatus weapon)
+	{
+		final int heatPenaltyId = weapon.getHeatPenaltyId();
+
+		if (getAvailableHeat() < weapon.getHeat())
+		{
+			return false;
+		}
+		if (!weapon.isReady())
+		{
+			return false;
+		}
+		final int heatPenaltyGroupCooldownCount = getHeatPenaltyGroupCooldownCount(heatPenaltyId);
+		final int minHeatPenaltyLevel = weapon.getMinHeatPenaltyLevel();
+		if ((heatPenaltyGroupCooldownCount + 1) < minHeatPenaltyLevel)
+		{
+			return true;
+		}
+
+		return getWeaponsGroupCooldown(heatPenaltyId) == 0;
+	}
+
+	public boolean isWeaponReady(final int slot)
+	{
+		return isWeaponReady(weapons.get(slot));
+	}
+
 	/**
 	 * Creates builder to build {@link MechStatus}.
 	 *
@@ -130,6 +144,24 @@ public class MechStatus
 	public static MechStatusBuilder builder()
 	{
 		return new MechStatusBuilder();
+	}
+
+	public float getHeatPenaltyGroupCooldown(final int heatPenaltyId)
+	{
+		final OptionalDouble maxCooldown = weapons.stream().filter(w -> w.hasHeatPenaltyId(heatPenaltyId)).mapToDouble(w -> w.getHeatCooldown())
+				.max();
+
+		return (float)maxCooldown.orElse(0);
+	}
+
+	public int getHeatPenaltyGroupCooldownCount(final int heatPenaltyId)
+	{
+		final long maxCooldown = weapons.stream()
+				.filter(w -> w.hasHeatPenaltyId(heatPenaltyId))
+				.filter(w -> w.isHeatPenaltyCooldown())
+				.count();
+
+		return (int)maxCooldown;
 	}
 
 	/**

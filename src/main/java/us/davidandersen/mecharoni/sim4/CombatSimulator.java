@@ -6,46 +6,39 @@ public class CombatSimulator
 {
 	private final MechStatus mech;
 
+	private final TargetDummy target;
+
+	private float time;
+
 	final static float TICK_TIME = 1 / 30f;
 
 	public CombatSimulator(final MechStatus mech)
 	{
 		this.mech = mech;
+		this.target = new TargetDummy();
+	}
+
+	public void run(final float endTime)
+	{
+		while (time < endTime)
+		{
+			tick();
+			time += TICK_TIME;
+		}
 	}
 
 	public void tick()
 	{
-		mech.dissipateHeat(TICK_TIME);
+		mech.regen(TICK_TIME);
 
 		for (final WeaponStatus weapon : mech.getWeapons())
 		{
-			if (mech.canFire(weapon))
+			if (mech.isWeaponReady(weapon))
 			{
-				mech.fire(weapon);
+				mech.fire(weapon, target);
 			}
 		}
 	}
-
-	// public void addMech(final MechBuild mechBuild)
-	// {
-	// final List<WeaponStatus> weapons = new ArrayList<>();
-	//
-	// for (final Component weapon : mechBuild.getWeapons())
-	// {
-	// weapons.add(WeaponStatus.builder()
-	// .withDamage(weapon.getDamage())
-	// .withHeat(weapon.getHeat())
-	// .withCooldown(weapon.getCooldown())
-	// .build());
-	// }
-	//
-	// mech = MechStatus.builder()
-	// .withInternalHeatSinks(mechBuild.getInternalHeatSinks())
-	// .withExternalHeatSinks(mechBuild.getExternalHeatSinks())
-	// .withWeapons(weapons)
-	// .build();
-	//
-	// }
 
 	public MechStatus getStatus()
 	{
@@ -55,5 +48,10 @@ public class CombatSimulator
 	public List<WeaponStatus> getWeapons()
 	{
 		return mech.getWeapons();
+	}
+
+	public TargetDummy getTarget()
+	{
+		return target;
 	}
 }
