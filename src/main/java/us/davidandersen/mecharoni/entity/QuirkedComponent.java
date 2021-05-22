@@ -178,18 +178,18 @@ public class QuirkedComponent implements Component
 	@Override
 	public int getMinHeatPenaltyLevel()
 	{
-		return 0;
+		return component.getMinHeatPenaltyLevel();
 	}
 
 	@Override
 	public float getHeatPenalty()
 	{
-		return 0;
+		return component.getHeatPenalty();
 	}
 
 	@Override
 	public int getHeatPenaltyId()
 	{
-		return 0;
+		return component.getHeatPenaltyId();
 	}
 }

@@ -6,7 +6,10 @@ import java.util.function.Function;
 import io.jenetics.Genotype;
 import io.jenetics.Mutator;
 import io.jenetics.Phenotype;
+import io.jenetics.SinglePointCrossover;
 import io.jenetics.StochasticUniversalSelector;
+import io.jenetics.SwapMutator;
+import io.jenetics.UniformCrossover;
 import io.jenetics.engine.Engine;
 import io.jenetics.engine.EvolutionResult;
 import io.jenetics.util.Factory;
@@ -25,7 +28,9 @@ public class EvolveMech
 		final int slots = config.locations.values().stream().mapToInt(Location::getSlots).sum();
 		final Factory<Genotype<MechGene>> gtf = Genotype.of(MechChromosome.of(1, slots, config.items, config));
 
-		final MechFitnessFunction fitnessCalculator = new MechFitnessFunction(config);
+		final MechSimulatorFitnessFunction fitnessCalculator = new MechSimulatorFitnessFunction(config);
+		// final MechFitnessFunction fitnessCalculator = new
+		// MechFitnessFunction(config);
 		final Function<Genotype<MechGene>, Double> ff = gt -> fitnessCalculator.eval(MechCodec.toMech(gt, config));
 		// final BasicComponent heatSink = config.items.stream().filter(item ->
 		// item.getName().contains("HeatSink")).findFirst().get();
@@ -33,15 +38,13 @@ public class EvolveMech
 		// item.getName().contains("Empty")).findFirst().get();
 		final Engine<MechGene, Double> engine = Engine.builder(ff, gtf)
 				.alterers(
-						new Mutator<>()
-				// new MyMutator(.25, heatSink, config.items, empty),
-				// new MyMutator(.25, heatSink, config.items, empty),
-				// ,
-				// new SinglePointCrossover<>(),
-				// new UniformCrossover<>()
-				// ,
-				// new SwapMutator<>()
-				)
+						new Mutator<>(),
+						// new MyMutator(.25, heatSink, config.items, empty),
+						// new MyMutator(.25, heatSink, config.items, empty),
+						// ,
+						new SinglePointCrossover<>(),
+						new UniformCrossover<>(),
+						new SwapMutator<>())
 				// .selector(new TournamentSelector<>())
 				.selector(new StochasticUniversalSelector<>())
 				// .selector(new BoltzmannSelector<>(2))
