@@ -6,12 +6,12 @@ import java.util.HashMap;
 import com.google.gson.reflect.TypeToken;
 import us.davidandersen.mecharoni.evolve.EvolveMech;
 
-public class JsonAmmoReader
+public class SmurfyAmmoReader
 {
 	HashMap<String, AmmoJson> readAmmo()
 	{
-		final Type listType = new TypeToken<HashMap<String, JsonAmmoReader.AmmoJson>>() {}.getType();
-		final HashMap<String, JsonAmmoReader.AmmoJson> weapons = GlobalGson.fromJson(new InputStreamReader(EvolveMech.class.getResourceAsStream("/ammo.json")), listType);
+		final Type listType = new TypeToken<HashMap<String, SmurfyAmmoReader.AmmoJson>>() {}.getType();
+		final HashMap<String, SmurfyAmmoReader.AmmoJson> weapons = GlobalGson.fromJson(new InputStreamReader(EvolveMech.class.getResourceAsStream("/ammo.json")), listType);
 
 		return weapons;
 	}

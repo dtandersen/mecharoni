@@ -10,12 +10,12 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.Component;
 
-public class JsonComponentRepositoryTest
+public class SmurfyComponentRepositoryTest
 {
 	@Test
 	void test() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final JsonComponentRepository repo = new JsonComponentRepository();
+		final SmurfyComponentRepository repo = new SmurfyComponentRepository();
 		final List<Component> all = repo.all();
 		final Component comp = all.stream().filter(c -> Objects.equals(c.getName(), "AutoCannon20")).findFirst().get();
 

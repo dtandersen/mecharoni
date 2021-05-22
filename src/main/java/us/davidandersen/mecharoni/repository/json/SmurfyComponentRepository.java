@@ -12,18 +12,18 @@ import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.BasicComponent;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
-import us.davidandersen.mecharoni.repository.json.JsonAmmoReader.AmmoJson;
+import us.davidandersen.mecharoni.repository.json.SmurfyAmmoReader.AmmoJson;
 
-public class JsonComponentRepository implements ComponentRepository
+public class SmurfyComponentRepository implements ComponentRepository
 {
-	private final JsonWeaponReader jsonWeaponReader;
+	private final SmurfyWeaponReader jsonWeaponReader;
 
-	private final JsonAmmoReader jsonAmmoReader;
+	private final SmurfyAmmoReader jsonAmmoReader;
 
-	public JsonComponentRepository()
+	public SmurfyComponentRepository()
 	{
-		jsonWeaponReader = new JsonWeaponReader();
-		jsonAmmoReader = new JsonAmmoReader();
+		jsonWeaponReader = new SmurfyWeaponReader();
+		jsonAmmoReader = new SmurfyAmmoReader();
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class JsonComponentRepository implements ComponentRepository
 
 	private void readWeapons(final List<BasicComponent> components)
 	{
-		final HashMap<String, JsonWeaponReader.WeaponJson> weapons = jsonWeaponReader.readWeapons();
+		final HashMap<String, SmurfyWeaponReader.WeaponJson> weapons = jsonWeaponReader.readWeapons();
 
 		weapons.values().stream()
 				.forEach(it -> components.add(BasicComponent.builder()

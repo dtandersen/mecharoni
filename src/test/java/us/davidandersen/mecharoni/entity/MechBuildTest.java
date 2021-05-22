@@ -11,7 +11,7 @@ import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.MechBuild.MechBuildBuilder;
 import us.davidandersen.mecharoni.entity.Quirk.QuirkBuilder;
 import us.davidandersen.mecharoni.repository.Components;
-import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
+import us.davidandersen.mecharoni.repository.json.SmurfyComponentRepository;
 
 public class MechBuildTest
 {
@@ -22,7 +22,7 @@ public class MechBuildTest
 	@BeforeEach
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		components = new Components(new JsonComponentRepository().all());
+		components = new Components(new SmurfyComponentRepository().all());
 		boarsHead = MechBuildBuilder.mech()
 				.withSpec(PrefabMechs.boarsHead())
 				.withComponent(LocationType.RA, component("LRG PULSE LASER"), 1)

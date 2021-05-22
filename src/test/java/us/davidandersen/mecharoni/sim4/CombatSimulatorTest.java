@@ -14,7 +14,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.repository.Components;
-import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
+import us.davidandersen.mecharoni.repository.json.SmurfyComponentRepository;
 import us.davidandersen.mecharoni.sim4.WeaponStatus.WeaponStatusBuilder;
 
 class CombatSimulatorTest
@@ -24,7 +24,7 @@ class CombatSimulatorTest
 	@BeforeEach
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final List<Component> components = new JsonComponentRepository().all();
+		final List<Component> components = new SmurfyComponentRepository().all();
 		compCache = new Components(components);
 	}
 

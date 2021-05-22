@@ -21,7 +21,7 @@ import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.entity.MechBuild.MechBuildBuilder;
 import us.davidandersen.mecharoni.entity.PrefabMechs;
 import us.davidandersen.mecharoni.repository.Components;
-import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
+import us.davidandersen.mecharoni.repository.json.SmurfyComponentRepository;
 import us.davidandersen.mecharoni.util.ComposeBuilder;
 
 public class AssembleMechTest
@@ -31,7 +31,7 @@ public class AssembleMechTest
 	@BeforeEach
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final JsonComponentRepository repo = new JsonComponentRepository();
+		final SmurfyComponentRepository repo = new SmurfyComponentRepository();
 		final List<Component> comps = repo.all();
 		compCache = new Components(comps);
 	}

@@ -7,14 +7,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import us.davidandersen.mecharoni.evolve.EvolveMech;
 
-public class JsonWeaponReader
+public class SmurfyWeaponReader
 {
 	HashMap<String, WeaponJson> readWeapons()
 	{
 		final Gson gson = new Gson();
-		final Type listType = new TypeToken<HashMap<String, JsonWeaponReader.WeaponJson>>() {
+		final Type listType = new TypeToken<HashMap<String, SmurfyWeaponReader.WeaponJson>>() {
 		}.getType();
-		final HashMap<String, JsonWeaponReader.WeaponJson> weapons = gson
+		final HashMap<String, SmurfyWeaponReader.WeaponJson> weapons = gson
 				.fromJson(new InputStreamReader(EvolveMech.class.getResourceAsStream("/weapons.json")), listType);
 
 		return weapons;

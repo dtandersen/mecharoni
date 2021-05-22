@@ -16,7 +16,7 @@ import us.davidandersen.mecharoni.entity.Quirk;
 import us.davidandersen.mecharoni.entity.Quirk.QuirkBuilder;
 import us.davidandersen.mecharoni.entity.QuirkType;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
-import us.davidandersen.mecharoni.repository.json.JsonComponentRepository;
+import us.davidandersen.mecharoni.repository.json.SmurfyComponentRepository;
 
 public class OptimizeMechCommand
 {
@@ -31,7 +31,7 @@ public class OptimizeMechCommand
 		final Yaml yaml = new Yaml();
 		final MechSpecificationYaml data = yaml.loadAs(input, MechSpecificationYaml.class);
 
-		final ComponentRepository componentReader = new JsonComponentRepository();
+		final ComponentRepository componentReader = new SmurfyComponentRepository();
 
 		final OptimizeMech optimizer = new OptimizeMech(componentReader);
 		optimizer.setRequest(new OptimizeMechRequestYamlAdapter(data));
