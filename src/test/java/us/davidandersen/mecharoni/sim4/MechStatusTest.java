@@ -3,6 +3,8 @@ package us.davidandersen.mecharoni.sim4;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,8 @@ class MechStatusTest
 				.withWeapons(weapons("ClanERLargeLaser"))
 				.build();
 
+		assertThat(mech.getWeapon(0).isReady(), is(true));
+
 		mech.fire(0);
 
 		assertThat("should have heat of a ClanERLargeLaser",
@@ -49,7 +53,7 @@ class MechStatusTest
 		assertThat("weapon group should be on cooldown",
 				mech.getWeaponsGroupCooldown(3), equalTo(0.5f));
 
-		mech.regen();
+		mech.regen(CombatSimulator.TICK_TIME);
 
 		assertThat("should have heat of a ClanERLargeLaser",
 				mech.getHeat(), equalTo(11.8f - Heat.dissipation(4, 0) * 1 / 30f));
@@ -64,6 +68,61 @@ class MechStatusTest
 	}
 
 	@Test
+	void testWeaponOnCooldown()
+	{
+		final MechStatus mech = MechStatus.builder()
+				.withInternalHeatSinks(4)
+				.withExternalHeatSinks(0)
+				.withWeapons(weapons("ClanERLargeLaser"))
+				.build();
+
+		assertThat(mech.getWeapon(0).isReady(), is(true));
+
+		mech.fire(0);
+
+		assertThat(mech.getWeapon(0).isReady(), is(false));
+
+		mech.regen(0.5f);
+
+		assertThat(mech.getWeapon(0).isReady(), is(false));
+
+		mech.regen(3.5f);
+
+		assertThat(mech.getWeapon(0).isReady(), is(true));
+	}
+
+	@Test
+	void testInsufficientHeatCapacity()
+	{
+		final MechStatus mech = MechStatus.builder()
+				.withInternalHeatSinks(4)
+				.withExternalHeatSinks(0)
+				.withHeat(26.2f)
+				.withWeapons(weapons("ClanERLargeLaser"))
+				.build();
+
+		assertThat(mech.getAvailableHeat(), lessThan(11.8f));
+
+		assertThat("weapon should be ready",
+				mech.getWeapon(0).isReady(), is(true));
+
+		mech.fire(0);
+
+		assertThat("weapon should not be ready",
+				mech.getWeapon(0).isReady(), is(false));
+
+		mech.regen(0.5f);
+
+		assertThat("weapon should not be ready",
+				mech.getWeapon(0).isReady(), is(false));
+
+		mech.regen(3.5f);
+
+		assertThat("weapon should not be ready",
+				mech.getWeapon(0).isReady(), is(true));
+	}
+
+	@Test
 	void testNoNegativeCooldowns()
 	{
 		final MechStatus mech = MechStatus.builder()
@@ -72,7 +131,7 @@ class MechStatusTest
 				.withWeapons(weapons("ClanERLargeLaser"))
 				.build();
 
-		mech.regen();
+		mech.regen(CombatSimulator.TICK_TIME);
 
 		assertThat("should have no heat",
 				mech.getHeat(), equalTo(0f));

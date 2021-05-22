@@ -82,6 +82,11 @@ public class WeaponStatus
 		}
 	}
 
+	public boolean isReady()
+	{
+		return heatPenaltyCooldown == 0 && cooldown == 0;
+	}
+
 	/**
 	 * Creates builder to build {@link WeaponStatus}.
 	 *

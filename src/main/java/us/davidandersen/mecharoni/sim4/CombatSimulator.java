@@ -6,7 +6,7 @@ public class CombatSimulator
 {
 	private final MechStatus mech;
 
-	private final float TICK_TIME = 1 / 30f;
+	final static float TICK_TIME = 1 / 30f;
 
 	public CombatSimulator(final MechStatus mech)
 	{

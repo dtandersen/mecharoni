@@ -98,17 +98,27 @@ public class MechStatus
 		return heatCooldown;
 	}
 
-	public void regen()
+	public void regen(final float time)
 	{
-		heat -= Heat.dissipation(internalHeatSinks, externalHeatSinks) * 1 / 30f;
+		heat -= Heat.dissipation(internalHeatSinks, externalHeatSinks) * time;
 		if (heat < 0)
 		{
 			heat = 0;
 		}
 		for (final WeaponStatus weapon : weapons)
 		{
-			weapon.cooldown(1 / 30f);
+			weapon.cooldown(time);
 		}
+	}
+
+	public WeaponStatus getWeapon(final int slot)
+	{
+		return weapons.get(slot);
+	}
+
+	public float getAvailableHeat()
+	{
+		return Heat.getHeatCapacity(internalHeatSinks, externalHeatSinks) - heat;
 	}
 
 	/**
