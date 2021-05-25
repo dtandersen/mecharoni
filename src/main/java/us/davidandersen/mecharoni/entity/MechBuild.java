@@ -116,7 +116,7 @@ public class MechBuild
 
 	public int getMissileSlots()
 	{
-		return typeCount("MISSLE");
+		return typeCount(HardpointType.MISSILE.toString());
 	}
 
 	public int getEcmSlots()
@@ -209,7 +209,7 @@ public class MechBuild
 
 	public float getFirepower()
 	{
-		return (float)getWeapons().stream().mapToDouble(Component::getDamage).sum();
+		return (float)getWeapons().stream().mapToDouble(c -> c.getDamage() * c.getDamageMultiplier()).sum();
 	}
 
 	public long itemCount(final String... names)

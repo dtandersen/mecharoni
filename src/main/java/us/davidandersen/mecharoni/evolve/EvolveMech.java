@@ -3,11 +3,10 @@ package us.davidandersen.mecharoni.evolve;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import io.jenetics.BoltzmannSelector;
 import io.jenetics.Genotype;
 import io.jenetics.Mutator;
 import io.jenetics.Phenotype;
-import io.jenetics.SinglePointCrossover;
-import io.jenetics.StochasticUniversalSelector;
 import io.jenetics.SwapMutator;
 import io.jenetics.UniformCrossover;
 import io.jenetics.engine.Engine;
@@ -42,12 +41,12 @@ public class EvolveMech
 						// new MyMutator(.25, heatSink, config.items, empty),
 						// new MyMutator(.25, heatSink, config.items, empty),
 						// ,
-						new SinglePointCrossover<>(),
+						// new SinglePointCrossover<>(),
 						new UniformCrossover<>(),
 						new SwapMutator<>())
 				// .selector(new TournamentSelector<>())
-				.selector(new StochasticUniversalSelector<>())
-				// .selector(new BoltzmannSelector<>(2))
+				// .selector(new StochasticUniversalSelector<>())
+				.selector(new BoltzmannSelector<>(2))
 				.populationSize(500)
 				.build();
 

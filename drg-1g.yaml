@@ -1,0 +1,103 @@
+faction: innersphere
+range: 200
+tons: 20
+slots: 35
+engineSinks: 10
+heatSinks: 2
+locations:
+  HEAD:
+    slots: 1
+    missile: 0
+    energy: 0
+    ballistic: 0
+  CT:
+    slots: 2
+    missile: 2
+    energy: 0
+    ballistic: 0
+  RT:
+    slots: 12
+    missile: 0
+    energy: 1
+    ballistic: 0
+  LT:
+    slots: 12
+    missile: 0
+    energy: 1
+    ballistic: 0
+  RA:
+    slots: 9
+    missile: 0
+    energy: 1
+    ballistic: 0
+  LA:
+    slots: 9
+    missile: 0
+    energy: 1
+    ballistic: 0
+  RL:
+    slots: 2
+    missile: 0
+    energy: 0
+    ballistic: 0
+  LL:
+    slots: 2
+    missile: 0
+    energy: 0
+    ballistic: 0
+excludes:
+- MRM40
+#- MRM30
+#- MRM20
+#- MRM10
+- ClanFlamer
+- RocketLauncher10
+- RocketLauncher15
+- RocketLauncher20
+- ClanLRM5
+- ClanLRM10
+- ClanLRM15
+- ClanLRM20
+- ClanLRM5_Artemis
+- ClanLRM10_Artemis
+- ClanLRM15_Artemis
+- ClanLRM20_Artemis
+#  - ClanSRM2
+#  - ClanSRM4
+- ClanSRM6
+- ClanSRM2_Artemis
+- ClanSRM4_Artemis
+- ClanATM3
+- ClanATM6
+- ClanATM9
+- ClanATM12
+- ClanStreakSRM2
+- ClanStreakSRM4
+- ClanStreakSRM6
+#- SRM2
+#- SRM4
+#- SRM6
+#- SRM2_Artemis
+#- SRM4_Artemis
+#- SRM6_Artemis
+- LRM5
+- LRM10
+- LRM15
+- LRM20
+- LRM5_Artemis
+- LRM10_Artemis
+- LRM15_Artemis
+- LRM20_Artemis
+- StreakSRM6
+- StreakSRM4
+- StreakSRM2
+#- HEAVY PPC
+#- LARGE LASER
+#- LIGHT PPC
+#- LRG PULSE LASER
+#- ER LARGE LASER
+#- LB 2-X AC
+#- AC/2
+#- ULTRA AC/2
+#- ER PPC
+- DropShipLargePulseLaser

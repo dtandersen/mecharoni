@@ -256,7 +256,8 @@ public class AssembleMechTest
 
 	private Matcher<Iterable<? extends Component>> hasComponents(final String... friendlyNames)
 	{
-		final List<Matcher<? super Component>> matchers = Arrays.stream(friendlyNames).map(friendlyName -> componentMatcher(friendlyName)).collect(Collectors.toList());
+		final List<Matcher<? super Component>> matchers = Arrays.stream(friendlyNames).map(friendlyName -> componentMatcher(friendlyName))
+				.collect(Collectors.toList());
 		return contains(matchers);
 	}
 

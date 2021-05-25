@@ -59,6 +59,7 @@ public class BasicComponent implements Component
 		damage = itemBuilder.damage;
 		empty = itemBuilder.empty;
 		cooldown = itemBuilder.cooldown;
+		ammoType = itemBuilder.ammoType;
 		duration = itemBuilder.duration;
 		type = itemBuilder.type;
 		heat = itemBuilder.heat;
@@ -247,13 +248,13 @@ public class BasicComponent implements Component
 	@Override
 	public boolean isMissile()
 	{
-		return "MISSLE".equals(type);
+		return HardpointType.MISSILE.toString().equals(type);
 	}
 
 	@Override
 	public boolean isBallistic()
 	{
-		return "BALLISTIC".equals(type);
+		return HardpointType.BALLISTIC.toString().equals(type);
 	}
 
 	public float getDph()
@@ -332,6 +333,8 @@ public class BasicComponent implements Component
 
 		private int heatPenaltyId;
 
+		private String ammoType;
+
 		private BasicComponentBuilder()
 		{
 		}
@@ -374,6 +377,12 @@ public class BasicComponent implements Component
 		public BasicComponentBuilder withCooldown(final float cooldown)
 		{
 			this.cooldown = cooldown;
+			return this;
+		}
+
+		public BasicComponentBuilder withAmmoType(final String ammoType)
+		{
+			this.ammoType = ammoType;
 			return this;
 		}
 

@@ -16,11 +16,11 @@ import us.davidandersen.mecharoni.entity.Quirk;
 import us.davidandersen.mecharoni.entity.Quirk.QuirkBuilder;
 import us.davidandersen.mecharoni.entity.QuirkType;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
-import us.davidandersen.mecharoni.repository.json.SmurfyComponentRepository;
+import us.davidandersen.mecharoni.repository.json.PgiComponentRepository;
 
 public class OptimizeMechCommand
 {
-	private static final String DEFAULT_CONFIG = "linebacker-rl.yaml";
+	private static final String DEFAULT_CONFIG = "arc-t.yaml";
 
 	public static void main(final String[] args) throws Exception
 	{
@@ -31,7 +31,7 @@ public class OptimizeMechCommand
 		final Yaml yaml = new Yaml();
 		final MechSpecificationYaml data = yaml.loadAs(input, MechSpecificationYaml.class);
 
-		final ComponentRepository componentReader = new SmurfyComponentRepository();
+		final ComponentRepository componentReader = new PgiComponentRepository();
 
 		final OptimizeMech optimizer = new OptimizeMech(componentReader);
 		optimizer.setRequest(new OptimizeMechRequestYamlAdapter(data));

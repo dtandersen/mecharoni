@@ -13,7 +13,7 @@ public class MechSimulatorFitnessFunction
 {
 	private final EvolveMechConfig config;
 
-	private final float TIME = 15f;;
+	private final float TIME = 15f;
 
 	public MechSimulatorFitnessFunction(final EvolveMechConfig config)
 	{
@@ -21,6 +21,16 @@ public class MechSimulatorFitnessFunction
 	}
 
 	public double eval(final MechBuild mechBuild)
+	{
+		double fitness = 0;
+		fitness += 15 * simulate(mechBuild, 2);
+		fitness += 3 * simulate(mechBuild, 15);
+		fitness += simulate(mechBuild, 60);
+		fitness += mechBuild.getHeatDisipation();
+		return fitness;
+	}
+
+	private double simulate(final MechBuild mechBuild, final int time)
 	{
 		double score = 0;
 
@@ -31,10 +41,32 @@ public class MechSimulatorFitnessFunction
 				.build();
 		final CombatSimulator sim = new CombatSimulator(mech, config.range);
 
-		sim.run(TIME);
-		score = sim.getTarget().getDamage();
+		final long energyCount = mechBuild.getWeapons().stream()
+				.filter(w -> w.isEnergy())
+				// .filter(w -> w.isWeapon())
+				.map(w -> w.getName())
+				.distinct()
+				.count();
+		final long totalCount = mechBuild.getWeapons().stream()
+				// .filter(w -> w.isEnergy())
+				.filter(w -> w.isWeapon())
+				.map(w -> w.getName())
+				.distinct()
+				.count();
+
+		sim.run(time);
+		final float damage = sim.getTarget().getDamage();
 		final double alpha = mech.getWeapons().stream().mapToDouble(w -> w.getDamage()).sum();
-		return score + 1.5 * alpha;
+		score = damage + 1.5 * alpha + mech.getHeatDisipation();
+		if (energyCount > 1)
+		{
+			score *= .9;
+		}
+		if (totalCount > 3)
+		{
+			score *= .9;
+		}
+		return score;
 	}
 
 	private List<WeaponStatus> weapons(final MechBuild mechBuild)
@@ -44,7 +76,7 @@ public class MechSimulatorFitnessFunction
 		for (final Component component : mechBuild.getWeapons())
 		{
 			final WeaponStatus weapon = WeaponStatus.builder()
-					.withDamage(component.getDamage())
+					.withDamage(component.getDamage() * component.getDamageMultiplier())
 					.withHeat(component.getHeat())
 					.withMaxCooldown(component.getCooldown() + component.getDuration())
 					.withHeatPenaltyId(component.getHeatPenaltyId())

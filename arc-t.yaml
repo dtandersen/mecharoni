@@ -1,0 +1,82 @@
+faction: innersphere
+range: 250
+tons: 35
+slots: 23
+engineSinks: 10
+heatSinks: 1
+locations:
+  HEAD:
+    slots: 1
+    missile: 0
+    energy: 0
+    ballistic: 0
+  CT:
+    slots: 2
+    missile: 1
+    energy: 2
+    ballistic: 0
+  RT:
+    slots: 9
+    missile: 1
+    energy: 0
+    ballistic: 0
+  LT:
+    slots: 7
+    missile: 1
+    energy: 0
+    ballistic: 0
+  RA:
+    slots: 8
+    missile: 0
+    energy: 2
+    ballistic: 0
+  LA:
+    slots: 8
+    missile: 0
+    energy: 2
+    ballistic: 0
+  RL:
+    slots: 2
+    missile: 0
+    energy: 0
+    ballistic: 0
+  LL:
+    slots: 2
+    missile: 0
+    energy: 0
+    ballistic: 0
+excludes:
+- MRM40
+#- MRM30
+- MRM20
+- MRM10
+- RocketLauncher10
+- RocketLauncher15
+- RocketLauncher20
+- SRM2
+- SRM4
+- SRM6
+- SRM2_Artemis
+- SRM4_Artemis
+- SRM6_Artemis
+- LRM5
+- LRM10
+- LRM15
+- LRM20
+- LRM5_Artemis
+- LRM10_Artemis
+- LRM15_Artemis
+- LRM20_Artemis
+- StreakSRM6
+- StreakSRM4
+- StreakSRM2
+#- HEAVY PPC
+#- LARGE LASER
+#- LIGHT PPC
+#- LRG PULSE LASER
+#- ER LARGE LASER
+#- LB 2-X AC
+#- AC/2
+#- ULTRA AC/2
+#- ER PPC
+- DropShipLargePulseLaser

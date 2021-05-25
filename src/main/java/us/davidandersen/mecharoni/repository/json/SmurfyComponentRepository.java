@@ -11,6 +11,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.BasicComponent;
 import us.davidandersen.mecharoni.entity.Component;
+import us.davidandersen.mecharoni.entity.HardpointType;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 import us.davidandersen.mecharoni.repository.json.SmurfyAmmoReader.AmmoJson;
 
@@ -72,7 +73,7 @@ public class SmurfyComponentRepository implements ComponentRepository
 						.withDamage(it.calc_stats.dmg)
 						.withCooldown(it.cooldown)
 						.withDuration(it.duration < 0 ? .1f : it.duration)
-						.withType(it.type)
+						.withType(Objects.equals("MISSLE", it.type) ? HardpointType.MISSILE.toString() : it.type)
 						.withHeat(it.heat)
 						.withMinRange(it.min_range)
 						.withLongRange(it.long_range)

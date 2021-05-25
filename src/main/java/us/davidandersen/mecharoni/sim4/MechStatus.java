@@ -59,10 +59,11 @@ public class MechStatus
 	{
 		heat += weapon.getHeat();
 		weapon.fire();
-		target.applyDamage(calcDamage(weapon.getDamage(), range, weapon.getOptimalRange(), weapon.getMaxRange(), weapon.getMinRange()));
+		final float damage = calcDamage(weapon.getDamage(), range, weapon.getOptimalRange(), weapon.getMaxRange(), weapon.getMinRange());
+		target.applyDamage(damage);
 	}
 
-	private float calcDamage(final float damage, final int range, final int optimalRange, final int maxRange, final int minRange)
+	public static float calcDamage(final float damage, final int range, final int optimalRange, final int maxRange, final int minRange)
 	{
 		if (range < minRange)
 		{
@@ -78,7 +79,10 @@ public class MechStatus
 		}
 
 		// 1000 - 500 / 1000 - 500
-		final float calculatedDamage = damage * (range - optimalRange) / (maxRange - optimalRange);
+		final float maxMinusOpt = maxRange - optimalRange;
+		final float rangeMinusOpt = range - optimalRange;
+		final float mult = 1 - (rangeMinusOpt / maxMinusOpt);
+		final float calculatedDamage = damage * mult;
 		return calculatedDamage;
 	}
 

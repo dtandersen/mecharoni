@@ -5,7 +5,7 @@ import java.util.Objects;
 public enum HardpointType
 {
 	ENERGY("BEAM"),
-	MISSILE("MISSLE"),
+	MISSILE("MISSILE"),
 	BALLISTIC("BALLISTIC"),
 	AMS("AMS"),
 	ECM("ECM");
