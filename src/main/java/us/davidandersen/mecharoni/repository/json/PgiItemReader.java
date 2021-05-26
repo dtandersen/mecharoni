@@ -118,6 +118,8 @@ public class PgiItemReader
 			 * amount of ammo
 			 */
 			public int numShots;
+
+			public String type;
 		}
 	}
 }

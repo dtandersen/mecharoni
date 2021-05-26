@@ -130,9 +130,11 @@ public class PgiComponentRepository implements ComponentRepository
 		}
 
 		int numShots = 0;
+		String ammoType = item.stats.ammoType;
 		if (item.ammotypestats != null)
 		{
 			numShots = item.ammotypestats.numShots;
+			ammoType = item.ammotypestats.type;
 		}
 
 		return BasicComponent.builder()
@@ -143,7 +145,7 @@ public class PgiComponentRepository implements ComponentRepository
 				.withFriendlyName(item.name)
 				.withDamage(item.stats.damage)
 				.withCooldown(item.stats.cooldown)
-				.withAmmoType(item.stats.ammoType)
+				.withAmmoType(ammoType)
 				.withAmmoPerShot(item.stats.ammoPerShot)
 				.withDuration(item.stats.duration)
 				.withType(type)

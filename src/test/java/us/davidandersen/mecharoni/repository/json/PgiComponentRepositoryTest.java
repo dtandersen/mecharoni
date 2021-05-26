@@ -204,7 +204,7 @@ public class PgiComponentRepositoryTest
 		assertThat(comp.getHeatPenaltyId(), is(0));
 		assertThat(comp.getHeat(), is(0f));
 		assertThat(comp.getCooldown(), is(0f));
-		assertThat(comp.getAmmoType(), nullValue());
+		assertThat(comp.getAmmoType(), is("LRMAmmo"));
 		assertThat(comp.getAmmoPerShot(), is(0));
 		assertThat(comp.getNumFiring(), is(0));
 		assertThat(comp.getTons(), is(1f));
@@ -213,6 +213,39 @@ public class PgiComponentRepositoryTest
 		assertThat(comp.getLongRange(), is(0));
 		assertThat(comp.getMaxRange(), is(0));
 		assertThat(comp.getNumShots(), is(240));
+
+		assertThat(comp.isInnerSphere(), is(true));
+		assertThat(comp.isClan(), is(false));
+		assertThat(comp.isWeapon(), is(false));
+		assertThat(comp.isHeatSink(), is(false));
+	}
+
+	@Test
+	void testMrmAmmoHalf() throws JsonSyntaxException, JsonIOException, FileNotFoundException
+	{
+		final PgiComponentRepository repo = new PgiComponentRepository();
+		final List<Component> all = repo.all();
+		final Component comp = all.stream().filter(c -> Objects.equals(c.getName(), "MRMAmmoHalf")).findFirst().get();
+
+		assertThat(comp.getName(), is("MRMAmmoHalf"));
+		assertThat(comp.getFriendlyName(), is("MRMAmmoHalf"));
+		assertThat(comp.getSlots(), is(1));
+		assertThat(comp.getType(), nullValue());
+		assertThat(comp.getDamage(), is(0f));
+		assertThat(comp.getHeatPenalty(), is(0f));
+		assertThat(comp.getMinHeatPenaltyLevel(), is(0));
+		assertThat(comp.getHeatPenaltyId(), is(0));
+		assertThat(comp.getHeat(), is(0f));
+		assertThat(comp.getCooldown(), is(0f));
+		assertThat(comp.getAmmoType(), is("MRMAmmo"));
+		assertThat(comp.getAmmoPerShot(), is(0));
+		assertThat(comp.getNumFiring(), is(0));
+		assertThat(comp.getTons(), is(0.5f));
+		assertThat(comp.getDuration(), is(0f));
+		assertThat(comp.getMinRange(), is(0));
+		assertThat(comp.getLongRange(), is(0));
+		assertThat(comp.getMaxRange(), is(0));
+		assertThat(comp.getNumShots(), is(170));
 
 		assertThat(comp.isInnerSphere(), is(true));
 		assertThat(comp.isClan(), is(false));
