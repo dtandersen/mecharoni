@@ -198,4 +198,10 @@ public class QuirkedComponent implements Component
 	{
 		return component.getHeatPenaltyId();
 	}
+
+	@Override
+	public boolean isAmmo()
+	{
+		return component.isAmmo();
+	}
 }

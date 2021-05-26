@@ -2,8 +2,10 @@ package us.davidandersen.mecharoni.sim4;
 
 import javax.annotation.processing.Generated;
 
-public class WeaponStatus
+public class MechWeapon extends MechComponent
 {
+	private final String name;
+
 	private final float damage;
 
 	private final float heat;
@@ -24,9 +26,14 @@ public class WeaponStatus
 
 	private final int minRange;
 
+	private final String ammoType;
+
+	private final int ammoPerShot;
+
 	@Generated("SparkTools")
-	private WeaponStatus(final WeaponStatusBuilder weaponStatusBuilder)
+	private MechWeapon(final WeaponStatusBuilder weaponStatusBuilder)
 	{
+		this.name = weaponStatusBuilder.name;
 		this.damage = weaponStatusBuilder.damage;
 		this.heat = weaponStatusBuilder.heat;
 		this.maxCooldown = weaponStatusBuilder.maxCooldown;
@@ -37,6 +44,13 @@ public class WeaponStatus
 		this.optimalRange = weaponStatusBuilder.optimalRange;
 		this.maxRange = weaponStatusBuilder.maxRange;
 		this.minRange = weaponStatusBuilder.minRange;
+		this.ammoType = weaponStatusBuilder.ammoType;
+		this.ammoPerShot = weaponStatusBuilder.ammoPerShot;
+	}
+
+	public String getName()
+	{
+		return name;
 	}
 
 	public float getHeat()
@@ -63,8 +77,10 @@ public class WeaponStatus
 	@Override
 	public String toString()
 	{
-		return "WeaponStatus [damage=" + damage + ", heat=" + heat + ", maxCooldown=" + maxCooldown + ", currentCooldown=" + cooldown +
-				", heatPenaltyId=" + heatPenaltyId + ", minHeatPenaltyLevel=" + minHeatPenaltyLevel + "]";
+		return "MechWeapon [name=" + name + ", damage=" + damage + ", heat=" + heat + ", maxCooldown=" + maxCooldown + ", cooldown=" + cooldown +
+				", heatPenaltyId=" + heatPenaltyId + ", minHeatPenaltyLevel=" + minHeatPenaltyLevel + ", heatPenaltyCooldown=" + heatPenaltyCooldown +
+				", optimalRange=" + optimalRange + ", maxRange=" + maxRange + ", minRange=" + minRange + ", ammoType=" + ammoType + ", ammoPerShot=" +
+				ammoPerShot + "]";
 	}
 
 	public float getHeatCooldown()
@@ -126,8 +142,18 @@ public class WeaponStatus
 		return minRange;
 	}
 
+	public String getAmmoType()
+	{
+		return ammoType;
+	}
+
+	public int getAmmoPerShot()
+	{
+		return ammoPerShot;
+	}
+
 	/**
-	 * Creates builder to build {@link WeaponStatus}.
+	 * Creates builder to build {@link MechWeapon}.
 	 *
 	 * @return created builder
 	 */
@@ -138,11 +164,17 @@ public class WeaponStatus
 	}
 
 	/**
-	 * Builder to build {@link WeaponStatus}.
+	 * Builder to build {@link MechWeapon}.
 	 */
 	@Generated("SparkTools")
 	public static final class WeaponStatusBuilder
 	{
+		public String name;
+
+		private int ammoPerShot;
+
+		private String ammoType;
+
 		private float damage;
 
 		private float heat;
@@ -227,9 +259,27 @@ public class WeaponStatus
 			return this;
 		}
 
-		public WeaponStatus build()
+		public MechWeapon build()
 		{
-			return new WeaponStatus(this);
+			return new MechWeapon(this);
+		}
+
+		public WeaponStatusBuilder withAmmoType(final String ammoType)
+		{
+			this.ammoType = ammoType;
+			return this;
+		}
+
+		public WeaponStatusBuilder withAmmoPerShot(final int ammoPerShot)
+		{
+			this.ammoPerShot = ammoPerShot;
+			return this;
+		}
+
+		public WeaponStatusBuilder withName(final String name)
+		{
+			this.name = name;
+			return this;
 		}
 	}
 }

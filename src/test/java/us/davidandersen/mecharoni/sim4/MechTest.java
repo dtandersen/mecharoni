@@ -15,10 +15,10 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.repository.Components;
-import us.davidandersen.mecharoni.repository.json.SmurfyComponentRepository;
-import us.davidandersen.mecharoni.sim4.WeaponStatus.WeaponStatusBuilder;
+import us.davidandersen.mecharoni.repository.json.PgiComponentRepository;
+import us.davidandersen.mecharoni.sim4.MechWeapon.WeaponStatusBuilder;
 
-class MechStatusTest
+class MechTest
 {
 	private Components compCache;
 
@@ -27,7 +27,7 @@ class MechStatusTest
 	@BeforeEach
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final List<Component> components = new SmurfyComponentRepository().all();
+		final List<Component> components = new PgiComponentRepository().all();
 		compCache = new Components(components);
 		target = new TargetDummy();
 	}
@@ -35,10 +35,11 @@ class MechStatusTest
 	@Test
 	void testFireLaser()
 	{
-		final MechStatus mech = MechStatus.builder()
+		final Mech mech = Mech.builder()
 				.withInternalHeatSinks(4)
 				.withExternalHeatSinks(0)
-				.withWeapons(weapons("ClanERLargeLaser"))
+				// .withWeapons(weapons("ClanERLargeLaser"))
+				.withComponents(components("ClanERLargeLaser"))
 				.build();
 
 		assertThat(mech.getWeapon(0).isReady(), is(true));
@@ -49,15 +50,15 @@ class MechStatusTest
 		mech.fire(0, target, 50);
 
 		assertThat("target should take damage",
-				target.getDamage(), is(10.75f));
+				target.getDamage(), is(11f));
 
 		assertThat("should have heat of a ClanERLargeLaser",
-				mech.getHeat(), equalTo(11.8f));
+				mech.getHeat(), equalTo(10f));
 
 		assertThat("weapon should be on cooldown",
 				mech.getWeapons(), containsInAnyOrder(
-						weaponMatching(WeaponStatus.builder()
-								.withCooldown(4.0f))));
+						weaponMatching(MechWeapon.builder()
+								.withCooldown(4.5f))));
 
 		assertThat("weapon group should be on cooldown",
 				mech.getWeaponsGroupCooldown(3), equalTo(0.5f));
@@ -65,12 +66,12 @@ class MechStatusTest
 		mech.regen(CombatSimulator.TICK_TIME);
 
 		assertThat("should have heat of a ClanERLargeLaser",
-				mech.getHeat(), equalTo(11.8f - Heat.dissipation(4, 0) * CombatSimulator.TICK_TIME));
+				mech.getHeat(), equalTo(10f - Heat.dissipation(4, 0) * CombatSimulator.TICK_TIME));
 
 		assertThat("weapon should be on cooldown",
 				mech.getWeapons(), containsInAnyOrder(
-						weaponMatching(WeaponStatus.builder()
-								.withCooldown(4.0f - CombatSimulator.TICK_TIME))));
+						weaponMatching(MechWeapon.builder()
+								.withCooldown(4.5f - CombatSimulator.TICK_TIME))));
 
 		assertThat("weapon group should be on cooldown",
 				mech.getWeaponsGroupCooldown(3), equalTo(0.5f - CombatSimulator.TICK_TIME));
@@ -79,7 +80,7 @@ class MechStatusTest
 	@Test
 	void testWeaponOnCooldown()
 	{
-		final MechStatus mech = MechStatus.builder()
+		final Mech mech = Mech.builder()
 				.withInternalHeatSinks(4)
 				.withExternalHeatSinks(0)
 				.withWeapons(weapons("ClanERLargeLaser"))
@@ -95,7 +96,7 @@ class MechStatusTest
 
 		assertThat(mech.getWeapon(0).isReady(), is(false));
 
-		mech.regen(3.5f);
+		mech.regen(4f);
 
 		assertThat(mech.getWeapon(0).isReady(), is(true));
 	}
@@ -103,14 +104,14 @@ class MechStatusTest
 	@Test
 	void testInsufficientHeatCapacity()
 	{
-		final MechStatus mech = MechStatus.builder()
+		final Mech mech = Mech.builder()
 				.withInternalHeatSinks(4)
 				.withExternalHeatSinks(0)
-				.withHeat(26.2f)
+				.withHeat(28.1f)
 				.withWeapons(weapons("ClanERLargeLaser"))
 				.build();
 
-		assertThat(mech.getAvailableHeat(), lessThan(11.8f));
+		assertThat(mech.getAvailableHeat(), lessThan(10f));
 
 		assertThat("weapon should be off cooldown",
 				mech.getWeapon(0).isReady(), is(true));
@@ -127,7 +128,7 @@ class MechStatusTest
 	@Test
 	void testAc20HeatPenaltyCooldown()
 	{
-		final MechStatus mech = MechStatus.builder()
+		final Mech mech = Mech.builder()
 				.withInternalHeatSinks(4)
 				.withExternalHeatSinks(0)
 				.withWeapons(weapons("AutoCannon20", "AutoCannon20"))
@@ -159,7 +160,7 @@ class MechStatusTest
 	@Test
 	void testLargeLaserHeatPenaltyCooldown()
 	{
-		final MechStatus mech = MechStatus.builder()
+		final Mech mech = Mech.builder()
 				.withInternalHeatSinks(4)
 				.withExternalHeatSinks(0)
 				.withWeapons(weapons("ERLargeLaser", "ERLargeLaser", "ERLargeLaser", "ERLargeLaser"))
@@ -184,9 +185,54 @@ class MechStatusTest
 	}
 
 	@Test
+	void testUseAmmo()
+	{
+		final Mech mech = Mech.builder()
+				.withInternalHeatSinks(4)
+				.withExternalHeatSinks(0)
+				.withComponents(components("LRM20", "LRMAmmo", "LRMAmmo"))
+				.build();
+
+		// fire 3 ERLargeLaser
+		assertThat(mech.hasAmmo("LRMAmmo"), is(480));
+		mech.fire(0, target, 50);
+		assertThat(mech.hasAmmo("LRMAmmo"), is(460));
+	}
+
+	@Test
+	void testInsufficientAmmo()
+	{
+		final Mech mech = Mech.builder()
+				.withInternalHeatSinks(4)
+				.withExternalHeatSinks(0)
+				.withComponents(components("LRM20", "LRMAmmo"))
+				.build();
+
+		mech.ammo("LRMAmmo", 0);
+		// fire 3 ERLargeLaser
+		assertThat(mech.hasAmmo("LRMAmmo"), is(0));
+		assertThat(mech.isWeaponReady(0), is(false));
+	}
+
+	@Test
+	void testNotAmmo()
+	{
+		final Mech mech = Mech.builder()
+				.withInternalHeatSinks(4)
+				.withExternalHeatSinks(0)
+				.withComponents(components("LRM20"))
+				.build();
+
+		// mech.ammo("LRMAmmo", 0);
+		// fire 3 ERLargeLaser
+		assertThat(mech.hasAmmo("LRMAmmo"), is(0));
+		assertThat(mech.isWeaponReady(0), is(false));
+	}
+
+	@Test
 	void testAc10HeatPenaltyCooldown()
 	{
-		final MechStatus mech = MechStatus.builder()
+		final Mech mech = Mech.builder()
 				.withInternalHeatSinks(20)
 				.withExternalHeatSinks(0)
 				.withWeapons(weapons("AutoCannon10", "AutoCannon10", "AutoCannon10", "UltraAutoCannon10"))
@@ -208,7 +254,7 @@ class MechStatusTest
 	@Test
 	void testNoNegativeCooldowns()
 	{
-		final MechStatus mech = MechStatus.builder()
+		final Mech mech = Mech.builder()
 				.withInternalHeatSinks(4)
 				.withExternalHeatSinks(0)
 				.withWeapons(weapons("ClanERLargeLaser"))
@@ -221,22 +267,59 @@ class MechStatusTest
 
 		assertThat("weapon shouldn't be on",
 				mech.getWeapons(), containsInAnyOrder(
-						weaponMatching(WeaponStatus.builder()
+						weaponMatching(MechWeapon.builder()
 								.withCooldown(0))));
 
 		assertThat("weapon group shouldn't be on cooldown",
 				mech.getWeaponsGroupCooldown(3), equalTo(0f));
 	}
 
-	private List<WeaponStatus> weapons(final String... names)
+	private List<MechComponent> components(final String... names)
 	{
-		final List<WeaponStatus> weapons = new ArrayList<WeaponStatus>();
+		final List<MechComponent> weapons = new ArrayList<>();
+
+		for (final String name : names)
+		{
+			final Component component = component(name);
+
+			if (component.isWeapon())
+			{
+				final MechWeapon weapon2 = MechWeapon.builder()
+						.withDamage(component.getDamage())
+						.withHeat(component.getHeat())
+						.withMaxCooldown(component.getCooldown())
+						.withHeatPenaltyId(component.getHeatPenaltyId())
+						.withMinHeatPenaltyLevel(component.getMinHeatPenaltyLevel())
+						.withOptimalRange(component.getLongRange())
+						.withMaxRange(component.getMaxRange())
+						.withMinRange(component.getMinRange())
+						.withAmmoType(component.getAmmoType())
+						.withAmmoPerShot(component.getAmmoPerShot())
+						.build();
+				weapons.add(weapon2);
+			}
+			else if (component.isAmmo())
+			{
+				final MechAmmo ammo = MechAmmo.builder()
+						.withName(component.getName())
+						.withNumShots(component.getNumShots())
+						.build();
+				weapons.add(ammo);
+			}
+		}
+
+		return weapons;
+	}
+
+	private List<MechWeapon> weapons(final String... names)
+	{
+		final List<MechWeapon> weapons = new ArrayList<MechWeapon>();
 
 		for (final String name : names)
 		{
 			final Component llaser = component(name);
 
-			final WeaponStatus weapon2 = WeaponStatus.builder()
+			final MechWeapon weapon2 = MechWeapon.builder()
 					.withDamage(llaser.getDamage())
 					.withHeat(llaser.getHeat())
 					.withMaxCooldown(llaser.getCooldown())
@@ -252,13 +335,13 @@ class MechStatusTest
 		return weapons;
 	}
 
-	private Matcher<WeaponStatus> weaponMatching(final WeaponStatusBuilder builder)
+	private Matcher<MechWeapon> weaponMatching(final WeaponStatusBuilder builder)
 	{
-		final WeaponStatus weaponStatus = builder.build();
+		final MechWeapon weaponStatus = builder.build();
 
-		return ComposeBuilder.of(WeaponStatus.class)
+		return ComposeBuilder.of(MechWeapon.class)
 				.withDescription("a weapon with")
-				.withFeature("cooldown", WeaponStatus::getCooldown, weaponStatus.getCooldown())
+				.withFeature("cooldown", MechWeapon::getCooldown, weaponStatus.getCooldown())
 				.build();
 	}
 

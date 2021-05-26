@@ -14,8 +14,8 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.repository.Components;
-import us.davidandersen.mecharoni.repository.json.SmurfyComponentRepository;
-import us.davidandersen.mecharoni.sim4.WeaponStatus.WeaponStatusBuilder;
+import us.davidandersen.mecharoni.repository.json.PgiComponentRepository;
+import us.davidandersen.mecharoni.sim4.MechWeapon.WeaponStatusBuilder;
 
 class CombatSimulatorTest
 {
@@ -24,14 +24,14 @@ class CombatSimulatorTest
 	@BeforeEach
 	public void setUp() throws JsonSyntaxException, JsonIOException, FileNotFoundException
 	{
-		final List<Component> components = new SmurfyComponentRepository().all();
+		final List<Component> components = new PgiComponentRepository().all();
 		compCache = new Components(components);
 	}
 
 	@Test
 	void testFireLaser()
 	{
-		final MechStatus mech = MechStatus.builder()
+		final Mech mech = Mech.builder()
 				.withInternalHeatSinks(4)
 				.withExternalHeatSinks(0)
 				.withWeapons(weapons("ClanERLargeLaser"))
@@ -42,27 +42,27 @@ class CombatSimulatorTest
 		sim.tick();
 
 		assertThat("should have heat of a ClanERLargeLaser",
-				sim.getStatus().getHeat(), equalTo(11.8f));
+				sim.getStatus().getHeat(), equalTo(10f));
 
 		assertThat("weapon should be on cooldown",
 				sim.getWeapons(), containsInAnyOrder(
-						weaponMatching(WeaponStatus.builder()
-								.withCooldown(4.0f))));
+						weaponMatching(MechWeapon.builder()
+								.withCooldown(4.5f))));
 
 		assertThat("target should take damage",
-				sim.getTarget().getDamage(), is(10.75f));
+				sim.getTarget().getDamage(), is(11f));
 
 		sim.tick();
 
 		assertThat("should dissipate one tick of heat",
-				sim.getStatus().getHeat(), equalTo(11.8f - mech.getHeatDisipation() * CombatSimulator.TICK_TIME));
+				sim.getStatus().getHeat(), equalTo(10f - mech.getHeatDisipation() * CombatSimulator.TICK_TIME));
 	}
 
-	private List<WeaponStatus> weapons(final String name)
+	private List<MechWeapon> weapons(final String name)
 	{
 		final Component llaser = component(name);
 
-		final WeaponStatus weapon2 = WeaponStatus.builder()
+		final MechWeapon weapon2 = MechWeapon.builder()
 				.withDamage(llaser.getDamage())
 				.withHeat(llaser.getHeat())
 				.withMaxCooldown(llaser.getCooldown())
@@ -71,18 +71,18 @@ class CombatSimulatorTest
 				.withMinRange(llaser.getMinRange())
 				.build();
 
-		final List<WeaponStatus> weapons = new ArrayList<WeaponStatus>();
+		final List<MechWeapon> weapons = new ArrayList<MechWeapon>();
 		weapons.add(weapon2);
 		return weapons;
 	}
 
-	private Matcher<WeaponStatus> weaponMatching(final WeaponStatusBuilder builder)
+	private Matcher<MechWeapon> weaponMatching(final WeaponStatusBuilder builder)
 	{
-		final WeaponStatus weaponStatus = builder.build();
+		final MechWeapon weaponStatus = builder.build();
 
-		return ComposeBuilder.of(WeaponStatus.class)
+		return ComposeBuilder.of(MechWeapon.class)
 				.withDescription("a weapon with")
-				.withFeature("cooldown", WeaponStatus::getCooldown, weaponStatus.getCooldown())
+				.withFeature("cooldown", MechWeapon::getCooldown, weaponStatus.getCooldown())
 				.build();
 	}
 

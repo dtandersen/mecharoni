@@ -296,6 +296,12 @@ public class BasicComponent implements Component
 		return heatPenaltyId;
 	}
 
+	@Override
+	public boolean isAmmo()
+	{
+		return num_shots > 0;
+	}
+
 	public static BasicComponentBuilder builder()
 	{
 		return new BasicComponentBuilder();

@@ -6,8 +6,10 @@ import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.MechBuild;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
 import us.davidandersen.mecharoni.sim4.CombatSimulator;
-import us.davidandersen.mecharoni.sim4.MechStatus;
-import us.davidandersen.mecharoni.sim4.WeaponStatus;
+import us.davidandersen.mecharoni.sim4.Mech;
+import us.davidandersen.mecharoni.sim4.MechAmmo;
+import us.davidandersen.mecharoni.sim4.MechComponent;
+import us.davidandersen.mecharoni.sim4.MechWeapon;
 
 public class MechSimulatorFitnessFunction
 {
@@ -22,22 +24,23 @@ public class MechSimulatorFitnessFunction
 
 	public double eval(final MechBuild mechBuild)
 	{
-		double fitness = 0;
-		fitness += 15 * simulate(mechBuild, 2);
-		fitness += 3 * simulate(mechBuild, 15);
-		fitness += simulate(mechBuild, 60);
-		fitness += mechBuild.getHeatDisipation();
-		return fitness;
+		final double fitness = 0;
+		final double fitness1 = simulate(mechBuild, 15) / 15;
+		// fitness += 8 * simulate(mechBuild, 15);
+		final double fitness2 = simulate(mechBuild, 120) / 120f;
+		// fitness /= 3f;
+		// fitness += 100 * mechBuild.getHeatDisipation();
+		return fitness1 + fitness2;
 	}
 
 	private double simulate(final MechBuild mechBuild, final int time)
 	{
 		double score = 0;
 
-		final MechStatus mech = MechStatus.builder()
+		final Mech mech = Mech.builder()
 				.withInternalHeatSinks(mechBuild.getInternalHeatSinks())
 				.withExternalHeatSinks(mechBuild.getExternalHeatSinks())
-				.withWeapons(weapons(mechBuild))
+				.withComponents(weapons(mechBuild))
 				.build();
 		final CombatSimulator sim = new CombatSimulator(mech, config.range);
 
@@ -56,8 +59,10 @@ public class MechSimulatorFitnessFunction
 
 		sim.run(time);
 		final float damage = sim.getTarget().getDamage();
-		final double alpha = mech.getWeapons().stream().mapToDouble(w -> w.getDamage()).sum();
-		score = damage + 1.5 * alpha + mech.getHeatDisipation();
+		score = damage;
+		// final double alpha = mech.getWeapons().stream().mapToDouble(w ->
+		// w.getDamage()).sum();
+		// score = damage + mech.getHeatDisipation();
 		if (energyCount > 1)
 		{
 			score *= .9;
@@ -69,13 +74,14 @@ public class MechSimulatorFitnessFunction
 		return score;
 	}
 
-	private List<WeaponStatus> weapons(final MechBuild mechBuild)
+	private List<MechComponent> weapons(final MechBuild mechBuild)
 	{
-		final List<WeaponStatus> weapons = new ArrayList<WeaponStatus>();
+		final List<MechComponent> weapons = new ArrayList<>();
 
 		for (final Component component : mechBuild.getWeapons())
 		{
-			final WeaponStatus weapon = WeaponStatus.builder()
+			final MechWeapon weapon = MechWeapon.builder()
+					.withName(component.getName())
 					.withDamage(component.getDamage() * component.getNumFiring())
 					.withHeat(component.getHeat())
 					.withMaxCooldown(component.getCooldown() + component.getDuration())
@@ -84,6 +90,17 @@ public class MechSimulatorFitnessFunction
 					.withOptimalRange(component.getLongRange())
 					.withMaxRange(component.getMaxRange())
 					.withMinRange(component.getMinRange())
+					.withAmmoType(component.getAmmoType())
+					.withAmmoPerShot(component.getAmmoPerShot())
+					.build();
+
+			weapons.add(weapon);
+		}
+		for (final Component component : mechBuild.getAmmo())
+		{
+			final MechAmmo weapon = MechAmmo.builder()
+					.withName(component.getName())
+					.withNumShots(component.getNumShots())
 					.build();
 
 			weapons.add(weapon);

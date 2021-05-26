@@ -1,33 +1,37 @@
 package us.davidandersen.mecharoni.sim4;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.OptionalDouble;
 import javax.annotation.processing.Generated;
 
-public class MechStatus
+public class Mech
 {
 	private float heat;
 
-	private final List<WeaponStatus> weapons;
+	private final List<MechWeapon> weapons;
 
 	public int internalHeatSinks;
 
 	public int externalHeatSinks;
 
+	private Map<String, Integer> ammo;
+
 	@Generated("SparkTools")
-	private MechStatus(final MechStatusBuilder mechStatusBuilder)
+	private Mech(final MechStatusBuilder mechStatusBuilder)
 	{
 		this.heat = mechStatusBuilder.heat;
 		this.weapons = mechStatusBuilder.weapons;
 		this.internalHeatSinks = mechStatusBuilder.internalHeatSinks;
 		this.externalHeatSinks = mechStatusBuilder.externalHeatSinks;
+		this.ammo = mechStatusBuilder.ammo;
 	}
 
-	public MechStatus()
+	public Mech()
 	{
-		weapons = new ArrayList<WeaponStatus>();
+		weapons = new ArrayList<MechWeapon>();
 	}
 
 	public float getHeat()
@@ -40,12 +44,12 @@ public class MechStatus
 		this.heat = heat;
 	}
 
-	public List<WeaponStatus> getWeapons()
+	public List<MechWeapon> getWeapons()
 	{
 		return weapons;
 	}
 
-	public void addWeapon(final WeaponStatus weapon)
+	public void addWeapon(final MechWeapon weapon)
 	{
 		weapons.add(weapon);
 	}
@@ -55,8 +59,16 @@ public class MechStatus
 		return Heat.dissipation(internalHeatSinks, externalHeatSinks);
 	}
 
-	public void fire(final WeaponStatus weapon, final TargetDummy target, final int range)
+	public void fire(final MechWeapon weapon, final TargetDummy target, final int range)
 	{
+		// System.out.println("fires " + weapon.getName());
+		if (weapon.getAmmoType() != null && !weapon.getAmmoType().isEmpty())
+		{
+			int ammoQty = ammo.get(weapon.getAmmoType());
+			ammoQty -= weapon.getAmmoPerShot();
+			ammo.put(weapon.getAmmoType(), ammoQty);
+		}
+
 		heat += weapon.getHeat();
 		weapon.fire();
 		final float damage = calcDamage(weapon.getDamage(), range, weapon.getOptimalRange(), weapon.getMaxRange(), weapon.getMinRange());
@@ -95,7 +107,7 @@ public class MechStatus
 	{
 		float heatCooldown = 0;
 
-		for (final WeaponStatus weapon : weapons)
+		for (final MechWeapon weapon : weapons)
 		{
 			if (weapon.hasHeatPenaltyId(heatPenaltyId))
 			{
@@ -116,13 +128,13 @@ public class MechStatus
 		{
 			heat = 0;
 		}
-		for (final WeaponStatus weapon : weapons)
+		for (final MechWeapon weapon : weapons)
 		{
 			weapon.cooldown(time);
 		}
 	}
 
-	public WeaponStatus getWeapon(final int slot)
+	public MechWeapon getWeapon(final int slot)
 	{
 		return weapons.get(slot);
 	}
@@ -132,9 +144,22 @@ public class MechStatus
 		return Heat.getHeatCapacity(internalHeatSinks, externalHeatSinks) - heat;
 	}
 
-	public boolean isWeaponReady(final WeaponStatus weapon)
+	public boolean isWeaponReady(final MechWeapon weapon)
 	{
 		final int heatPenaltyId = weapon.getHeatPenaltyId();
+
+		if (weapon.getAmmoType() != null && !weapon.getAmmoType().isEmpty())
+		{
+			if (!ammo.containsKey(weapon.getAmmoType()))
+			{
+				return false;
+			}
+			final int numShots = ammo.get(weapon.getAmmoType());
+			if (numShots <= 0)
+			{
+				return false;
+			}
+		}
 
 		if (getAvailableHeat() < weapon.getHeat())
 		{
@@ -160,7 +185,7 @@ public class MechStatus
 	}
 
 	/**
-	 * Creates builder to build {@link MechStatus}.
+	 * Creates builder to build {@link Mech}.
 	 *
 	 * @return created builder
 	 */
@@ -188,15 +213,32 @@ public class MechStatus
 		return (int)maxCooldown;
 	}
 
+	public int hasAmmo(final String ammoType)
+	{
+		if (!ammo.containsKey(ammoType))
+		{
+			return 0;
+		}
+
+		return ammo.get(ammoType);
+	}
+
+	public void ammo(final String ammoType, final int numShots)
+	{
+		ammo.put(ammoType, numShots);
+	}
+
 	/**
-	 * Builder to build {@link MechStatus}.
+	 * Builder to build {@link Mech}.
 	 */
 	@Generated("SparkTools")
 	public static final class MechStatusBuilder
 	{
+		public Map<String, Integer> ammo = new HashMap<>();
+
 		private float heat;
 
-		private List<WeaponStatus> weapons = Collections.emptyList();
+		private List<MechWeapon> weapons = new ArrayList<>();
 
 		private int internalHeatSinks;
 
@@ -212,7 +254,7 @@ public class MechStatus
 			return this;
 		}
 
-		public MechStatusBuilder withWeapons(final List<WeaponStatus> weapons)
+		public MechStatusBuilder withWeapons(final List<MechWeapon> weapons)
 		{
 			this.weapons = weapons;
 			return this;
@@ -230,9 +272,36 @@ public class MechStatus
 			return this;
 		}
 
-		public MechStatus build()
+		public MechStatusBuilder withComponents(final List<MechComponent> components)
 		{
-			return new MechStatus(this);
+			for (final MechComponent c : components)
+			{
+				if (c instanceof MechWeapon)
+				{
+					weapons.add((MechWeapon)c);
+				}
+				else if (c instanceof MechAmmo)
+				{
+					final MechAmmo a = (MechAmmo)c;
+					if (ammo.containsKey(a.getName()))
+					{
+						Integer qty = ammo.get(a.getName());
+						qty += a.getNumShots();
+						ammo.put(a.getName(), qty);
+					}
+					else
+					{
+						ammo.put(a.getName(), a.getNumShots());
+					}
+				}
+			}
+
+			return this;
+		}
+
+		public Mech build()
+		{
+			return new Mech(this);
 		}
 	}
 }

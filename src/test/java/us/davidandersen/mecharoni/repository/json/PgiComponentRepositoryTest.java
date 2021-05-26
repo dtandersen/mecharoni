@@ -12,7 +12,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.entity.HardpointType;
-import us.davidandersen.mecharoni.sim4.MechStatus;
+import us.davidandersen.mecharoni.sim4.Mech;
 
 public class PgiComponentRepositoryTest
 {
@@ -71,6 +71,8 @@ public class PgiComponentRepositoryTest
 		assertThat(comp.getMinRange(), is(0));
 		assertThat(comp.getLongRange(), is(270));
 		assertThat(comp.getMaxRange(), is(270));
+
+		assertThat(comp.getAmmoPerShot(), is(4));
 
 		assertThat(comp.isInnerSphere(), is(false));
 		assertThat(comp.isClan(), is(true));
@@ -241,9 +243,9 @@ public class PgiComponentRepositoryTest
 	@Test
 	void testDamage()
 	{
-		assertThat(MechStatus.calcDamage(10, 0, 100, 200, 0), is(10f));
-		assertThat(MechStatus.calcDamage(10, 150, 100, 200, 0), is(5f));
+		assertThat(Mech.calcDamage(10, 0, 100, 200, 0), is(10f));
+		assertThat(Mech.calcDamage(10, 150, 100, 200, 0), is(5f));
 
-		assertThat(MechStatus.calcDamage(5, 300, 160, 320, 0), is(.625f));
+		assertThat(Mech.calcDamage(5, 300, 160, 320, 0), is(.625f));
 	}
 }
