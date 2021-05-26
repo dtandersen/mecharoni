@@ -25,12 +25,12 @@ public class MechSimulatorFitnessFunction
 	public double eval(final MechBuild mechBuild)
 	{
 		final double fitness = 0;
-		final double fitness1 = simulate(mechBuild, 15) / 15;
+		final double fitness1 = simulate(mechBuild, 2);
 		// fitness += 8 * simulate(mechBuild, 15);
-		final double fitness2 = simulate(mechBuild, 120) / 120f;
+		final double fitness2 = simulate(mechBuild, 120) / 120;
 		// fitness /= 3f;
 		// fitness += 100 * mechBuild.getHeatDisipation();
-		return fitness1 + fitness2;
+		return Math.pow(fitness1 + mechBuild.getExternalHeatSinks(), 2) + Math.pow(fitness2, 2);
 	}
 
 	private double simulate(final MechBuild mechBuild, final int time)
