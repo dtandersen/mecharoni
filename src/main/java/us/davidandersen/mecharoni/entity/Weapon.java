@@ -50,7 +50,7 @@ public class Weapon
 			duration = comp.getDuration();
 			cooldown = comp.getCooldown();
 			ammoType = comp.getAmmoType();
-			damageMultiplier = comp.getDamageMultiplier();
+			damageMultiplier = comp.getNumFiring();
 			minRange = comp.getMinRange();
 			longRange = comp.getLongRange();
 			maxRange = comp.getMaxRange();

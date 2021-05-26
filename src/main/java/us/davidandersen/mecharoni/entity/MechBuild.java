@@ -209,7 +209,7 @@ public class MechBuild
 
 	public float getFirepower()
 	{
-		return (float)getWeapons().stream().mapToDouble(c -> c.getDamage() * c.getDamageMultiplier()).sum();
+		return (float)getWeapons().stream().mapToDouble(c -> c.getDamage() * c.getNumFiring()).sum();
 	}
 
 	public long itemCount(final String... names)

@@ -78,7 +78,7 @@ public class SmurfyComponentRepository implements ComponentRepository
 						.withMinRange(it.min_range)
 						.withLongRange(it.long_range)
 						.withMaxRange(it.max_range)
-						.withDamageMultiplier(it.calc_stats.damageMultiplier)
+						.withNumFiring(it.calc_stats.damageMultiplier)
 						.withMinHeatPenaltyLevel(it.min_heat_penalty_level)
 						.withHeatPenalty(it.heat_penalty)
 						.withHeatPenaltyId(it.heat_penalty_id)

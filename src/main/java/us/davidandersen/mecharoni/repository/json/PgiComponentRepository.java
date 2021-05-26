@@ -3,7 +3,6 @@ package us.davidandersen.mecharoni.repository.json;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -14,7 +13,6 @@ import us.davidandersen.mecharoni.entity.BasicComponent;
 import us.davidandersen.mecharoni.entity.Component;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 import us.davidandersen.mecharoni.repository.json.PgiItemReader.PgiItemJson;
-import us.davidandersen.mecharoni.repository.json.SmurfyAmmoReader.AmmoJson;
 
 public class PgiComponentRepository implements ComponentRepository
 {
@@ -34,7 +32,6 @@ public class PgiComponentRepository implements ComponentRepository
 		final List<BasicComponent> components = new ArrayList<>();
 
 		readItems(components);
-		// readAmmo(components);
 		readHeatSinks(components);
 
 		return Collections.unmodifiableList(components);
@@ -132,6 +129,12 @@ public class PgiComponentRepository implements ComponentRepository
 			type = item.stats.type.toUpperCase();
 		}
 
+		int numShots = 0;
+		if (item.ammotypestats != null)
+		{
+			numShots = item.ammotypestats.numShots;
+		}
+
 		return BasicComponent.builder()
 				.withId(item.id)
 				.withTons(item.stats.tons)
@@ -141,42 +144,19 @@ public class PgiComponentRepository implements ComponentRepository
 				.withDamage(item.stats.damage)
 				.withCooldown(item.stats.cooldown)
 				.withAmmoType(item.stats.ammoType)
+				.withAmmoPerShot(item.stats.ammoPerShot)
 				.withDuration(item.stats.duration)
 				.withType(type)
 				.withHeat(item.stats.heat)
 				.withMinRange(minRange)
 				.withLongRange(longRange)
 				.withMaxRange(maxRange)
-				.withDamageMultiplier(item.stats.numFiring)
+				.withNumFiring(item.stats.numFiring)
 				.withMinHeatPenaltyLevel(item.stats.minheatpenaltylevel)
 				.withHeatPenalty(item.stats.heatpenalty)
 				.withHeatPenaltyId(item.stats.heatPenaltyID)
+				.withNumShots(numShots)
 				.build();
-	}
-
-	private void readAmmo(final List<BasicComponent> components)
-	{
-		final HashMap<String, AmmoJson> ammo = jsonAmmoReader.readAmmo();
-
-		ammo.values().stream()
-				.forEach(component -> components.add(BasicComponent.builder()
-						.withId(component.id)
-						.withTons(component.tons)
-						.withSlots(component.slots)
-						.withName(component.type)
-						.withFriendlyName(MwoEscaper.unescape(component.translated_name))
-						.withType(null)
-						.withNumShots(component.num_shots)
-						.build()));
-
-		for (final AmmoJson ammo2 : ammo.values())
-		{
-			for (final String id : ammo2.weapons)
-			{
-				final BasicComponent weapon = components.stream().filter(c -> Objects.equals(id, c.getId())).findFirst().get();
-				weapon.setAmmoType(ammo2.type);
-			}
-		}
 	}
 
 	private void readHeatSinks(final List<BasicComponent> components)

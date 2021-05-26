@@ -20,7 +20,7 @@ import us.davidandersen.mecharoni.repository.json.PgiComponentRepository;
 
 public class OptimizeMechCommand
 {
-	private static final String DEFAULT_CONFIG = "arc-t.yaml";
+	private static final String DEFAULT_CONFIG = "tdr-10se.yaml";
 
 	public static void main(final String[] args) throws Exception
 	{

@@ -28,7 +28,7 @@ public interface Component
 
 	String getAmmoType();
 
-	int getDamageMultiplier();
+	int getNumFiring();
 
 	int getMinRange();
 
@@ -61,4 +61,6 @@ public interface Component
 	float getHeatPenalty();
 
 	int getHeatPenaltyId();
+
+	int getAmmoPerShot();
 }

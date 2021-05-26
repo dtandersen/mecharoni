@@ -76,7 +76,7 @@ public class MechSimulatorFitnessFunction
 		for (final Component component : mechBuild.getWeapons())
 		{
 			final WeaponStatus weapon = WeaponStatus.builder()
-					.withDamage(component.getDamage() * component.getDamageMultiplier())
+					.withDamage(component.getDamage() * component.getNumFiring())
 					.withHeat(component.getHeat())
 					.withMaxCooldown(component.getCooldown() + component.getDuration())
 					.withHeatPenaltyId(component.getHeatPenaltyId())

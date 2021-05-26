@@ -34,7 +34,7 @@ public class PgiComponentRepositoryTest
 		assertThat(comp.getHeat(), is(5f));
 		assertThat(comp.getCooldown(), is(4f));
 		assertThat(comp.getAmmoType(), is("AC20Ammo"));
-		assertThat(comp.getDamageMultiplier(), is(1));
+		assertThat(comp.getNumFiring(), is(1));
 		assertThat(comp.getTons(), is(14f));
 		assertThat(comp.getDuration(), is(0f));
 		assertThat(comp.getMinRange(), is(0));
@@ -65,7 +65,7 @@ public class PgiComponentRepositoryTest
 		assertThat(comp.getHeat(), is(3f));
 		assertThat(comp.getCooldown(), is(3f));
 		assertThat(comp.getAmmoType(), is("ClanSRMAmmo"));
-		assertThat(comp.getDamageMultiplier(), is(4));
+		assertThat(comp.getNumFiring(), is(4));
 		assertThat(comp.getTons(), is(1f));
 		assertThat(comp.getDuration(), is(0f));
 		assertThat(comp.getMinRange(), is(0));
@@ -107,12 +107,14 @@ public class PgiComponentRepositoryTest
 		assertThat(comp.getHeat(), is(2.2f));
 		assertThat(comp.getCooldown(), is(3.25f));
 		assertThat(comp.getAmmoType(), is("LRMAmmo"));
-		assertThat(comp.getDamageMultiplier(), is(5));
+		assertThat(comp.getAmmoPerShot(), is(5));
+		assertThat(comp.getNumFiring(), is(5));
 		assertThat(comp.getTons(), is(2f));
 		assertThat(comp.getDuration(), is(0f));
 		assertThat(comp.getMinRange(), is(180));
 		assertThat(comp.getLongRange(), is(900));
 		assertThat(comp.getMaxRange(), is(900));
+		assertThat(comp.getNumShots(), is(0));
 
 		assertThat(comp.isInnerSphere(), is(true));
 		assertThat(comp.isClan(), is(false));
@@ -138,7 +140,7 @@ public class PgiComponentRepositoryTest
 		// assertThat(comp.getHeat(), is(2.2f));
 		// assertThat(comp.getCooldown(), is(3.25f));
 		// assertThat(comp.getAmmoType(), is("LRMAmmo"));
-		assertThat(comp.getDamageMultiplier(), is(1));
+		assertThat(comp.getNumFiring(), is(1));
 		// assertThat(comp.getTons(), is(2f));
 		// assertThat(comp.getDuration(), is(0f));
 		// assertThat(comp.getMinRange(), is(180));
@@ -201,14 +203,14 @@ public class PgiComponentRepositoryTest
 		assertThat(comp.getHeat(), is(0f));
 		assertThat(comp.getCooldown(), is(0f));
 		assertThat(comp.getAmmoType(), nullValue());
-		assertThat(comp.getDamageMultiplier(), is(0));
+		assertThat(comp.getAmmoPerShot(), is(0));
+		assertThat(comp.getNumFiring(), is(0));
 		assertThat(comp.getTons(), is(1f));
 		assertThat(comp.getDuration(), is(0f));
 		assertThat(comp.getMinRange(), is(0));
 		assertThat(comp.getLongRange(), is(0));
 		assertThat(comp.getMaxRange(), is(0));
-
-		// assertThat(comp.getNumShots(), is(240));
+		assertThat(comp.getNumShots(), is(240));
 
 		assertThat(comp.isInnerSphere(), is(true));
 		assertThat(comp.isClan(), is(false));

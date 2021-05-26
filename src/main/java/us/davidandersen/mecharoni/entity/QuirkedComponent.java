@@ -92,9 +92,15 @@ public class QuirkedComponent implements Component
 	}
 
 	@Override
-	public int getDamageMultiplier()
+	public int getNumFiring()
 	{
-		return component.getDamageMultiplier();
+		return component.getNumFiring();
+	}
+
+	@Override
+	public int getAmmoPerShot()
+	{
+		return component.getAmmoPerShot();
 	}
 
 	@Override

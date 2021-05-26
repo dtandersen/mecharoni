@@ -34,7 +34,7 @@ public class BasicComponent implements Component
 
 	private final int num_shots;
 
-	private final int damageMultiplier;
+	private final int numFiring;
 
 	private final String friendlyName;
 
@@ -49,6 +49,8 @@ public class BasicComponent implements Component
 	private final float heatPenalty;
 
 	private final int heatPenaltyId;
+
+	private final int ammoPerShot;
 
 	public BasicComponent(final BasicComponentBuilder itemBuilder)
 	{
@@ -65,7 +67,7 @@ public class BasicComponent implements Component
 		heat = itemBuilder.heat;
 		heatSink = itemBuilder.heatSink;
 		num_shots = itemBuilder.num_shots;
-		damageMultiplier = itemBuilder.damageMultiplier;
+		numFiring = itemBuilder.numFiring;
 		friendlyName = itemBuilder.friendlyName;
 		minRange = itemBuilder.min_range;
 		longRange = itemBuilder.long_range;
@@ -73,6 +75,8 @@ public class BasicComponent implements Component
 		minHeatPenaltyLevel = itemBuilder.minHeatPenaltyLevel;
 		heatPenalty = itemBuilder.heatPenalty;
 		heatPenaltyId = itemBuilder.heatPenaltyId;
+		ammoPerShot = itemBuilder.ammoPerShot;
+
 		if (cooldown + duration == 0)
 		{
 			dps = 0;
@@ -204,9 +208,15 @@ public class BasicComponent implements Component
 	}
 
 	@Override
-	public int getDamageMultiplier()
+	public int getNumFiring()
 	{
-		return damageMultiplier;
+		return numFiring;
+	}
+
+	@Override
+	public int getAmmoPerShot()
+	{
+		return ammoPerShot;
 	}
 
 	@Override
@@ -319,7 +329,7 @@ public class BasicComponent implements Component
 
 		private String id;
 
-		private int damageMultiplier;
+		private int numFiring;
 
 		private int min_range;
 
@@ -334,6 +344,8 @@ public class BasicComponent implements Component
 		private int heatPenaltyId;
 
 		private String ammoType;
+
+		private int ammoPerShot;
 
 		private BasicComponentBuilder()
 		{
@@ -433,9 +445,9 @@ public class BasicComponent implements Component
 			return this;
 		}
 
-		public BasicComponentBuilder withDamageMultiplier(final int damageMultiplier)
+		public BasicComponentBuilder withNumFiring(final int numFiring)
 		{
-			this.damageMultiplier = damageMultiplier;
+			this.numFiring = numFiring;
 			return this;
 		}
 
@@ -472,6 +484,12 @@ public class BasicComponent implements Component
 		public BasicComponentBuilder withHeatPenaltyId(final int heatPenaltyId)
 		{
 			this.heatPenaltyId = heatPenaltyId;
+			return this;
+		}
+
+		public BasicComponentBuilder withAmmoPerShot(final int ammoPerShot)
+		{
+			this.ammoPerShot = ammoPerShot;
 			return this;
 		}
 	}

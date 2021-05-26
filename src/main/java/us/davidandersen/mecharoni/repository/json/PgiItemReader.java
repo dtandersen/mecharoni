@@ -38,6 +38,8 @@ public class PgiItemReader
 
 		public String ctype;
 
+		public PgiAmmoTypeStats ammotypestats;
+
 		static class PgiStats
 		{
 			/**
@@ -108,6 +110,14 @@ public class PgiItemReader
 			public int start;
 
 			public float damageModifier;
+		}
+
+		static class PgiAmmoTypeStats
+		{
+			/**
+			 * amount of ammo
+			 */
+			public int numShots;
 		}
 	}
 }
