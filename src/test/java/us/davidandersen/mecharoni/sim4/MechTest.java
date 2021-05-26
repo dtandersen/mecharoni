@@ -200,6 +200,19 @@ class MechTest
 	}
 
 	@Test
+	void testMixedAmmo()
+	{
+		final Mech mech = Mech.builder()
+				.withInternalHeatSinks(4)
+				.withExternalHeatSinks(0)
+				.withComponents(components("LRMAmmo", "LRMAmmoHalf"))
+				.build();
+
+		assertThat("should have 360 shots combined",
+				mech.hasAmmo("LRMAmmo"), is(360));
+	}
+
+	@Test
 	void testInsufficientAmmo()
 	{
 		final Mech mech = Mech.builder()
@@ -301,7 +314,7 @@ class MechTest
 			else if (component.isAmmo())
 			{
 				final MechAmmo ammo = MechAmmo.builder()
-						.withName(component.getName())
+						.withName(component.getAmmoType())
 						.withNumShots(component.getNumShots())
 						.build();
 				weapons.add(ammo);

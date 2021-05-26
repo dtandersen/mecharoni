@@ -27,10 +27,14 @@ public class MechSimulatorFitnessFunction
 		final double fitness = 0;
 		final double fitness1 = simulate(mechBuild, 2);
 		// fitness += 8 * simulate(mechBuild, 15);
-		final double fitness2 = simulate(mechBuild, 120) / 120;
+		final double fitness2 = simulate(mechBuild, 120);
 		// fitness /= 3f;
 		// fitness += 100 * mechBuild.getHeatDisipation();
-		return Math.pow(fitness1 + mechBuild.getExternalHeatSinks(), 2) + Math.pow(fitness2, 2);
+		final double f1 = Math.pow(fitness1, 2);
+		final double f2 = Math.pow(mechBuild.getExternalHeatSinks(), 2);
+		final double f3 = Math.pow(fitness2 / 50, 2);
+		// System.out.println("f1=" + f1 + " f2=" + f2 + " f3=" + f3);
+		return f1 + f2 + fitness2;
 	}
 
 	private double simulate(final MechBuild mechBuild, final int time)
@@ -99,7 +103,7 @@ public class MechSimulatorFitnessFunction
 		for (final Component component : mechBuild.getAmmo())
 		{
 			final MechAmmo weapon = MechAmmo.builder()
-					.withName(component.getName())
+					.withName(component.getAmmoType())
 					.withNumShots(component.getNumShots())
 					.build();
 

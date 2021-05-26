@@ -152,6 +152,12 @@ public class MechWeapon extends MechComponent
 		return ammoPerShot;
 	}
 
+	boolean usesAmmo()
+	{
+		boolean usesAmmo = getAmmoType() != null && !getAmmoType().isEmpty();
+		return usesAmmo;
+	}
+
 	/**
 	 * Creates builder to build {@link MechWeapon}.
 	 *

@@ -17,7 +17,7 @@ public class Mech
 
 	public int externalHeatSinks;
 
-	private Map<String, Integer> ammo;
+	private AmmoStore ammoStore;
 
 	@Generated("SparkTools")
 	private Mech(final MechStatusBuilder mechStatusBuilder)
@@ -26,7 +26,7 @@ public class Mech
 		this.weapons = mechStatusBuilder.weapons;
 		this.internalHeatSinks = mechStatusBuilder.internalHeatSinks;
 		this.externalHeatSinks = mechStatusBuilder.externalHeatSinks;
-		this.ammo = mechStatusBuilder.ammo;
+		this.ammoStore = new AmmoStore(mechStatusBuilder.ammo);
 	}
 
 	public Mech()
@@ -61,12 +61,9 @@ public class Mech
 
 	public void fire(final MechWeapon weapon, final TargetDummy target, final int range)
 	{
-		// System.out.println("fires " + weapon.getName());
-		if (weapon.getAmmoType() != null && !weapon.getAmmoType().isEmpty())
+		if (weapon.usesAmmo())
 		{
-			int ammoQty = ammo.get(weapon.getAmmoType());
-			ammoQty -= weapon.getAmmoPerShot();
-			ammo.put(weapon.getAmmoType(), ammoQty);
+			ammoStore.consumeAmmo(weapon);
 		}
 
 		heat += weapon.getHeat();
@@ -148,13 +145,13 @@ public class Mech
 	{
 		final int heatPenaltyId = weapon.getHeatPenaltyId();
 
-		if (weapon.getAmmoType() != null && !weapon.getAmmoType().isEmpty())
+		if (weapon.usesAmmo())
 		{
-			if (!ammo.containsKey(weapon.getAmmoType()))
+			if (!ammoStore.hasAmmo(weapon.getAmmoType()))
 			{
 				return false;
 			}
-			final int numShots = ammo.get(weapon.getAmmoType());
+			final int numShots = ammoStore.getAmmo(weapon.getAmmoType());
 			if (numShots <= 0)
 			{
 				return false;
@@ -215,17 +212,17 @@ public class Mech
 
 	public int hasAmmo(final String ammoType)
 	{
-		if (!ammo.containsKey(ammoType))
+		if (!ammoStore.hasAmmo(ammoType))
 		{
 			return 0;
 		}
 
-		return ammo.get(ammoType);
+		return ammoStore.getAmmo(ammoType);
 	}
 
 	public void ammo(final String ammoType, final int numShots)
 	{
-		ammo.put(ammoType, numShots);
+		ammoStore.setAmmo(ammoType, numShots);
 	}
 
 	/**
