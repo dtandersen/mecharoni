@@ -25,17 +25,40 @@ public class MechSimulatorFitnessFunction2
 
 	public Vec<double[]> eval(final MechBuild mechBuild)
 	{
+		final long energyCount = mechBuild.getWeapons().stream()
+				.filter(w -> w.isEnergy())
+				// .filter(w -> w.isWeapon())
+				.map(w -> w.getName())
+				.distinct()
+				.count();
+		final long totalCount = mechBuild.getWeapons().stream()
+				// .filter(w -> w.isEnergy())
+				.filter(w -> w.isWeapon())
+				.map(w -> w.getName())
+				.distinct()
+				.count();
+		if (energyCount > 2)
+		{
+			return Vec.of(0d, 0d, 0d);
+		}
+		if (totalCount > 3)
+		{
+			return Vec.of(0d, 0d, 0d);
+		}
 		final double fitness2 = simulate(mechBuild, 2);
-		final double fitness15 = simulate(mechBuild, 15);
-		final double fitness30 = simulate(mechBuild, 30);
+		// final double fitness15 = simulate(mechBuild, 15);
+		// final double fitness30 = simulate(mechBuild, 30);
 		final double fitness120 = simulate(mechBuild, 120);
 
 		final double f2 = Math.pow(fitness2, 2);
-		final double f15 = Math.pow(fitness15, 2);
-		final double f30 = Math.pow(fitness30, 2);
+		// final double f15 = Math.pow(fitness15, 2);
+		// final double f30 = Math.pow(fitness30, 2);
 		final double f120 = Math.pow(fitness120, 2);
 
-		return Vec.of(f2, f15, f30, f120);
+		final double alpha = mechBuild.getWeapons().stream().mapToDouble(w -> w.getDamage() * w.getNumFiring()).sum();
+		final double heat = mechBuild.getWeapons().stream().mapToDouble(w -> w.getHeat()).sum();
+		final double ah = alpha / heat;
+		return Vec.of(f2, f120, Math.pow(alpha, 2));
 	}
 
 	private double simulate(final MechBuild mechBuild, final int time)
@@ -49,33 +72,13 @@ public class MechSimulatorFitnessFunction2
 				.build();
 		final CombatSimulator sim = new CombatSimulator(mech, config.range);
 
-		final long energyCount = mechBuild.getWeapons().stream()
-				.filter(w -> w.isEnergy())
-				// .filter(w -> w.isWeapon())
-				.map(w -> w.getName())
-				.distinct()
-				.count();
-		final long totalCount = mechBuild.getWeapons().stream()
-				// .filter(w -> w.isEnergy())
-				.filter(w -> w.isWeapon())
-				.map(w -> w.getName())
-				.distinct()
-				.count();
-
 		sim.run(time);
 		final float damage = sim.getTarget().getDamage();
 		score = damage;
 		// final double alpha = mech.getWeapons().stream().mapToDouble(w ->
 		// w.getDamage()).sum();
 		// score = damage + mech.getHeatDisipation();
-		if (energyCount > 1)
-		{
-			score *= .9;
-		}
-		if (totalCount > 3)
-		{
-			score *= .9;
-		}
+
 		return score;
 	}
 

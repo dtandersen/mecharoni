@@ -1,9 +1,9 @@
-faction: innersphere
-range: 220
-tons: 26
-slots: 47
+faction: clan
+range: 300
+tons: 22.5
+slots: 46
 engineSinks: 10
-heatSinks: 0
+heatSinks: 3
 locations:
   HEAD:
     slots: 1
@@ -16,24 +16,24 @@ locations:
     energy: 0
     ballistic: 0
   RT:
-    slots: 12
+    slots: 10
     missile: 0
-    energy: 4
+    energy: 3
     ballistic: 0
   LT:
-    slots: 12
+    slots: 9
     missile: 0
-    energy: 4
+    energy: 2
     ballistic: 0
   RA:
-    slots: 8
+    slots: 10
     missile: 0
     energy: 1
     ballistic: 0
   LA:
-    slots: 8
+    slots: 10
     missile: 0
-    energy: 0
+    energy: 2
     ballistic: 0
   RL:
     slots: 2
@@ -100,4 +100,3 @@ excludes:
 #- AC/2
 #- ULTRA AC/2
 #- ER PPC
-- DropShipLargePulseLaser
