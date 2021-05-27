@@ -22,18 +22,18 @@ public class ResultPrinter
 
 	public void update(final EvolutionResult<MechGene, Double> result)
 	{
-		if (best == null || best.compareTo(result.getBestPhenotype()) < 0)
+		if (best == null || best.compareTo(result.bestPhenotype()) < 0)
 		{
-			this.best = result.getBestPhenotype();
-			final MechBuild a = MechCodec.toMech2((MechChromosome)best.getGenotype().getChromosome(), config);
+			this.best = result.bestPhenotype();
+			final MechBuild a = MechCodec.toMech2((MechChromosome)best.genotype().chromosome(), config);
 
 			mechPrinter.printMech(a, config);
-			System.out.println("generation=" + best.getGeneration() + ", fitness=" + best.getFitness());
+			System.out.println("generation=" + best.generation() + ", fitness=" + best.fitness());
 		}
 	}
 
 	public MechBuild bestMech()
 	{
-		return MechCodec.toMech2((MechChromosome)best.getGenotype().getChromosome(), config);
+		return MechCodec.toMech2((MechChromosome)best.genotype().chromosome(), config);
 	}
 }

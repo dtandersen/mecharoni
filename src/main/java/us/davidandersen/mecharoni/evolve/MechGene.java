@@ -17,7 +17,7 @@ public class MechGene implements Gene<Component, MechGene>, Comparable<MechGene>
 	public MechGene(final List<Component> items)
 	{
 		this.items = items;
-		final Random r = RandomRegistry.getRandom();
+		final Random r = RandomRegistry.random();
 		item = items.get(r.nextInt(items.size()));
 	}
 
@@ -40,7 +40,7 @@ public class MechGene implements Gene<Component, MechGene>, Comparable<MechGene>
 	}
 
 	@Override
-	public Component getAllele()
+	public Component allele()
 	{
 		return item;
 	}

@@ -65,7 +65,7 @@ public class EvolveMech
 
 		final MechPrinter mechPrinter = new MechPrinter(System.out);
 		mechPrinter.printMech(mech, config);
-		System.out.println("generation=" + result.getGeneration() + ", fitness=" + result.getFitness());
+		System.out.println("generation=" + result.generation() + ", fitness=" + result.fitness());
 
 		System.out.println("END");
 	}

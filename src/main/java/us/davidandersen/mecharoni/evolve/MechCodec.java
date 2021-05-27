@@ -20,7 +20,7 @@ public class MechCodec
 {
 	public static MechBuild toMech(final Genotype<MechGene> gt, final EvolveMechConfig config)
 	{
-		final MechChromosome c = gt.getChromosome()
+		final MechChromosome c = gt.chromosome()
 				.as(MechChromosome.class);
 		return MechCodec.toMech2(c, config);
 	}
@@ -52,8 +52,8 @@ public class MechCodec
 
 		for (int i = 0; i < c.length(); i++)
 		{
-			final MechGene g = c.getGene(i);
-			final Component component = g.getAllele();
+			final MechGene g = c.get(i);
+			final Component component = g.allele();
 			mechSpecBuilder.withComponent(locationTypes.get(i), component);
 		}
 
