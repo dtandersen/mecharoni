@@ -9,8 +9,8 @@ import us.davidandersen.mecharoni.entity.Location;
 import us.davidandersen.mecharoni.entity.LocationType;
 import us.davidandersen.mecharoni.entity.Quirk;
 import us.davidandersen.mecharoni.entity.QuirkType;
-import us.davidandersen.mecharoni.evolve.EvolveMech;
 import us.davidandersen.mecharoni.evolve.EvolveMech.EvolveMechConfig;
+import us.davidandersen.mecharoni.evolve.EvolveMech2;
 import us.davidandersen.mecharoni.repository.ComponentRepository;
 
 public class OptimizeMech extends BaseCommand<OptimizeMechRequest, VoidResult>
@@ -50,7 +50,7 @@ public class OptimizeMech extends BaseCommand<OptimizeMechRequest, VoidResult>
 			spec.slots = request.getSlots();
 			spec.quirks = request.getQuirks();
 
-			final EvolveMech evolver = new EvolveMech();
+			final EvolveMech2 evolver = new EvolveMech2();
 			evolver.run(spec);
 		}
 		catch (final Exception e)

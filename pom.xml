@@ -11,6 +11,10 @@
 			<artifactId>jenetics</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>io.jenetics</groupId>
+			<artifactId>jenetics.ext</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
@@ -57,6 +61,11 @@
 				<groupId>io.jenetics</groupId>
 				<artifactId>jenetics</artifactId>
 				<version>6.2.0</version>
+			</dependency>
+			<dependency>
+			    <groupId>io.jenetics</groupId>
+			    <artifactId>jenetics.ext</artifactId>
+			    <version>6.2.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hamcrest</groupId>
